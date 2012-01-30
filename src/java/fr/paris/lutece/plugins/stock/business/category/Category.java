@@ -63,38 +63,55 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
- *
- * Category
- *
+ * Category.
  */
 @Entity
 @Table( name = "stock_category" )
 public class Category extends StockEntityBean<Category> implements Serializable
 {
-    /**  
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5658942621967331856L;
 
-    /** Sequence name */
+    /** Sequence name. */
     private static final String JPA_SEQUENCE_NAME = "stock_category_sequence";
 
-    /** Unique value */
+    /** Unique value. */
     private static final String JPA_COLUMN_NAME = "stock_category_id";
+
+    /** The _id. */
     private Integer _id;
+
+    /** The _str description. */
     private String _strDescription;
+
+    /** The _str name. */
     @NotEmpty
     private String _strName;
+
+    /** The _children list. */
     private Set<Category> _childrenList;
+
+    /** The _product set. */
     private List<Product> _productSet;
+
+    /** The _parent category. */
     private Category _parentCategory;
+
+    /** The _provider. */
     private Provider _provider;
+
+    /** The _attribute list. */
     private Set<CategoryAttribute> _attributeList;
+
+    /** The _attribute date list. */
     private Set<CategoryAttributeDate> _attributeDateList;
+
+    /** The _attribute num list. */
     private Set<CategoryAttributeNum> _attributeNumList;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public Category(  )
     {
@@ -105,7 +122,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Build a new category from a category object
+     * Build a new category from a category object.
+     * 
      * @param category the category
      */
     public Category( Category category )
@@ -119,7 +137,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Return category id
+     * Return category id.
+     * 
      * @return category id
      */
     @TableGenerator( table = StockJPAUtils.SEQUENCE_TABLE_NAME, name = JPA_SEQUENCE_NAME, pkColumnValue = JPA_COLUMN_NAME, allocationSize = 1 )
@@ -132,7 +151,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the category id
+     * Set the category id.
+     * 
      * @param idCategory the category id
      */
     public void setId( Integer idCategory )
@@ -141,7 +161,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Return the category description
+     * Return the category description.
+     * 
      * @return the description
      */
     @Column( name = "description" )
@@ -151,7 +172,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the category description
+     * Set the category description.
+     * 
      * @param description the category description
      */
     public void setDescription( String description )
@@ -161,7 +183,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
 
 
     /**
-     * Return the category name
+     * Return the category name.
+     * 
      * @return the name
      */
     @Column( name = "name" )
@@ -171,7 +194,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the category name
+     * Set the category name.
+     * 
      * @param name the category name
      */
     public void setName( String name )
@@ -180,7 +204,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Return the children list
+     * Return the children list.
+     * 
      * @return the children list
      */
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent" )
@@ -190,7 +215,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the children list
+     * Set the children list.
+     * 
      * @param childrenList the children list
      */
     public void setChildrenList( Set<Category> childrenList )
@@ -199,7 +225,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Return the product list
+     * Return the product list.
+     * 
      * @return the product list
      */
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "category" )
@@ -209,7 +236,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the product list
+     * Set the product list.
+     * 
      * @param productSet the product list
      */
     public void setProductSet( List<Product> productSet )
@@ -218,7 +246,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * return the category parent
+     * return the category parent.
+     * 
      * @return the parent
      */
     @ManyToOne( optional = true, fetch = FetchType.LAZY )
@@ -229,7 +258,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the Category parent
+     * Set the Category parent.
+     * 
      * @param parentCategory the parent
      */
     public void setParent( Category parentCategory )
@@ -238,7 +268,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Return the provider
+     * Return the provider.
+     * 
      * @return the provider
      */
     @ManyToOne( optional = true, fetch = FetchType.LAZY )
@@ -249,7 +280,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     }
 
     /**
-     * Set the provider
+     * Set the provider.
+     * 
      * @param provider the provider
      */
     public void setProvider( Provider provider )
@@ -257,65 +289,70 @@ public class Category extends StockEntityBean<Category> implements Serializable
         _provider = provider;
     }
 
-    /**
-     * {@inheritDoc}
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
      */
-    @Override
-    public boolean equals( Object obj )
-    {
-        if ( this == obj )
-        {
-            return true;
-        }
-
-        if ( obj == null )
-        {
-            return false;
-        }
-
-        if ( getClass(  ) != obj.getClass(  ) )
-        {
-            return false;
-        }
-
-        Category other = (Category) obj;
-
-        if ( _id != other._id )
-        {
-            return false;
-        }
-
-        return true;
-    }
-
     @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttribute> getAttributeList( )
     {
         return _attributeList;
     }
 
+    /**
+     * Sets the attribute list.
+     * 
+     * @param stringAttribute the new attribute list
+     */
     public void setAttributeList( Set<CategoryAttribute> stringAttribute )
     {
         this._attributeList = stringAttribute;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList
+     * ()
+     */
     @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
     }
 
+    /**
+     * Sets the attribute date list.
+     * 
+     * @param dateAttribute the new attribute date list
+     */
     public void setAttributeDateList( Set<CategoryAttributeDate> dateAttribute )
     {
         this._attributeDateList = dateAttribute;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList
+     * ()
+     */
     @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
     }
 
+    /**
+     * Sets the attribute num list.
+     * 
+     * @param numAttribute the new attribute num list
+     */
     public void setAttributeNumList( Set<CategoryAttributeNum> numAttribute )
     {
         this._attributeNumList = numAttribute;

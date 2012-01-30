@@ -195,7 +195,7 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
         if ( !listPredicates.isEmpty(  ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[0] ) );
+            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
 

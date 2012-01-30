@@ -33,6 +33,14 @@
  */
 package fr.paris.lutece.plugins.stock.business.offer;
 
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.Product_;
+import fr.paris.lutece.plugins.stock.commons.ResultList;
+import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
+import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
+import fr.paris.lutece.plugins.stock.service.StockPlugin;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,14 +55,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
-
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.Product_;
-import fr.paris.lutece.plugins.stock.commons.ResultList;
-import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
-import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
-import fr.paris.lutece.plugins.stock.service.StockPlugin;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 
 /**
@@ -147,7 +147,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
         if ( !listPredicates.isEmpty(  ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[0] ) );
+            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
     

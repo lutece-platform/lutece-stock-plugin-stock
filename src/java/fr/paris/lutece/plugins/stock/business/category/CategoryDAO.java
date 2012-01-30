@@ -287,7 +287,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
         if ( !listPredicates.isEmpty(  ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[0] ) );
+            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
 
@@ -371,7 +371,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
         if ( !listPredicates.isEmpty(  ) )
         {
             // add existing predicates to Where clause
-            cq.where( listPredicates.toArray( new Predicate[0] ) );
+            cq.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
         //buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );

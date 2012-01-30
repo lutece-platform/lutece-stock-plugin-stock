@@ -39,6 +39,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 
 /**
@@ -71,13 +72,14 @@ public abstract class AbstractAttribute<E extends StockEntityBean<E>>
         /**
      * @return the owner
      */
+    @Transient
     public abstract E getOwner( );
 
 
     /**
      * @return the key
      */
-    @Column( name = "attribute_key" )
+    @Transient
     public String getKey( )
     {
         return _key;

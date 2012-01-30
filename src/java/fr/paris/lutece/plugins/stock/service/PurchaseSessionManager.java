@@ -33,6 +33,10 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
+import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,10 +47,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.log4j.Logger;
-
-import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
 
 
 /**
@@ -133,8 +133,8 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         {
             for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
             {
-                if ( purchaseIdle.getOfferId( ) == purchase.getOfferId( )
-                        && purchaseIdle.getQuantity( ) == purchase.getQuantity( ) )
+                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) )
+                        && purchaseIdle.getQuantity( ).equals( purchase.getQuantity( ) ) )
                 {
                     hasReserved = true;
                 }
@@ -163,7 +163,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             while ( itIdlePurchase.hasNext( ) )
             {
                 purchaseIdle = itIdlePurchase.next( );
-                if ( purchaseIdle.getOfferId( ) == purchase.getOfferId( ) )
+                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
                 {
                     itIdlePurchase.remove( );
                     _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
@@ -213,7 +213,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             // Si un achat sur la même offre est déjà en attente on le supprime
             for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
             {
-                if ( purchaseIdle.getOfferId( ) == purchase.getOfferId( ) )
+                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
                 {
                     LOG.debug( "Achat pour le produit id " + purchase.getOfferId( ) + " déjà en cours sur la session "
                             + sessionId + " - suppression de l'achat en attente" );

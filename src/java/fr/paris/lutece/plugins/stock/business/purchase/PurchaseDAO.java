@@ -33,6 +33,18 @@
  */
 package fr.paris.lutece.plugins.stock.business.purchase;
 
+import fr.paris.lutece.plugins.stock.business.offer.Offer;
+import fr.paris.lutece.plugins.stock.business.offer.OfferGenre;
+import fr.paris.lutece.plugins.stock.business.offer.OfferGenre_;
+import fr.paris.lutece.plugins.stock.business.offer.Offer_;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.Product_;
+import fr.paris.lutece.plugins.stock.commons.ResultList;
+import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
+import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
+import fr.paris.lutece.plugins.stock.service.StockPlugin;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,18 +60,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
-
-import fr.paris.lutece.plugins.stock.business.offer.Offer;
-import fr.paris.lutece.plugins.stock.business.offer.OfferGenre;
-import fr.paris.lutece.plugins.stock.business.offer.OfferGenre_;
-import fr.paris.lutece.plugins.stock.business.offer.Offer_;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.Product_;
-import fr.paris.lutece.plugins.stock.commons.ResultList;
-import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
-import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
-import fr.paris.lutece.plugins.stock.service.StockPlugin;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 
 /**
@@ -155,7 +155,7 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
         if ( !listPredicates.isEmpty(  ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[0] ) );
+            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
     

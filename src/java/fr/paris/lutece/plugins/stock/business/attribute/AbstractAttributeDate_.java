@@ -11,6 +11,7 @@ import javax.persistence.metamodel.StaticMetamodel;
  * 
  * @author abataille
  */
+// CHECKSTYLE:OFF
 @StaticMetamodel(AbstractAttributeDate.class)
 public abstract class AbstractAttributeDate_ {
 
@@ -22,4 +23,4 @@ public abstract class AbstractAttributeDate_ {
     public static volatile String key = "key";
 
 }
-
+// CHECKSTYLE:ON
