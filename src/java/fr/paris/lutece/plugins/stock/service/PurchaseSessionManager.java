@@ -165,9 +165,9 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                 purchaseIdle = itIdlePurchase.next( );
                 if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
                 {
-                    itIdlePurchase.remove( );
                     _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
                             - purchaseIdle.getQuantity( ) );
+                    itIdlePurchase.remove( );
                     break;
                 }
             }
@@ -189,9 +189,9 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             while ( itIdlePurchase.hasNext( ) )
             {
                 purchaseIdle = itIdlePurchase.next( );
-                itIdlePurchase.remove( );
                 _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
                         - purchaseIdle.getQuantity( ) );
+                itIdlePurchase.remove( );
             }
         }
         _activePurchaseBySession.remove( sessionId );
