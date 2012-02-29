@@ -194,6 +194,15 @@ CREATE TABLE IF NOT EXISTS stock_product (
   KEY provider_id_provider_2 (provider_id_provider)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+CREATE TABLE IF NOT EXISTS stock_product_image (
+  id_product int(11) NOT NULL,
+  tb_image blob,
+  image mediumblob,
+  PRIMARY KEY (id_product)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 -- --------------------------------------------------------
 
 --
@@ -232,6 +241,7 @@ CREATE TABLE IF NOT EXISTS stock_product_attribute_num (
   attribute_value decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (owner_id,attribute_key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 -- --------------------------------------------------------
 
