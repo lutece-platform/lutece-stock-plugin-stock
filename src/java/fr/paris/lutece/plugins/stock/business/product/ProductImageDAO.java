@@ -79,7 +79,7 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
         }
         catch ( IOException e )
         {
-            throw new TechnicalException( "Problème lors de l'écriture du poster en base de données : "
+            throw new TechnicalException( "ProblÃ¨me lors de l'Ã©criture du poster en base de donnÃ©es : "
                     + e.getMessage( ), e );
         }
 
