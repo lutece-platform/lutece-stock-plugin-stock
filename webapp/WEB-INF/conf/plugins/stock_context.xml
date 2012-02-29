@@ -21,6 +21,7 @@
     <bean id="stock.offerDAO"  class="fr.paris.lutece.plugins.stock.business.offer.OfferDAO" />
     <bean id="stock.purchaseDAO"  class="fr.paris.lutece.plugins.stock.business.purchase.PurchaseDAO" />
     <bean id="stock.offerGenreDAO"  class="fr.paris.lutece.plugins.stock.business.offer.OfferGenreDAO" />	
+    <bean id="stock.productImageDAO"  class="fr.paris.lutece.plugins.stock.business.product.ProductImageDAO" />	
     
     
     <bean id="stock.productService" class="fr.paris.lutece.plugins.stock.service.ProductService" />

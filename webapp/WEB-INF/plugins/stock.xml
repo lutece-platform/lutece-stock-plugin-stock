@@ -27,5 +27,7 @@
 			<listener-class>fr.paris.lutece.plugins.stock.web.StockSessionListener</listener-class>
 		</listener>
 	</listeners>
+	
+	
 
 </plug-in>
