@@ -10,7 +10,7 @@
 	<groupId>fr.paris.lutece.plugins</groupId>
 	<artifactId>plugin-stock</artifactId>
 	<packaging>lutece-plugin</packaging>
-	<version>2.0.2-SNAPSHOT</version>
+	<version>2.0.2</version>
 	<name>Lutece stock plugin</name>
 
 	<repositories>
@@ -43,8 +43,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/applications/plugin-stock</connection>
-		<developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/applications/plugin-stock</developerConnection>
-		<url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/applications/plugin-stock</url>
+		<connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/tags/plugin-stock-2.0.2</connection>
+		<developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/tags/plugin-stock-2.0.2</developerConnection>
+		<url>http://dev.lutece.paris.fr/viewvc/lutece/portal/tags/plugin-stock-2.0.2</url>
 	</scm>
 </project>
