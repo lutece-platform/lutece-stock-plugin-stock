@@ -123,12 +123,6 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
         Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
         Join<Offer, OfferGenre> type = offer.join( Offer_.type, JoinType.INNER );
         
-        if ( StringUtils.isNotBlank( filter.getUserName(  ) ) )
-        {
-            listPredicates.add( builder.like( root.get( Purchase_.userName ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getUserName(  ) ) ) );
-        }
-        
         if ( StringUtils.isNotBlank( filter.getProductName(  ) ) )
         {
             listPredicates.add( builder.like( product.get( Product_.name ),
