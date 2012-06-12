@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS stock_offer_attribute (
   attribute_value text NOT NULL,
   PRIMARY KEY (id),
   KEY owner_id (owner_id)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -325,7 +325,7 @@ CREATE TABLE IF NOT EXISTS stock_purchase (
   quantity int(11) NOT NULL,
   offer_id int(11) NOT NULL,
   PRIMARY KEY (id_purchase)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
