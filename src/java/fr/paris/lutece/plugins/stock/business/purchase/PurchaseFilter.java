@@ -47,8 +47,13 @@ public class PurchaseFilter
     /** The _id. */
     private String _id;
 
-    /** The _user name. */
+    /** The user id. */
     private String _userName;
+    
+    /**
+     * Name of the agent
+     */
+    private String _agentName;
 
     /** The _product name. */
     private String _productName;
@@ -297,4 +302,12 @@ public class PurchaseFilter
     {
         this._idShow = idShow;
     }
+
+	public String getAgentName() {
+		return _agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this._agentName = agentName;
+	}
 }
