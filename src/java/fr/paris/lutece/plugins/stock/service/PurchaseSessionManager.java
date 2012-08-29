@@ -227,13 +227,8 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     }
 
     @Override
-    public Integer updateQuantityWithSession( Integer quantity, Integer offerId, Integer availableQuantity )
+    public Integer updateQuantityWithSession( Integer quantity, Integer offerId )
     {
-        if ( availableQuantity < quantity )
-        {
-            quantity = availableQuantity;
-        }
-
         Integer qttIdle = _idleQuantity.get( offerId );
         if ( qttIdle != null )
         {
