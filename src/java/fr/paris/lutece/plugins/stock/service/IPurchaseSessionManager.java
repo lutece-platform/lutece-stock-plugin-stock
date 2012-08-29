@@ -82,4 +82,13 @@ public interface IPurchaseSessionManager
      */
     void releaseAll( String sessionId );
 
+    /**
+     * Update offer quantity with quantity in session
+     * @param quantity the quantity
+     * @param offerId the offer id
+     * @param availableQuantity the quantity available for the offer
+     * @return the quantity update
+     */
+    Integer updateQuantityWithSession( Integer quantity, Integer offerId, Integer availableQuantity );
+
 }

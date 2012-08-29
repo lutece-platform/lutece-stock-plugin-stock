@@ -226,4 +226,26 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         _activePurchaseBySession.get( sessionId ).add( purchase );
     }
 
+    @Override
+    public Integer updateQuantityWithSession( Integer quantity, Integer offerId, Integer availableQuantity )
+    {
+        if ( availableQuantity < quantity )
+        {
+            quantity = availableQuantity;
+        }
+
+        Integer qttIdle = _idleQuantity.get( offerId );
+        if ( qttIdle != null )
+        {
+            quantity -= qttIdle;
+        }
+
+        if ( quantity < 0 )
+        {
+            quantity = 0;
+        }
+
+        return quantity;
+    }
+
 }
