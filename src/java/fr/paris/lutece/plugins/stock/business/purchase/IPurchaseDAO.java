@@ -37,22 +37,23 @@ import fr.paris.lutece.plugins.stock.commons.ResultList;
 import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 import fr.paris.lutece.util.jpa.IGenericDAO;
 
+
 /**
 * IPurchaseDAO Interface
 */
 public interface IPurchaseDAO extends IGenericDAO<Integer, Purchase>
-{    
+{
 
     /**
-     * Find by filter.
+     * Find by filter with paginator.
      * 
      * @param filter the filter
      * @param paginationProperties the pagination properties
      * @return the purchase list filtered
      */
     ResultList<Purchase> findByFilter( PurchaseFilter filter, PaginationProperties paginationProperties );
-    
-	    /**
+
+    /**
      * Return the number of reservation for an offer and an agent.
      * 
      * @param id offer id
