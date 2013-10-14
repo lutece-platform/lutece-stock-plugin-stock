@@ -230,17 +230,18 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public Integer updateQuantityWithSession( Integer quantity, Integer offerId )
     {
         Integer qttIdle = _idleQuantity.get( offerId );
+        int quantityCopie = quantity;
         if ( qttIdle != null )
         {
-            quantity -= qttIdle;
+            quantityCopie -= qttIdle;
         }
 
         if ( quantity < 0 )
         {
-            quantity = 0;
+            quantityCopie = 0;
         }
 
-        return quantity;
+        return quantityCopie;
     }
 
 }
