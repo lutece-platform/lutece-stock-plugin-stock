@@ -33,17 +33,18 @@
  */
 package fr.paris.lutece.plugins.stock.business.offer;
 
-import java.util.List;
-
 import fr.paris.lutece.plugins.stock.commons.ResultList;
 import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 import fr.paris.lutece.util.jpa.IGenericDAO;
 
+import java.util.List;
+
+
 /**
-* IOffreDAO Interface
-*/
+ * IOffreDAO Interface
+ */
 public interface IOfferDAO extends IGenericDAO<Integer, Offer>
-{    
+{
     /**
      * Find by filter
      * @param filter the filter

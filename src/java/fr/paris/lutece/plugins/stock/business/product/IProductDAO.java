@@ -41,17 +41,17 @@ import java.util.List;
 
 
 /**
-* IPersonDAO Interface
-*/
+ * IPersonDAO Interface
+ */
 public interface IProductDAO extends IStockDAO<Integer, Product>
 {
-	/**
-	 * Finds by filter
-	 * 
-	 * @param filter
-	 *            the filter
-	 * @return the product list
-	 */
+    /**
+     * Finds by filter
+     * 
+     * @param filter
+     *            the filter
+     * @return the product list
+     */
     List<Product> findByFilter( ProductFilter filter );
 
     /**
@@ -82,4 +82,18 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
      * @return number of product
      */
     Integer getCountProductAVenirByDate( String strDate );
+
+    /**
+     * Check if product is ful
+     * @param productId the product id
+     * @return true if full, false otherwise
+     */
+    Boolean isFull( Integer productId );
+
+    /**
+     * Check if product is type of representation
+     * @param genreId the genre to check
+     * @return true if product is, false otherwise
+     */
+    Boolean isType( Integer productId, Integer genreId );
 }

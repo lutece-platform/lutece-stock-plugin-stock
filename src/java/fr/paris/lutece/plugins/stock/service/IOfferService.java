@@ -35,17 +35,26 @@ package fr.paris.lutece.plugins.stock.service;
 
 import fr.paris.lutece.plugins.stock.business.offer.Offer;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- *
+ * 
  * IProductService
- *
+ * 
  */
 @Transactional
 public interface IOfferService
 {
+
+    /**
+     * List all offers for a product
+     * @param productId product to find
+     * @return list of corresponding {@link Offer}
+     */
+    List<Offer> findByProduct( Integer productId );
 
     /**
      * Return available quantity of offer

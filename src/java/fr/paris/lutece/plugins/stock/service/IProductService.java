@@ -41,9 +41,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- *
+ * 
  * IProductService
- *
+ * 
  */
 @Transactional
 public interface IProductService
@@ -54,4 +54,18 @@ public interface IProductService
      * @return list of product
      */
     List<Product> getAllProduct( );
+
+    /**
+     * Check if product is ful
+     * @param productId the product id
+     * @return true if full, false otherwise
+     */
+    Boolean isFull( Integer productId );
+
+    /**
+     * Check if product is type of representation
+     * @param genreId the genre to check
+     * @return true if product is, false otherwise
+     */
+    Boolean isType( Integer productId, Integer genreId );
 }

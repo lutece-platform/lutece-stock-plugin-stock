@@ -63,8 +63,7 @@ import org.apache.commons.lang.StringUtils;
  * @param <K> the key type
  * @param <E> the entity type
  */
-public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
-		IOfferDAO
+public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements IOfferDAO
 {
 
     /** The Constant JPQL_GET_QUANTITY. */
@@ -75,11 +74,11 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
      * 
      * @see fr.paris.lutece.portal.service.jpa.JPALuteceDAO#getPluginName()
      */
-	@Override
-	public String getPluginName(  )
-	{
+    @Override
+    public String getPluginName( )
+    {
         return StockPlugin.PLUGIN_NAME;
-	}
+    }
 
     /**
      * Find offers by filter.
@@ -90,8 +89,8 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
      */
     public ResultList<Offer> findByFilter( OfferFilter filter, PaginationProperties paginationProperties )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Offer> cq = cb.createQuery( Offer.class );
 
@@ -102,7 +101,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
 
         return createPagedQuery( cq, paginationProperties ).getResultList( );
     }
-    
+
     /**
      * Build the criteria query used when offers are searched by filter.
      * 
@@ -112,45 +111,42 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
      * @param builder the criteria builder
      */
     protected void buildCriteriaQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query,
-        CriteriaBuilder builder )
+            CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>(  );
-        
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+
         Join<Offer, Product> product = root.join( Offer_.product, JoinType.INNER );
         Join<Offer, OfferGenre> type = root.join( Offer_.type, JoinType.INNER );
-        
-        if ( StringUtils.isNotBlank( filter.getProductName(  ) ) )
+
+        if ( StringUtils.isNotBlank( filter.getProductName( ) ) )
         {
             listPredicates.add( builder.like( product.get( Product_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getProductName(  ) ) ) );
+                    StockJPAUtils.buildCriteriaLikeString( filter.getProductName( ) ) ) );
         }
-        
-        if ( StringUtils.isNotBlank( filter.getName(  ) ) )
+
+        if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
             listPredicates.add( builder.like( root.get( Offer_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getName(  ) ) ) );
+                    StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
         }
-        if ( filter.getIdGenre(  ) != null && filter.getIdGenre(  ) > 0 )
+        if ( filter.getIdGenre( ) != null && filter.getIdGenre( ) > 0 )
         {
-            listPredicates.add( builder.equal( type.get( OfferGenre_.id ),
-            		filter.getIdGenre(  ) ) );
-        }
-        
-        if ( filter.getProductId(  ) != null && filter.getProductId(  ) > 0 )
-        {
-            listPredicates.add( builder.equal( product.get( Product_.id ),
-            		filter.getProductId(  ) ) );
+            listPredicates.add( builder.equal( type.get( OfferGenre_.id ), filter.getIdGenre( ) ) );
         }
 
+        if ( filter.getProductId( ) != null && filter.getProductId( ) > 0 )
+        {
+            listPredicates.add( builder.equal( product.get( Product_.id ), filter.getProductId( ) ) );
+        }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
             query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
-    
+
     /**
      * Add the order by parameter to the query.
      * 
@@ -160,7 +156,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
      * @param builder the criteria builder
      */
     protected void buildSortQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query,
-        CriteriaBuilder builder )
+            CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
@@ -168,43 +164,43 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements
             Join<Offer, Product> product = root.join( Offer_.product, JoinType.INNER );
             Join<Offer, OfferGenre> type = root.join( Offer_.type, JoinType.INNER );
 
-            if ( filter.isOrderAsc(  ) )
+            if ( filter.isOrderAsc( ) )
             {
                 // get asc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		if ( order.equals( "product.name" ) )
-            		{
-            			orderList.add( builder.asc( product.get( "name" ) ) );
-            		}
-            		else if ( order.equals( "type.name" ) )
-            		{
-            			orderList.add( builder.asc( type.get( "name" ) ) );
-            		}
-            		else
-            		{
-            			orderList.add( builder.asc( root.get( order ) ) );
-            		}
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    if ( order.equals( "product.name" ) )
+                    {
+                        orderList.add( builder.asc( product.get( "name" ) ) );
+                    }
+                    else if ( order.equals( "type.name" ) )
+                    {
+                        orderList.add( builder.asc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.asc( root.get( order ) ) );
+                    }
+                }
             }
             else
             {
                 // get desc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		if ( order.equals( "product.name" ) )
-            		{
-            			orderList.add( builder.desc( product.get( "name" ) ) );
-            		}
-            		else if ( order.equals( "type.name" ) )
-            		{
-            			orderList.add( builder.desc( type.get( "name" ) ) );
-            		}
-            		else
-            		{
-            			orderList.add( builder.desc( root.get( order ) ) );
-            		}
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    if ( order.equals( "product.name" ) )
+                    {
+                        orderList.add( builder.desc( product.get( "name" ) ) );
+                    }
+                    else if ( order.equals( "type.name" ) )
+                    {
+                        orderList.add( builder.desc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.desc( root.get( order ) ) );
+                    }
+                }
             }
 
             query.orderBy( orderList );

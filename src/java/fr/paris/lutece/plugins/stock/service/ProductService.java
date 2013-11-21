@@ -44,15 +44,15 @@ import javax.inject.Named;
 
 
 /**
- *
+ * 
  * ProductService
- *
+ * 
  */
 public class ProductService extends AbstractService implements IProductService
 {
-	@Inject
+    @Inject
     @Named( "stock.productDAO" )
-	private IProductDAO _daoProduct;
+    private IProductDAO _daoProduct;
 
     /**
      * Return a list of products
@@ -61,5 +61,25 @@ public class ProductService extends AbstractService implements IProductService
     public List<Product> getAllProduct( )
     {
         return _daoProduct.findAll( );
+    }
+
+    /**
+     * Check if product is ful
+     * @param productId the product id
+     * @return true if full, false otherwise
+     */
+    public Boolean isFull( Integer productId )
+    {
+        return _daoProduct.isFull( productId );
+    }
+
+    /**
+     * Check if product is type of representation
+     * @param genreId the genre to check
+     * @return true if product is, false otherwise
+     */
+    public Boolean isType( Integer productId, Integer genreId )
+    {
+        return _daoProduct.isType( productId, genreId );
     }
 }

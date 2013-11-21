@@ -33,25 +33,42 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
+import fr.paris.lutece.plugins.stock.business.offer.IOfferDAO;
+import fr.paris.lutece.plugins.stock.business.offer.Offer;
+import fr.paris.lutece.plugins.stock.business.offer.OfferFilter;
+import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
+
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import fr.paris.lutece.plugins.stock.business.offer.IOfferDAO;
-import fr.paris.lutece.plugins.stock.business.offer.Offer;
-import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
-
 
 /**
- *
+ * 
  * ProductService
- *
+ * 
  */
 public class OfferService extends AbstractService implements IOfferService
 {
-	@Inject
+    @Inject
     @Named( "stock.offerDAO" )
     private IOfferDAO _daoOffer;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.service.IOfferService#getQuantity(java.
+     * lang.Integer)
+     */
+    /**
+     * {@inheritDoc}
+     */
+    public List<Offer> findByProduct( Integer productId )
+    {
+        return _daoOffer.findByProduct( productId, new OfferFilter( ) );
+    }
 
     /*
      * (non-Javadoc)

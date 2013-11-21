@@ -63,6 +63,15 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> implements IProductDAO
 {
+
+    /** The Constant JPQL_GET_QUANTITY. */
+    private static final String JPQL_IS_FULL = "SELECT CASE WHEN (SUM(p.quantity) > po.quantity) "
+            + "THEN 0 WHEN (SUM(p.quantity) = po.quantity) THEN 0 ELSE 1 END FROM Purchase p, Offer po "
+            + "WHERE p.offer.id IN (SELECT o.id FROM Offer o WHERE o.product.id = :productId) "
+            + "AND p.offer.id = po.id GROUP BY p.offer.id";
+    private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
+            + "FROM Product p, Offer o " + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
+
     /**
      * 
      * {@inheritDoc}
@@ -73,7 +82,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         return StockPlugin.PLUGIN_NAME;
     }
 
-	    /**
+    /**
      * Find product list by filter.
      * 
      * @param filter the filter
@@ -95,7 +104,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         TypedQuery<Product> query = em.createQuery( cq );
 
         return query.getResultList( );
-	}
+    }
 
     /**
      * Finds by filter.
@@ -131,8 +140,8 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
      */
     protected List<Predicate> buildPredicates( ProductFilter filter, Root<Product> root, CriteriaBuilder builder )
     {
-		// predicates list
-		List<Predicate> listPredicates = new ArrayList<Predicate>();
+        // predicates list
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
 
         if ( filter.getIdProduct( ) != null )
         {
@@ -140,7 +149,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         }
 
         return listPredicates;
-	}
+    }
 
     /**
      * Build the criteria query from the filter.
@@ -172,13 +181,12 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
             listPredicates.add( builder.equal( root.get( Product_.provider ), filter.getIdProvider( ) ) );
         }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
             query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
         }
     }
-
 
     /**
      * Build the sort query.
@@ -195,26 +203,26 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         {
             List<Order> orderList = new ArrayList<Order>( );
 
-            if ( filter.isOrderAsc(  ) )
+            if ( filter.isOrderAsc( ) )
             {
                 // get asc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-           			orderList.add( builder.asc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.asc( root.get( order ) ) );
+                }
             }
             else
             {
                 // get desc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-           			orderList.add( builder.desc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.desc( root.get( order ) ) );
+                }
             }
 
             query.orderBy( orderList );
         }
-	}
+    }
 
     /*
      * (non-Javadoc)
@@ -316,5 +324,49 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
             }
         }
         return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java
+     * .lang.Integer)
+     */
+    /**
+     * {@inheritDoc}
+     */
+    public Boolean isFull( Integer productId )
+    {
+        EntityManager em = getEM( );
+        Query query = em.createQuery( JPQL_IS_FULL );
+        query.setParameter( "productId", productId );
+
+        List<Integer> result = query.getResultList( );
+
+        for ( Integer i : result )
+        {
+            if ( i == 1 )
+            {
+                return Boolean.FALSE;
+            }
+        }
+
+        return Boolean.TRUE;
+    }
+
+    /**
+     * Check if product is type of representation
+     * @param genreId the genre to check
+     * @return true if product is, false otherwise
+     */
+    public Boolean isType( Integer productId, Integer genreId )
+    {
+        EntityManager em = getEM( );
+        Query query = em.createQuery( JPQL_IS_TYPE );
+        query.setParameter( "productId", productId );
+        query.setParameter( "genreId", genreId );
+
+        return (Boolean) query.getSingleResult( );
     }
 }
