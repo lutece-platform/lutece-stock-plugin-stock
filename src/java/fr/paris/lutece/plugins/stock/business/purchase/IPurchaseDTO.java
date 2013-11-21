@@ -63,5 +63,18 @@ public interface IPurchaseDTO
      * @return the quantity
      */
     Integer getQuantity( );
-
+    
+    /**
+     * Get the date.
+     * 
+     * @return the date
+     */
+    String getDate();
+    
+    /**
+     * Get the hour.
+     * 
+     * @return the hour.
+     */
+    String getHeure();
 }

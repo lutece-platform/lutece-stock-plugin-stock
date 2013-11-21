@@ -33,20 +33,29 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
-
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
+import fr.paris.lutece.plugins.stock.utils.DateUtils;
 
 
 /**
@@ -57,16 +66,18 @@ import org.apache.log4j.Logger;
 public class PurchaseSessionManager implements IPurchaseSessionManager
 {
     public static final Logger LOG = Logger.getLogger( PurchaseSessionManager.class );
+    private static final SimpleDateFormat format = new SimpleDateFormat( "dd/MM/yyyy HH:mm" );
+    private Object lock = new Object();
 
     @Inject
     @Named( "stock.offerService" )
     private IOfferService _offerService;
 
     // private static PurchaseSession instance; SINGLETON SPRING
-    
+
     // private PurchaseSession(){
     // }
-    
+
     // public static PurchaseSession getInstance(){
     // if(instance == null){
     // instance = new PurchaseSession( );
@@ -84,8 +95,12 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     private Map<String, List<IPurchaseDTO>> _activePurchaseBySession = new HashMap<String, List<IPurchaseDTO>>( );
 
-    /* (non-Javadoc)
-     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#reserve(fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO, java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#reserve(fr.paris
+     * .lutece.plugins.stock.business.purchase.IPurchaseDTO, java.lang.Long)
      */
     /**
      * {@inheritDoc}
@@ -93,7 +108,9 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public synchronized void reserve( String sessionId, IPurchaseDTO purchase ) throws PurchaseUnavailable
     {
         Integer offerId = purchase.getOfferId( );
+        //place restantes
         Integer qttInDb = _offerService.getQuantity( offerId );
+        //place actuellement reservé en session
         Integer qttIdle = _idleQuantity.get( offerId );
         Integer qttAvailable;
 
@@ -102,7 +119,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             qttIdle = 0;
         }
 
-        // Quantité disponible = quantité en base + quantité réservée en attente
+        // Quantité disponible = quantité en base - quantité réservée en attente
         qttAvailable = qttInDb - qttIdle;
 
         if ( ( qttAvailable - purchase.getQuantity( ) ) < 0 )
@@ -120,8 +137,12 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         }
     }
 
-    /* (non-Javadoc)
-     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#hasReserved(java.lang.Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#hasReserved(java
+     * .lang.Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
      */
     /**
      * {@inheritDoc}
@@ -129,72 +150,88 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public void checkReserved( String sessionId, IPurchaseDTO purchase ) throws PurchaseSessionExpired
     {
         boolean hasReserved = false;
-        if ( _activePurchaseBySession.get( sessionId ) != null )
+        synchronized ( _activePurchaseBySession )
         {
-            for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
+            if ( _activePurchaseBySession.get( sessionId ) != null )
             {
-                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) )
-                        && purchaseIdle.getQuantity( ).equals( purchase.getQuantity( ) ) )
+                for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
                 {
-                    hasReserved = true;
+                    if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) )
+                            && purchaseIdle.getQuantity( ).equals( purchase.getQuantity( ) ) )
+                    {
+                        hasReserved = true;
+                    }
                 }
             }
-        }
-        if ( !hasReserved )
-        {
-            throw new PurchaseSessionExpired( purchase.getOfferId( ), "Aucune session d'achat trouvée (sid="
-                    + sessionId + ", id offre=" + purchase.getOfferId( ) + ", qtt=" + purchase.getQuantity( ) + ")" );
+            if ( !hasReserved )
+            {
+                throw new PurchaseSessionExpired( purchase.getOfferId( ), "Aucune session d'achat trouvée (sid="
+                        + sessionId + ", id offre=" + purchase.getOfferId( ) + ", qtt=" + purchase.getQuantity( ) + ")" );
+            }
         }
     }
 
-    /* (non-Javadoc)
-     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#release(java.lang.Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#release(java.lang
+     * .Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
      */
     /**
      * {@inheritDoc}
      */
     public synchronized void release( String sessionId, IPurchaseDTO purchase )
     {
-
-        if ( _activePurchaseBySession.get( sessionId ) != null )
+        synchronized ( _activePurchaseBySession )
         {
-            Iterator<IPurchaseDTO> itIdlePurchase = _activePurchaseBySession.get( sessionId ).iterator( );
-            IPurchaseDTO purchaseIdle;
-            while ( itIdlePurchase.hasNext( ) )
+            if ( _activePurchaseBySession.get( sessionId ) != null )
             {
-                purchaseIdle = itIdlePurchase.next( );
-                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
+                Iterator<IPurchaseDTO> itIdlePurchase = _activePurchaseBySession.get( sessionId ).iterator( );
+                IPurchaseDTO purchaseIdle;
+                while ( itIdlePurchase.hasNext( ) )
                 {
-                    _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
-                            - purchaseIdle.getQuantity( ) );
-                    itIdlePurchase.remove( );
-                    break;
+                    purchaseIdle = itIdlePurchase.next( );
+                    if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
+                    {
+                        _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
+                                - purchaseIdle.getQuantity( ) );
+                        itIdlePurchase.remove( );
+                        break;
+                    }
                 }
             }
         }
     }
 
-    /* (non-Javadoc)
-     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#releaseAll(java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#releaseAll(java
+     * .lang.Long)
      */
     /**
      * {@inheritDoc}
      */
     public synchronized void releaseAll( String sessionId )
     {
-        if ( _activePurchaseBySession.get( sessionId ) != null )
+        synchronized ( _activePurchaseBySession )
         {
-            Iterator<IPurchaseDTO> itIdlePurchase = _activePurchaseBySession.get( sessionId ).iterator( );
-            IPurchaseDTO purchaseIdle;
-            while ( itIdlePurchase.hasNext( ) )
+            if ( _activePurchaseBySession.get( sessionId ) != null )
             {
-                purchaseIdle = itIdlePurchase.next( );
-                _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
-                        - purchaseIdle.getQuantity( ) );
-                itIdlePurchase.remove( );
+                Iterator<IPurchaseDTO> itIdlePurchase = _activePurchaseBySession.get( sessionId ).iterator( );
+                IPurchaseDTO purchaseIdle;
+                while ( itIdlePurchase.hasNext( ) )
+                {
+                    purchaseIdle = itIdlePurchase.next( );
+                    _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
+                            - purchaseIdle.getQuantity( ) );
+                    itIdlePurchase.remove( );
+                }
             }
+            _activePurchaseBySession.remove( sessionId );
         }
-        _activePurchaseBySession.remove( sessionId );
     }
 
     /**
@@ -204,26 +241,29 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     private void addPurchase( String sessionId, IPurchaseDTO purchase )
     {
-        if ( _activePurchaseBySession.get( sessionId ) == null )
+        synchronized ( _activePurchaseBySession )
         {
-            _activePurchaseBySession.put( sessionId, new ArrayList<IPurchaseDTO>( ) );
-        }
-        else
-        {
-            // Si un achat sur la même offre est déjà en attente on le supprime
-            for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
+            if ( _activePurchaseBySession.get( sessionId ) == null )
             {
-                if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
+                _activePurchaseBySession.put( sessionId, new ArrayList<IPurchaseDTO>( ) );
+            }
+            else
+            {
+                // Si un achat sur la même offre est déjà en attente on le supprime
+                for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
                 {
-                    LOG.debug( "Achat pour le produit id " + purchase.getOfferId( ) + " déjà en cours sur la session "
-                            + sessionId + " - suppression de l'achat en attente" );
-                    release( sessionId, purchase );
-                    break;
+                    if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
+                    {
+                        LOG.debug( "Achat pour le produit id " + purchase.getOfferId( )
+                                + " déjà en cours sur la session " + sessionId + " - suppression de l'achat en attente" );
+                        release( sessionId, purchase );
+                        break;
+                    }
                 }
             }
-        }
 
-        _activePurchaseBySession.get( sessionId ).add( purchase );
+            _activePurchaseBySession.get( sessionId ).add( purchase );
+        }
     }
 
     @Override
@@ -242,6 +282,64 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         }
 
         return quantityCopie;
+    }
+
+    @Override
+    public void clearPurchase( Integer minutes )
+    {
+        synchronized ( _activePurchaseBySession )
+        {
+            //itération des liste de réservations pour chaque session
+            for ( Entry<String, List<IPurchaseDTO>> entry : _activePurchaseBySession.entrySet( ) )
+            {
+                String idSession = entry.getKey( );
+                List<IPurchaseDTO> listPurchase = _activePurchaseBySession.remove( idSession );
+                List<IPurchaseDTO> listPurchaseValide = new ArrayList<IPurchaseDTO>( );
+                for ( IPurchaseDTO purchase : listPurchase )
+                {
+                    if ( shouldBeKeep( purchase, minutes ) )
+                    {
+                        listPurchaseValide.add( purchase );
+                    }
+                }
+                listPurchase.clear( );
+                _activePurchaseBySession.put( idSession, listPurchaseValide );
+            }
+        }
+    }
+
+    /**
+     * Check if a purchase should be keep in session
+     * @param purchase the purchase to check
+     * @param minutes the number max of minutes to keep purchase
+     * @return true to keep, false to remove
+     */
+    private boolean shouldBeKeep( IPurchaseDTO purchase, Integer minutes )
+    {
+        boolean toKeep = true;
+        String dateCreate = purchase.getDate( );
+        String hourCreate = purchase.getHeure( );
+        //si ces deux attributs ne sont pas présent, la reservation n'a pas été faite sur le FO et n'est donc pas concernée.
+        if ( StringUtils.isNotBlank( dateCreate ) && StringUtils.isNotBlank( hourCreate ) )
+        {
+            try
+            {
+                Date datePurchase = format.parse( dateCreate + " " + hourCreate );
+                Date currentDate = DateUtils.getCurrentDate( );
+                GregorianCalendar calendarPurchase = new GregorianCalendar( );
+                calendarPurchase.setTime( datePurchase );
+                calendarPurchase.add( Calendar.MINUTE, minutes );
+                if ( calendarPurchase.getTime( ).before( currentDate ) )
+                {
+                    toKeep = false;
+                }
+            }
+            catch ( ParseException e )
+            {
+                LOG.error( "Erreur de conversion de string => date : " + e );
+            }
+        }
+        return toKeep;
     }
 
 }

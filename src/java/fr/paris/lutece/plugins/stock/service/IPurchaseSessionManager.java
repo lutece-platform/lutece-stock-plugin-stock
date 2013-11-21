@@ -89,5 +89,11 @@ public interface IPurchaseSessionManager
      * @return the quantity update
      */
     Integer updateQuantityWithSession( Integer quantity, Integer offerId );
+    
+    /**
+     * Delete all purchase create more than "minute" minutes ago
+     * @param minutes the number max of minutes for keeping purchase in session
+     */
+    void clearPurchase( Integer minutes );
 
 }
