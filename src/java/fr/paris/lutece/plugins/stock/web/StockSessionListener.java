@@ -50,13 +50,6 @@ public class StockSessionListener implements HttpSessionListener
 {
 
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet
-     * .http.HttpSessionEvent)
-     */
     /**
      * Call when session expire. Release all currents purchases.
      * @param se session event
@@ -66,8 +59,8 @@ public class StockSessionListener implements HttpSessionListener
 
         HttpSession session = se.getSession( );
         String sid = session.getId( );
-        PurchaseSessionManager purchaseSessionManager = (PurchaseSessionManager) SpringContextService.getContext( )
-                .getBean( PurchaseSessionManager.class );
+        PurchaseSessionManager purchaseSessionManager = SpringContextService.getContext( ).getBean(
+                PurchaseSessionManager.class );
         synchronized ( this )
         {
             purchaseSessionManager.releaseAll( sid );
@@ -80,6 +73,6 @@ public class StockSessionListener implements HttpSessionListener
      */
     public void sessionCreated( HttpSessionEvent se )
     {
-
+        // do nothing 
     }
 }

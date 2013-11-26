@@ -16,7 +16,6 @@
 
 	<!--  Declaration des DAO -->
     <bean id="stock.productDAO"  class="fr.paris.lutece.plugins.stock.business.product.ProductDAO" />
-    <bean id="stock.subscriptionProductDAO" class="fr.paris.lutece.plugins.stock.business.subscription.SubscriptionProductDAO" />
     <bean id="stock.categoryDAO"  class="fr.paris.lutece.plugins.stock.business.category.CategoryDAO" />
     <bean id="stock.providerDAO"  class="fr.paris.lutece.plugins.stock.business.provider.ProviderDAO" />
     
@@ -27,6 +26,7 @@
     
     
     <bean id="stock.productService" class="fr.paris.lutece.plugins.stock.service.ProductService" />
+    <bean id="stock.stockSubscriptionProviderService" class="fr.paris.lutece.plugins.stock.service.StockSubscriptionProviderService" />
     <bean id="stock.subscriptionProductService" class="fr.paris.lutece.plugins.stock.service.SubscriptionProductService" />
     <bean id="stock.offerService" class="fr.paris.lutece.plugins.stock.service.OfferService" />
     

@@ -33,8 +33,7 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import fr.paris.lutece.plugins.stock.business.subscription.SubscriptionProduct;
-import fr.paris.lutece.plugins.stock.business.subscription.SubscriptionProductFilter;
+import fr.paris.lutece.plugins.stock.business.product.Product;
 
 import java.util.List;
 
@@ -53,39 +52,46 @@ public interface ISubscriptionProductService
 {
 
     /**
-     * Return a list of all subscription products
-     * @return list of subscription product
+     * Check if a user has subscribed to a given product
+     * @param strUserEmail The email of the user
+     * @param strIdProduct The id of the product
+     * @return True if the user has subscribed to the product, false otherwise
      */
-    List<SubscriptionProduct> getAllSubscriptionProduct( );
+    boolean hasUserSubscribedToProduct( String strUserEmail, String strIdProduct );
 
     /**
-     * Find by filter.
-     * 
-     * @param filter the filter
-     * @return the SubscriptionProduct list filtered
+     * Find the list of products a user subscribed to
+     * @param strUserEmail The email of the user to get product subscriptions of
+     * @return the list of products
      */
-    List<SubscriptionProduct> findByFilter( SubscriptionProductFilter filter );
+    List<Product> getProductsByUserSubscription( String strUserEmail );
 
     /**
      * save the subscription to a product for an user
+     * @param strUserEmail The email of the user that made the subscription
+     * @param strIdProduct The id of the product the user subscribed to
      * @param subscriptionProduct the subscription entity
-     * @return the subscription product entity
-     * @throws ValidationException
      */
     @Transactional( readOnly = false, propagation = Propagation.REQUIRES_NEW )
-    SubscriptionProduct doSaveSubscriptionProduct( SubscriptionProduct subscriptionProduct );
+    void doSaveSubscriptionProduct( String strUserEmail, String strIdProduct );
 
     /**
-     * 
      * Delete a subscription for a product to an user
-     * @param nIdSubscriptionProduct the id of the subscription
+     * @param strUserEmail the email of the subscription
+     * @param strIdProduct The id of the product to unsubscribe
      */
-    void doDeleteSubscriptionProduct( int nIdSubscriptionProduct );
+    void doDeleteSubscriptionProduct( String strUserEmail, String strIdProduct );
 
     /**
-     * 
-     * Delete subscriptions by filter
-     * @param filter the filter of subscription
+     * Delete subscriptions to a given product
+     * @param strIdProduct the id of the product to remove subscriptions of
      */
-    void doDeleteByFilter( SubscriptionProductFilter filter );
+    void doDeleteByIdProduct( String strIdProduct );
+
+    /**
+     * Get the list of emails users that subscribed to a list given product
+     * @param strIdProduct The id of the product
+     * @return The list of emails of users that subscribed to a given product
+     */
+    List<String> getListEmailSubscriber( String strIdProduct );
 }

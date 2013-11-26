@@ -33,12 +33,14 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import fr.paris.lutece.plugins.stock.business.subscription.ISubscriptionProductDAO;
-import fr.paris.lutece.plugins.stock.business.subscription.SubscriptionProduct;
-import fr.paris.lutece.plugins.stock.business.subscription.SubscriptionProductFilter;
-import fr.paris.lutece.plugins.stock.commons.exception.BusinessException;
+import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
+import fr.paris.lutece.plugins.stock.business.product.Product;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
+import fr.paris.lutece.plugins.subscribe.business.Subscription;
+import fr.paris.lutece.plugins.subscribe.business.SubscriptionFilter;
+import fr.paris.lutece.plugins.subscribe.service.SubscriptionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,87 +59,110 @@ import org.springframework.transaction.annotation.Transactional;
 public class SubscriptionProductService extends AbstractService implements ISubscriptionProductService
 {
 
-    private static final String MESSAGE_ERROR_PRODUCT_NAME_MUST_BE_UNIQUE = "module.stock.billetterie.save_product.error.name.unique";
-
-	@Inject
-    @Named( "stock.subscriptionProductDAO" )
-    private ISubscriptionProductDAO _daoSubscriptionProduct;
+    @Inject
+    @Named( "stock.productDAO" )
+    private IProductDAO _daoProduct;
 
     /**
-     * Return a list of products
-     * @return list of product
+     * {@inheritDoc}
      */
-    public List<SubscriptionProduct> getAllSubscriptionProduct( )
-    {
-        return _daoSubscriptionProduct.findAll( );
-    }
-
     @Override
-    public List<SubscriptionProduct> findByFilter( SubscriptionProductFilter filter )
+    public boolean hasUserSubscribedToProduct( String strUserEmail, String strIdProduct )
     {
-        return _daoSubscriptionProduct.findByFilter( filter );
+        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail,
+                StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
+                StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY, strIdProduct );
+        return SubscriptionService.getInstance( ).findByFilter( filter ).size( ) > 0;
     }
 
     /**
      * {@inheritDoc}
-     * @throws ValidationException
      */
+    @Override
+    public List<Product> getProductsByUserSubscription( String strUserEmail )
+    {
+        SubscriptionFilter filter = new SubscriptionFilter( );
+        filter.setIdSubscriber( strUserEmail );
+        filter.setSubscriptionKey( StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY );
+        filter.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
+        List<Subscription> listSubscriptions = SubscriptionService.getInstance( ).findByFilter( filter );
+
+        List<Product> listProducts = new ArrayList<Product>( listSubscriptions.size( ) );
+        for ( Subscription subscription : listSubscriptions )
+        {
+            Product product = _daoProduct.findById( Integer.parseInt( subscription.getIdSubscribedResource( ) ) );
+            listProducts.add( product );
+        }
+        return listProducts;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @Transactional( readOnly = false, propagation = Propagation.REQUIRES_NEW )
-    public SubscriptionProduct doSaveSubscriptionProduct( SubscriptionProduct subscriptionProduct )
+    public void doSaveSubscriptionProduct( String strUserEmail, String strIdProduct )
     {
-        SubscriptionProductFilter filter = new SubscriptionProductFilter( );
-        filter.setNameUser( subscriptionProduct.getUserName( ) );
-        filter.setProduct( subscriptionProduct.getProduct( ) );
-        List<SubscriptionProduct> listeSubscriptionProduct = _daoSubscriptionProduct.findByFilter( filter );
-        if ( subscriptionProduct.getId( ) != null && subscriptionProduct.getId( ) > 0 )
-        {
-            //Update
-            //Can have various subscription for the pair product/userName
-            if ( listeSubscriptionProduct != null
-                    && ( listeSubscriptionProduct.size( ) > 1 || listeSubscriptionProduct.size( ) == 1
-                            && !listeSubscriptionProduct.get( 0 ).getId( ).equals( subscriptionProduct.getId( ) ) ) )
-            {
-                throw new BusinessException( subscriptionProduct, MESSAGE_ERROR_PRODUCT_NAME_MUST_BE_UNIQUE );
-            }
-
-            _daoSubscriptionProduct.update( subscriptionProduct );
-        }
-        else
-        {
-            //Create
-            if ( listeSubscriptionProduct != null && listeSubscriptionProduct.size( ) > 0 )
-            {
-                throw new BusinessException( subscriptionProduct, MESSAGE_ERROR_PRODUCT_NAME_MUST_BE_UNIQUE );
-            }
-            _daoSubscriptionProduct.create( subscriptionProduct );
-        }
-
-        return subscriptionProduct;
+        Subscription subscription = new Subscription( );
+        subscription.setUserId( strUserEmail );
+        subscription.setIdSubscribedResource( strIdProduct );
+        subscription.setSubscriptionKey( StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY );
+        subscription.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
+        SubscriptionService.getInstance( ).createSubscription( subscription );
     }
 
     /**
-     * 
-     * Delete a subscription for a product to an user
-     * @param nIdSubscriptionProduct the id of the subscription
+     * {@inheritDoc}
      */
-    public void doDeleteSubscriptionProduct( int nIdSubscriptionProduct )
+    @Override
+    public void doDeleteSubscriptionProduct( String strUserEmail, String strIdProduct )
     {
-        _daoSubscriptionProduct.remove( nIdSubscriptionProduct );
-    }
+        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail,
+                StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
+                StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY, strIdProduct );
 
-    /**
-     * 
-     * Delete subscriptions by filter
-     * @param filter the filter of subscription
-     */
-    public void doDeleteByFilter( SubscriptionProductFilter filter )
-    {
-
-        List<SubscriptionProduct> findByFilter = _daoSubscriptionProduct.findByFilter( filter );
-        for ( SubscriptionProduct subscription : findByFilter )
+        List<Subscription> listSubscription = SubscriptionService.getInstance( ).findByFilter( filter );
+        for ( Subscription subscription : listSubscription )
         {
-            _daoSubscriptionProduct.remove( subscription.getId( ) );
+            SubscriptionService.getInstance( ).removeSubscription( subscription.getIdSubscription( ), false );
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doDeleteByIdProduct( String strIdProduct )
+    {
+        SubscriptionFilter filter = new SubscriptionFilter( );
+        filter.setIdSubscribedResource( strIdProduct );
+        filter.setSubscriptionKey( StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY );
+        filter.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
+
+        List<Subscription> listSubscriptions = SubscriptionService.getInstance( ).findByFilter( filter );
+        for ( Subscription subscription : listSubscriptions )
+        {
+            SubscriptionService.getInstance( ).removeSubscription( subscription.getIdSubscription( ), false );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<String> getListEmailSubscriber( String strIdProduct )
+    {
+        SubscriptionFilter filter = new SubscriptionFilter( );
+        filter.setIdSubscribedResource( strIdProduct );
+        filter.setSubscriptionKey( StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY );
+        filter.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
+
+        List<Subscription> listSubscriptions = SubscriptionService.getInstance( ).findByFilter( filter );
+        List<String> listUserId = new ArrayList<String>( listSubscriptions.size( ) );
+        for ( Subscription subscription : listSubscriptions )
+        {
+            listUserId.add( subscription.getUserId( ) );
+        }
+        return listUserId;
+    }
 }

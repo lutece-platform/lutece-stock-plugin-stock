@@ -303,7 +303,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
      */
     public Integer getCountProductAVenirByDate( String strDate )
     {
-        Integer result = 0;
+        Integer nResult = 0;
         StringBuffer requeteSQL = new StringBuffer( );
 
         requeteSQL.append( "SELECT count( distinct product_date_begin.owner_id)  " );
@@ -320,10 +320,10 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
             if ( obj != null )
             {
                 BigInteger bigInt = (BigInteger) obj;
-                result = bigInt.intValue( );
+                nResult = bigInt.intValue( );
             }
         }
-        return result;
+        return nResult;
     }
 
     /*

@@ -33,7 +33,11 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import java.sql.Timestamp;
+import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
+import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
+import fr.paris.lutece.plugins.stock.utils.DateUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,11 +56,6 @@ import javax.inject.Named;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
-import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
-import fr.paris.lutece.plugins.stock.utils.DateUtils;
-
 
 /**
  * Singleton spring. Store active purchase (not yet stored into database) and
@@ -67,7 +66,6 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
 {
     public static final Logger LOG = Logger.getLogger( PurchaseSessionManager.class );
     private static final SimpleDateFormat format = new SimpleDateFormat( "dd/MM/yyyy HH:mm" );
-    private Object lock = new Object();
 
     @Inject
     @Named( "stock.offerService" )
@@ -126,15 +124,12 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         {
             throw new PurchaseUnavailable( offerId, "Quantité restante insuffisante (" + qttAvailable + ")" );
         }
-        else
-        {
-            // Quantité disponible ok
-            qttIdle = qttIdle + purchase.getQuantity( );
-            _idleQuantity.put( offerId, qttIdle );
+        // Quantité disponible ok
+        qttIdle = qttIdle + purchase.getQuantity( );
+        _idleQuantity.put( offerId, qttIdle );
 
-            // Ajout de l'achat dans la liste
-            addPurchase( sessionId, purchase );
-        }
+        // Ajout de l'achat dans la liste
+        addPurchase( sessionId, purchase );
     }
 
     /*
@@ -254,8 +249,12 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                 {
                     if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
                     {
-                        LOG.debug( "Achat pour le produit id " + purchase.getOfferId( )
-                                + " déjà en cours sur la session " + sessionId + " - suppression de l'achat en attente" );
+                        if ( LOG.isDebugEnabled( ) )
+                        {
+                            LOG.debug( "Achat pour le produit id " + purchase.getOfferId( )
+                                    + " déjà en cours sur la session " + sessionId
+                                    + " - suppression de l'achat en attente" );
+                        }
                         release( sessionId, purchase );
                         break;
                     }
