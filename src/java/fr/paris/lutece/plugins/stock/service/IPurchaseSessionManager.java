@@ -95,5 +95,4 @@ public interface IPurchaseSessionManager
      * @param minutes the number max of minutes for keeping purchase in session
      */
     void clearPurchase( Integer minutes );
-
 }

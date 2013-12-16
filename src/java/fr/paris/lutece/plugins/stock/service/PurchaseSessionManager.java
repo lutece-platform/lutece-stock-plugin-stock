@@ -268,8 +268,11 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     @Override
     public Integer updateQuantityWithSession( Integer quantity, Integer offerId )
     {
+        //quantité actuellement reservé en session
         Integer qttIdle = _idleQuantity.get( offerId );
         int quantityCopie = quantity;
+
+        //si il existe en session une quantité déjà reservé pour l'offre, on doit la retirer de la quantité disponible pour l'offre 
         if ( qttIdle != null )
         {
             quantityCopie -= qttIdle;
@@ -340,5 +343,4 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         }
         return toKeep;
     }
-
 }
