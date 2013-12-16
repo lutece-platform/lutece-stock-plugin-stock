@@ -103,33 +103,35 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     /**
      * {@inheritDoc}
      */
-    public synchronized void reserve( String sessionId, IPurchaseDTO purchase ) throws PurchaseUnavailable
+    public void reserve( String sessionId, IPurchaseDTO purchase ) throws PurchaseUnavailable
     {
-        Integer offerId = purchase.getOfferId( );
-        //place restantes
-        Integer qttInDb = _offerService.getQuantity( offerId );
-        //place actuellement reservé en session
-        Integer qttIdle = _idleQuantity.get( offerId );
-        Integer qttAvailable;
-
-        if ( qttIdle == null )
-        {
-            qttIdle = 0;
+        synchronized ( _activePurchaseBySession ){
+            Integer offerId = purchase.getOfferId( );
+            //place restantes
+            Integer qttInDb = _offerService.getQuantity( offerId );
+            //place actuellement reservé en session
+            Integer qttIdle = _idleQuantity.get( offerId );
+            Integer qttAvailable;
+    
+            if ( qttIdle == null )
+            {
+                qttIdle = 0;
+            }
+    
+            // Quantité disponible = quantité en base - quantité réservée en attente
+            qttAvailable = qttInDb - qttIdle;
+    
+            if ( ( qttAvailable - purchase.getQuantity( ) ) < 0 )
+            {
+                throw new PurchaseUnavailable( offerId, "Quantité restante insuffisante (" + qttAvailable + ")" );
+            }
+            // Quantité disponible ok
+            qttIdle = qttIdle + purchase.getQuantity( );
+            _idleQuantity.put( offerId, qttIdle );
+    
+            // Ajout de l'achat dans la liste
+            addPurchase( sessionId, purchase );
         }
-
-        // Quantité disponible = quantité en base - quantité réservée en attente
-        qttAvailable = qttInDb - qttIdle;
-
-        if ( ( qttAvailable - purchase.getQuantity( ) ) < 0 )
-        {
-            throw new PurchaseUnavailable( offerId, "Quantité restante insuffisante (" + qttAvailable + ")" );
-        }
-        // Quantité disponible ok
-        qttIdle = qttIdle + purchase.getQuantity( );
-        _idleQuantity.put( offerId, qttIdle );
-
-        // Ajout de l'achat dans la liste
-        addPurchase( sessionId, purchase );
     }
 
     /*
@@ -144,6 +146,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     public void checkReserved( String sessionId, IPurchaseDTO purchase ) throws PurchaseSessionExpired
     {
+        LOG.debug( "Call checkReserved" );
         boolean hasReserved = false;
         synchronized ( _activePurchaseBySession )
         {
@@ -178,6 +181,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     public synchronized void release( String sessionId, IPurchaseDTO purchase )
     {
+        LOG.debug( "Call release" );
         synchronized ( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) != null )
@@ -189,9 +193,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                     purchaseIdle = itIdlePurchase.next( );
                     if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) )
                     {
-                        _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
-                                - purchaseIdle.getQuantity( ) );
-                        itIdlePurchase.remove( );
+                        deleteFromSession( itIdlePurchase, purchaseIdle );
                         break;
                     }
                 }
@@ -211,6 +213,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     public synchronized void releaseAll( String sessionId )
     {
+        LOG.debug( "Call releaseAll" );
         synchronized ( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) != null )
@@ -220,9 +223,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                 while ( itIdlePurchase.hasNext( ) )
                 {
                     purchaseIdle = itIdlePurchase.next( );
-                    _idleQuantity.put( purchaseIdle.getOfferId( ), _idleQuantity.get( purchaseIdle.getOfferId( ) )
-                            - purchaseIdle.getQuantity( ) );
-                    itIdlePurchase.remove( );
+                    deleteFromSession( itIdlePurchase, purchaseIdle );
                 }
             }
             _activePurchaseBySession.remove( sessionId );
@@ -236,6 +237,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
      */
     private void addPurchase( String sessionId, IPurchaseDTO purchase )
     {
+        LOG.debug( "Call addPurchase" );
         synchronized ( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) == null )
@@ -289,30 +291,38 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     @Override
     public void clearPurchase( Integer minutes )
     {
+        LOG.debug( "Call clearPurchase" );
         synchronized ( _activePurchaseBySession )
         {
             //itération des liste de réservations pour chaque session
             for ( Entry<String, List<IPurchaseDTO>> entry : _activePurchaseBySession.entrySet( ) )
             {
                 String idSession = entry.getKey( );
-                List<IPurchaseDTO> listPurchase = _activePurchaseBySession.remove( idSession );
-                List<IPurchaseDTO> listPurchaseValide = new ArrayList<IPurchaseDTO>( );
-                for ( IPurchaseDTO purchase : listPurchase )
+                Iterator<IPurchaseDTO> iterator = _activePurchaseBySession.get( idSession ).iterator( );
+                while ( iterator.hasNext( ) )
                 {
-                    if ( shouldBeKeep( purchase, minutes ) )
+                    IPurchaseDTO purchaseControled = iterator.next( );
+                    if ( !shouldBeKeep( purchaseControled, minutes ) )
                     {
-                        listPurchaseValide.add( purchase );
-                    }
-                    else
-                    {
-                        LOG.debug( "Suppression de la reservation pour l'offre d'id " + purchase.getOfferId( )
-                                + " de l'utilisateur " + purchase.getUserName( ) );
+                        deleteFromSession( iterator, purchaseControled );
+                        LOG.debug( "Suppression de la reservation pour l'offre d'id " + purchaseControled.getOfferId( )
+                                + " de l'utilisateur " + purchaseControled.getUserName( ) );
                     }
                 }
-                listPurchase.clear( );
-                _activePurchaseBySession.put( idSession, listPurchaseValide );
             }
         }
+    }
+
+    /**
+     * Remove purchase from session manager
+     * @param iterator the iterator with purchase
+     * @param purchaseControled the purchase
+     */
+    private void deleteFromSession( Iterator<IPurchaseDTO> iterator, IPurchaseDTO purchaseControled )
+    {
+        _idleQuantity.put( purchaseControled.getOfferId( ), _idleQuantity.get( purchaseControled.getOfferId( ) )
+                - purchaseControled.getQuantity( ) );
+        iterator.remove( );
     }
 
     /**
