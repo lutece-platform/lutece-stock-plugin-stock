@@ -303,6 +303,11 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                     {
                         listPurchaseValide.add( purchase );
                     }
+                    else
+                    {
+                        LOG.debug( "Suppression de la reservation pour l'offre d'id " + purchase.getOfferId( )
+                                + " de l'utilisateur " + purchase.getUserName( ) );
+                    }
                 }
                 listPurchase.clear( );
                 _activePurchaseBySession.put( idSession, listPurchaseValide );
