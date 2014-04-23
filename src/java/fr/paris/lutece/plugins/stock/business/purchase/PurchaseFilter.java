@@ -37,11 +37,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.paris.lutece.plugins.stock.business.BeanFilter;
+
 
 /**
  * Filter for purchase
  */
-public class PurchaseFilter
+public class PurchaseFilter implements BeanFilter
 {
 
     /** The _id. */

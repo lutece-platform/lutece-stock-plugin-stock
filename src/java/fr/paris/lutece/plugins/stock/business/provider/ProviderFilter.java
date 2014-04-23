@@ -36,13 +36,15 @@ package fr.paris.lutece.plugins.stock.business.provider;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.paris.lutece.plugins.stock.business.BeanFilter;
+
 
 /**
  *
  * ProviderFilter
  *
  */
-public class ProviderFilter
+public class ProviderFilter implements BeanFilter
 {
     private String _strAddress;
     private String _strComment;

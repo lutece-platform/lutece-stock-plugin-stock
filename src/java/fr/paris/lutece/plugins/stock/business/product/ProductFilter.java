@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.stock.business.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.paris.lutece.plugins.stock.business.BeanFilter;
+
 
 
 /**
@@ -43,7 +45,7 @@ import java.util.List;
  * ProductFilter
  *
  */
-public class ProductFilter
+public class ProductFilter implements BeanFilter
 {
     private Integer _idProduct;
     private String _name;

@@ -36,13 +36,15 @@ package fr.paris.lutece.plugins.stock.business.category;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.paris.lutece.plugins.stock.business.BeanFilter;
+
 
 /**
  *
  * CategoryFilter
  *
  */
-public class CategoryFilter
+public class CategoryFilter implements BeanFilter
 {
     private Integer _idCategory;
     private Boolean _status;
