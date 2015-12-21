@@ -97,6 +97,12 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
 
     /** The _type. */
     private OfferGenre _type;
+    
+    /** The _nMinTickets. */
+    private Integer _nMinTickets;
+    
+    /** The _nMaxTickets. */
+    private Integer _nMaxTickets;
 
     /** The _attribute list. */
     private Set<OfferAttribute> _attributeList;
@@ -265,6 +271,48 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     }
 
     /**
+     * Return the minimal number of tickets.
+     * 
+     * @return _nMinTickets
+     */
+    @Column( name = "min_tickets" )
+    public Integer getMinTickets(  )
+    {
+        return _nMinTickets;
+    }
+
+    /**
+     * Set the minimal number of tickets.
+     * 
+     * @param minTickets the minimal number of tickets
+     */
+    public void setMinTickets( Integer minTickets )
+    {
+        _nMinTickets = minTickets;
+    }
+
+    /**
+     * Return the minimal number of tickets.
+     * 
+     * @return _nMinTickets
+     */
+    @Column( name = "max_tickets" )
+    public Integer getMaxTickets()
+    {
+        return _nMaxTickets;
+    }
+
+    /**
+     * Set the maximum number of tickets.
+     * 
+     * @param maxTickets the maximum number of tickets
+     */
+    public void setMaxTickets(Integer _nMaxTickets)
+    {
+        this._nMaxTickets = _nMaxTickets;
+    }
+
+    /**
      * Returns dynamic attributes list.
      * 
      * @return dynamic attributes list
@@ -346,4 +394,5 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     {
         return _strStatut;
     }
+
 }

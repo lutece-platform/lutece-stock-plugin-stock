@@ -76,6 +76,8 @@ CREATE TABLE IF NOT EXISTS stock_offer (
   statut varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   product_id int(11) NOT NULL,
   offer_genre_id int(11) NOT NULL,
+  min_tickets INT DEFAULT 0 NOT NULL,
+  max_tickets INT DEFAULT 0 NOT NULL,
   PRIMARY KEY (id_offer),
   KEY product_id (product_id),
   KEY offer_genre_id (offer_genre_id)

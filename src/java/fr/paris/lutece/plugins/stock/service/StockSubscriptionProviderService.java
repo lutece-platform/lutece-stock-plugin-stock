@@ -65,4 +65,12 @@ public class StockSubscriptionProviderService implements ISubscriptionProviderSe
         // Nothing to do yet
     }
 
+    @Override
+    public String getSubscriptionHtmlDescriptionBis(LuteceUser arg0,
+            String arg1, String arg2, Locale arg3, String arg4)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
