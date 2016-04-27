@@ -24,5 +24,7 @@ public abstract class Offer_
     public static volatile SingularAttribute<Offer, Integer> quantity;
     public static volatile SetAttribute<Offer, OfferAttributeDate> attributeDateList;
     public static volatile SingularAttribute<Offer, OfferGenre> type;
+    public static volatile SingularAttribute<Offer, Integer> minTickets;
+    public static volatile SingularAttribute<Offer, Integer> maxTickets;
 
 }
