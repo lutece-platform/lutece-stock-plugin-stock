@@ -1,3 +1,5 @@
+--Corrige le problème d'affichage des images SITEBILLETTERIE-88
+
 ALTER TABLE stock_offer ADD COLUMN min_tickets INT DEFAULT 0 NOT NULL;
 ALTER TABLE stock_offer ADD COLUMN max_tickets INT DEFAULT 0 NOT NULL;
 
