@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
-	<properties>
-		<title>Plugin</title>
-	</properties>
-	<body>
-		<section name="Plugin">
-			<subsection name="Introduction">
-			</subsection>
-		</section>
-	</body>
+    <properties>
+        <title>Plugin</title>
+    </properties>
+    <body>
+        <section name="Plugin Stock">
+            <subsection name="Introduction">
+                Ce plugin est un socle pour développer des applications de gestion de stock.
+                Il gère des objets tels que des produits (ayant des prix, appartenant à différentes catégories, ...),
+                des offres et des commandes associés à des utilisateurs.  
+            </subsection>
+        </section>
+    </body>
 </document>

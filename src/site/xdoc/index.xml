@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
-	<properties>
-		<title>Plugin</title>
-	</properties>
-	<body>
-		<section name="Plugin">
-			<subsection name="Introduction">
-			</subsection>
-		</section>
-	</body>
+    <properties>
+        <title>Plugin</title>
+    </properties>
+    <body>
+        <section name="Plugin Stock">
+            <subsection name="Introduction">
+                This plugin is a foundation for developing inventory management applications.
+                It manages objects such as products (having price, belonging to different categories, ...),
+                offers and orders associated with users.
+            </subsection>
+        </section>
+    </body>
 </document>
