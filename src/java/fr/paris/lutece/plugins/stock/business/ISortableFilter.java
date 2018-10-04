@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business;
 
-
 /**
  *
  * ISortableFilter
@@ -42,26 +41,32 @@ package fr.paris.lutece.plugins.stock.business;
 public interface ISortableFilter
 {
     /**
-    * Return true if the order is set to ascending
-    * @return the boolean
-    */
-    boolean isOrderAsc(  );
+     * Return true if the order is set to ascending
+     * 
+     * @return the boolean
+     */
+    boolean isOrderAsc( );
 
     /**
      * Set the order to ascending or descending
-     * @param bOrderAsc the order (true if ascending)
+     * 
+     * @param bOrderAsc
+     *            the order (true if ascending)
      */
     void setOrderAsc( boolean bOrderAsc );
 
     /**
      * Get the column ordered
+     * 
      * @return true if ascending
      */
-    String getOrder(  );
+    String getOrder( );
 
     /**
      * Set the column ordered
-     * @param strOrder the column name
+     * 
+     * @param strOrder
+     *            the column name
      */
     void setOrder( String strOrder );
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.stock.service;
 
 import fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation;
 
-
 /**
  * DocumentPlugin
  */
@@ -47,9 +46,9 @@ public class StockPlugin extends PluginDefaultImplementation
      * {@inheritDoc}
      */
     @Override
-    public void init(  )
+    public void init( )
     {
-        super.init(  );
+        super.init( );
 
     }
 
@@ -57,9 +56,9 @@ public class StockPlugin extends PluginDefaultImplementation
      * {@inheritDoc}
      */
     @Override
-    public void install(  )
+    public void install( )
     {
-        super.install(  );
+        super.install( );
 
     }
 

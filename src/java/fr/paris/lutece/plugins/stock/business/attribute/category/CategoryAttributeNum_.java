@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,15 +35,13 @@ package fr.paris.lutece.plugins.stock.business.attribute.category;
 
 import javax.persistence.metamodel.StaticMetamodel;
 
-
 /**
  * Metamodel for CategoryAttributeNum
  * 
  * @author abataille
  */
-@StaticMetamodel(CategoryAttributeNum.class)
-public abstract class CategoryAttributeNum_ extends fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum_ {
-
+@StaticMetamodel( CategoryAttributeNum.class )
+public abstract class CategoryAttributeNum_ extends fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum_
+{
 
 }
-

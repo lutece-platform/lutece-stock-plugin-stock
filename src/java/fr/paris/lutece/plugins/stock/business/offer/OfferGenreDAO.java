@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,14 +49,13 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
 /**
  * This class provides Data Access methods for partner type objects
  */
 public final class OfferGenreDAO extends JPALuteceDAO<Integer, OfferGenre> implements IOfferGenreDAO
 {
     @Override
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return StockPlugin.PLUGIN_NAME;
     }
@@ -66,8 +65,8 @@ public final class OfferGenreDAO extends JPALuteceDAO<Integer, OfferGenre> imple
      */
     public OfferGenre findWithOffersLinked( int nIdOfferGenre )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<OfferGenre> cq = cb.createQuery( OfferGenre.class );
 
@@ -79,22 +78,22 @@ public final class OfferGenreDAO extends JPALuteceDAO<Integer, OfferGenre> imple
 
         TypedQuery<OfferGenre> query = em.createQuery( cq );
 
-        return query.getSingleResult(  );
+        return query.getSingleResult( );
     }
 
     /**
      * {@inheritDoc}
      */
-    public ReferenceList findAllReferenceList(  )
+    public ReferenceList findAllReferenceList( )
     {
-        List<OfferGenre> listAllOfferGenres = findAll(  );
-        ReferenceList refList = new ReferenceList(  );
+        List<OfferGenre> listAllOfferGenres = findAll( );
+        ReferenceList refList = new ReferenceList( );
 
         for ( OfferGenre offerGenre : listAllOfferGenres )
         {
-            ReferenceItem refItem = new ReferenceItem(  );
-            refItem.setCode( StockConstants.EMPTY_STRING + offerGenre.getId(  ) );
-            refItem.setName( offerGenre.getName(  ) );
+            ReferenceItem refItem = new ReferenceItem( );
+            refItem.setCode( StockConstants.EMPTY_STRING + offerGenre.getId( ) );
+            refItem.setName( offerGenre.getName( ) );
             refList.add( refItem );
         }
 
@@ -106,8 +105,8 @@ public final class OfferGenreDAO extends JPALuteceDAO<Integer, OfferGenre> imple
      */
     public List<OfferGenre> findByName( String strOfferName )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<OfferGenre> cq = cb.createQuery( OfferGenre.class );
 
@@ -119,6 +118,6 @@ public final class OfferGenreDAO extends JPALuteceDAO<Integer, OfferGenre> imple
 
         TypedQuery<OfferGenre> query = em.createQuery( cq );
 
-        return query.getResultList(  );
+        return query.getResultList( );
     }
 }

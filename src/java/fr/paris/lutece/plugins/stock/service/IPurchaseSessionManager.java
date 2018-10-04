@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,13 +37,9 @@ import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
 import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
 import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseUnavailable;
 
-
 /**
- * Manager for purchase session.
- * Contains methods for managing the purchase mechanism :
- * - reserve an offer into session
- * - check if purchase is into session just before store it in database
- * - release that
+ * Manager for purchase session. Contains methods for managing the purchase mechanism : - reserve an offer into session - check if purchase is into session just
+ * before store it in database - release that
  * 
  * @author abataille
  */
@@ -51,48 +47,63 @@ public interface IPurchaseSessionManager
 {
 
     /**
-     * Reserves an offer quantity for a session.
-     * Check if offer is available (quantity remaining in database + purchases
-     * in session) and add purchase in session
-     * @param sessionId session id
-     * @param purchase purchase (offer id, quantity and user)
-     * @throws PurchaseUnavailable exception thrown if purchase is impossible
+     * Reserves an offer quantity for a session. Check if offer is available (quantity remaining in database + purchases in session) and add purchase in session
+     * 
+     * @param sessionId
+     *            session id
+     * @param purchase
+     *            purchase (offer id, quantity and user)
+     * @throws PurchaseUnavailable
+     *             exception thrown if purchase is impossible
      */
     void reserve( String sessionId, IPurchaseDTO purchase ) throws PurchaseUnavailable;
 
     /**
      * Check that purchase has been reserved before to save it.
      * 
-     * @param sessionId session id
-     * @param purchase purchase
-     * @throws PurchaseSessionExpired the purchase session expired
+     * @param sessionId
+     *            session id
+     * @param purchase
+     *            purchase
+     * @throws PurchaseSessionExpired
+     *             the purchase session expired
      */
     void checkReserved( String sessionId, IPurchaseDTO purchase ) throws PurchaseSessionExpired;
 
     /**
      * Remove purchase from session
-     * @param sessionId session id
-     * @param purchase purchase
+     * 
+     * @param sessionId
+     *            session id
+     * @param purchase
+     *            purchase
      */
     void release( String sessionId, IPurchaseDTO purchase );
 
     /**
      * Remove all active purchases for a session id
-     * @param sessionId session id
+     * 
+     * @param sessionId
+     *            session id
      */
     void releaseAll( String sessionId );
 
     /**
      * Update offer quantity with quantity in session
-     * @param quantity the quantity
-     * @param offerId the offer id
+     * 
+     * @param quantity
+     *            the quantity
+     * @param offerId
+     *            the offer id
      * @return the quantity update
      */
     Integer updateQuantityWithSession( Integer quantity, Integer offerId );
-    
+
     /**
      * Delete all purchase create more than "minute" minutes ago
-     * @param minutes the number max of minutes for keeping purchase in session
+     * 
+     * @param minutes
+     *            the number max of minutes for keeping purchase in session
      */
     void clearPurchase( Integer minutes );
 }

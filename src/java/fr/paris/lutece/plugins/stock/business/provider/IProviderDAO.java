@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,24 +39,26 @@ import fr.paris.lutece.util.jpa.IGenericDAO;
 
 import java.util.List;
 
-
 /**
-* IProviderDAO Interface
-*/
+ * IProviderDAO Interface
+ */
 public interface IProviderDAO extends IGenericDAO<Integer, Provider>
 {
 
     /**
      * Find all providers with products fetched.
      * 
-     * @param paginationProperties the pagination properties
+     * @param paginationProperties
+     *            the pagination properties
      * @return the provider list
      */
     List<Provider> findAllWithProducts( PaginationProperties paginationProperties );
 
     /**
      * Find by provider id with product fetched
-     * @param nId the provider id
+     * 
+     * @param nId
+     *            the provider id
      * @return the provider
      */
     Provider findByIdWithProducts( int nId );
@@ -64,8 +66,10 @@ public interface IProviderDAO extends IGenericDAO<Integer, Provider>
     /**
      * Find by filter.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return the provider list filtered
      */
     ResultList<Provider> findByFilter( ProviderFilter filter, PaginationProperties paginationProperties );

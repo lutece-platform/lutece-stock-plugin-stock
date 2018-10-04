@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * Category
@@ -66,12 +65,15 @@ public class ProductAttribute extends AbstractAttribute<Product> implements Seri
 
     private Product _owner;
 
-
     /**
      * Creates a new ProductAttribute.java object.
-     * @param key key
-     * @param value value
-     * @param product owner
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param product
+     *            owner
      */
     public ProductAttribute( String key, String value, Product product )
     {
@@ -88,7 +90,6 @@ public class ProductAttribute extends AbstractAttribute<Product> implements Seri
         super( );
     }
 
-
     /**
      * @return the id
      */
@@ -101,7 +102,8 @@ public class ProductAttribute extends AbstractAttribute<Product> implements Seri
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Product owner )
     {

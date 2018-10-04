@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import fr.paris.lutece.util.jpa.IGenericDAO;
 
 import java.util.List;
 
-
 /**
  * IOffreDAO Interface
  */
@@ -47,23 +46,31 @@ public interface IOfferDAO extends IGenericDAO<Integer, Offer>
 {
     /**
      * Find by filter
-     * @param filter the filter
-     * @param paginationProperties paginationProperties
+     * 
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            paginationProperties
      * @return the offer list filtered
      */
     ResultList<Offer> findByFilter( OfferFilter filter, PaginationProperties paginationProperties );
 
     /**
      * Returns offer list of a product
-     * @param productId id product
-     * @param filter offer filter
+     * 
+     * @param productId
+     *            id product
+     * @param filter
+     *            offer filter
      * @return list offers
      */
     List<Offer> findByProduct( Integer productId, OfferFilter filter );
 
     /**
      * Returns offer quantity
-     * @param offerId offer id
+     * 
+     * @param offerId
+     *            offer id
      * @return offer quantity
      */
     Integer getQuantity( Integer offerId );

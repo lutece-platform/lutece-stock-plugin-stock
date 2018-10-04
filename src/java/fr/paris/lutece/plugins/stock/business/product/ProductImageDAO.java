@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ import javax.persistence.Query;
 
 import org.apache.commons.io.FileUtils;
 
-
 /**
  * DOCUMENT ME!
  *
@@ -59,7 +58,9 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
         return StockPlugin.PLUGIN_NAME;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see fr.paris.lutece.plugins.stock.business.product.IProductImageDAO#saveImage(java.lang.Integer, java.io.FileInputStream, java.io.FileInputStream)
      */
     @Override
@@ -68,8 +69,7 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
         // Remove existing (or not) image for this product
         remove( idProduct );
 
-        Query query = this.getEM( ).createNativeQuery(
-                "INSERT INTO stock_product_image(id_product, tb_image, image) VALUES (?, ?, ?)" );
+        Query query = this.getEM( ).createNativeQuery( "INSERT INTO stock_product_image(id_product, tb_image, image) VALUES (?, ?, ?)" );
         query.setParameter( 1, idProduct );
 
         try
@@ -77,10 +77,9 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
             query.setParameter( 2, FileUtils.readFileToByteArray( fisTbImage ) );
             query.setParameter( 3, FileUtils.readFileToByteArray( fisImage ) );
         }
-        catch ( IOException e )
+        catch( IOException e )
         {
-            throw new TechnicalException( "Problème lors de l'écriture du poster en base de données : "
-                    + e.getMessage( ), e );
+            throw new TechnicalException( "Problème lors de l'écriture du poster en base de données : " + e.getMessage( ), e );
         }
 
         query.executeUpdate( );
@@ -89,21 +88,21 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
     /**
      * {@inheritDoc}
      */
-    public byte[] getImage( Integer idProduct )
+    public byte [ ] getImage( Integer idProduct )
     {
         Query query = this.getEM( ).createNativeQuery( "SELECT image FROM stock_product_image WHERE id_product = ?" );
         query.setParameter( 1, idProduct );
-        return (byte[]) query.getSingleResult( );
+        return (byte [ ]) query.getSingleResult( );
     }
 
     /**
      * {@inheritDoc}
      */
-    public byte[] getTbImage( Integer idProduct )
+    public byte [ ] getTbImage( Integer idProduct )
     {
         Query query = this.getEM( ).createNativeQuery( "SELECT tb_image FROM stock_product_image WHERE id_product = ?" );
         query.setParameter( 1, idProduct );
-        return (byte[]) query.getSingleResult( );
+        return (byte [ ]) query.getSingleResult( );
     }
 
     /**

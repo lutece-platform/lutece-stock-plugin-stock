@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  * 
  * ProductService
@@ -56,6 +55,7 @@ public class ProductService extends AbstractService implements IProductService
 
     /**
      * Return a list of products
+     * 
      * @return list of product
      */
     public List<Product> getAllProduct( )
@@ -65,7 +65,9 @@ public class ProductService extends AbstractService implements IProductService
 
     /**
      * Check if product is ful
-     * @param productId the product id
+     * 
+     * @param productId
+     *            the product id
      * @return true if full, false otherwise
      */
     public Boolean isFull( Integer productId )
@@ -75,7 +77,9 @@ public class ProductService extends AbstractService implements IProductService
 
     /**
      * Check if product is type of representation
-     * @param genreId the genre to check
+     * 
+     * @param genreId
+     *            the genre to check
      * @return true if product is, false otherwise
      */
     public Boolean isType( Integer productId, Integer genreId )

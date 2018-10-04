@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
-
 /**
  * Filter for purchase
  */
@@ -51,7 +50,7 @@ public class PurchaseFilter implements BeanFilter
 
     /** The user id. */
     private String _userName;
-    
+
     /**
      * Name of the agent
      */
@@ -77,7 +76,7 @@ public class PurchaseFilter implements BeanFilter
 
     /** The _is without session. */
     private boolean _isWithoutSession;
-    
+
     // order
     /** The _orders. */
     private List<String> _orders = new ArrayList<String>( );
@@ -90,7 +89,7 @@ public class PurchaseFilter implements BeanFilter
      * 
      * @return true, if is without session
      */
-    public boolean isWithoutSession(  )
+    public boolean isWithoutSession( )
     {
         return _isWithoutSession;
     }
@@ -98,7 +97,8 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Sets the without session.
      * 
-     * @param isWithoutSession the new without session
+     * @param isWithoutSession
+     *            the new without session
      */
     public void setWithoutSession( boolean isWithoutSession )
     {
@@ -110,7 +110,7 @@ public class PurchaseFilter implements BeanFilter
      * 
      * @return the id
      */
-    public String getId(  )
+    public String getId( )
     {
         return _id;
     }
@@ -118,7 +118,8 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Sets the id.
      * 
-     * @param strId the new id
+     * @param strId
+     *            the new id
      */
     public void setId( String strId )
     {
@@ -130,7 +131,7 @@ public class PurchaseFilter implements BeanFilter
      * 
      * @return the user name
      */
-    public String getUserName(  )
+    public String getUserName( )
     {
         return _userName;
     }
@@ -138,7 +139,8 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Sets the user name.
      * 
-     * @param name the new user name
+     * @param name
+     *            the new user name
      */
     public void setUserName( String name )
     {
@@ -150,7 +152,7 @@ public class PurchaseFilter implements BeanFilter
      * 
      * @return true if ascending false if descending
      */
-    public boolean isOrderAsc(  )
+    public boolean isOrderAsc( )
     {
         return _orderAsc;
     }
@@ -158,7 +160,8 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Set the order way.
      * 
-     * @param isOrderAsc true if ascending false if descending
+     * @param isOrderAsc
+     *            true if ascending false if descending
      */
     public void setOrderAsc( boolean isOrderAsc )
     {
@@ -170,7 +173,7 @@ public class PurchaseFilter implements BeanFilter
      * 
      * @return the column name
      */
-    public List<String> getOrders(  )
+    public List<String> getOrders( )
     {
         return _orders;
     }
@@ -178,112 +181,118 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Set the column to order.
      * 
-     * @param orders the column name
+     * @param orders
+     *            the column name
      */
     public void setOrders( List<String> orders )
     {
         _orders = orders;
     }
 
-	    /**
+    /**
      * Sets the id offer.
      * 
-     * @param idOffer the idOffer to set
+     * @param idOffer
+     *            the idOffer to set
      */
-	public void setIdOffer( Integer idOffer )
-	{
-		this._idOffer = idOffer;
-	}
+    public void setIdOffer( Integer idOffer )
+    {
+        this._idOffer = idOffer;
+    }
 
-	    /**
+    /**
      * Gets the id offer.
      * 
      * @return the idOffer
      */
-	public Integer getIdOffer( )
-	{
-		return _idOffer;
-	}
+    public Integer getIdOffer( )
+    {
+        return _idOffer;
+    }
 
-	    /**
+    /**
      * Sets the product name.
      * 
-     * @param productName the productName to set
+     * @param productName
+     *            the productName to set
      */
-	public void setProductName( String productName )
-	{
+    public void setProductName( String productName )
+    {
         this._productName = productName;
-	}
+    }
 
-	    /**
+    /**
      * Gets the product name.
      * 
      * @return the productName
      */
-	public String getProductName( )
-	{
+    public String getProductName( )
+    {
         return _productName;
-	}
+    }
 
-	    /**
+    /**
      * Sets the date begin offer.
      * 
-     * @param dateBeginOffer the dateBeginOffer to set
+     * @param dateBeginOffer
+     *            the dateBeginOffer to set
      */
-	public void setDateBeginOffer( Timestamp dateBeginOffer )
-	{
-		this._dateBeginOffer = dateBeginOffer;
-	}
+    public void setDateBeginOffer( Timestamp dateBeginOffer )
+    {
+        this._dateBeginOffer = dateBeginOffer;
+    }
 
-	    /**
+    /**
      * Gets the date begin offer.
      * 
      * @return the dateBeginOffer
      */
-	public Timestamp getDateBeginOffer( )
-	{
-		return _dateBeginOffer;
-	}
+    public Timestamp getDateBeginOffer( )
+    {
+        return _dateBeginOffer;
+    }
 
-	    /**
+    /**
      * Sets the date end offer.
      * 
-     * @param dateEndOffer the dateEndOffer to set
+     * @param dateEndOffer
+     *            the dateEndOffer to set
      */
-	public void setDateEndOffer( Timestamp dateEndOffer )
-	{
-		this._dateEndOffer = dateEndOffer;
-	}
+    public void setDateEndOffer( Timestamp dateEndOffer )
+    {
+        this._dateEndOffer = dateEndOffer;
+    }
 
-	    /**
+    /**
      * Gets the date end offer.
      * 
      * @return the dateEndOffer
      */
-	public Timestamp getDateEndOffer( )
-	{
-		return _dateEndOffer;
-	}
+    public Timestamp getDateEndOffer( )
+    {
+        return _dateEndOffer;
+    }
 
-	    /**
+    /**
      * Sets the id genre.
      * 
-     * @param idGenre the idGenre to set
+     * @param idGenre
+     *            the idGenre to set
      */
-	public void setIdGenre( Integer idGenre )
-	{
-		this._idGenre = idGenre;
-	}
+    public void setIdGenre( Integer idGenre )
+    {
+        this._idGenre = idGenre;
+    }
 
-	    /**
+    /**
      * Gets the id genre.
      * 
      * @return the idGenre
      */
-	public Integer getIdGenre( )
-	{
-		return _idGenre;
-	}
+    public Integer getIdGenre( )
+    {
+        return _idGenre;
+    }
 
     /**
      * Gets the id product.
@@ -298,18 +307,21 @@ public class PurchaseFilter implements BeanFilter
     /**
      * Sets the id product.
      * 
-     * @param idShow the idShow to set
+     * @param idShow
+     *            the idShow to set
      */
     public void setIdProduct( Integer idShow )
     {
         this._idShow = idShow;
     }
 
-	public String getAgentName() {
-		return _agentName;
-	}
+    public String getAgentName( )
+    {
+        return _agentName;
+    }
 
-	public void setAgentName(String agentName) {
-		this._agentName = agentName;
-	}
+    public void setAgentName( String agentName )
+    {
+        this._agentName = agentName;
+    }
 }

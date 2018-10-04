@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,14 +38,14 @@ import java.math.BigDecimal;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-
 /**
  * Metamodel for AbstractAttributeNum
  * 
  * @author abataille
  */
-@StaticMetamodel(AbstractAttributeNum.class)
-public abstract class AbstractAttributeNum_ {
+@StaticMetamodel( AbstractAttributeNum.class )
+public abstract class AbstractAttributeNum_
+{
 
     public static volatile SingularAttribute<AbstractAttributeNum<?>, Integer> owner;
     public static volatile SingularAttribute<AbstractAttributeNum<?>, BigDecimal> value;
@@ -55,4 +55,3 @@ public abstract class AbstractAttributeNum_ {
     public static volatile String key = "key";
 
 }
-

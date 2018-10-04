@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -14,7 +14,7 @@
  *     provided with the distribution.
  *
  *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
- *     contributors may be used to endorse or promote purchases derived from
+ *     contributors may be used to endorse or promote products derived from
  *     this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -48,7 +48,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * Category
@@ -69,9 +68,13 @@ public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase> imple
     /**
      * 
      * Creates a new PurchaseAttributeDate.java object.
-     * @param key key
-     * @param value value
-     * @param purchase purchase
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param purchase
+     *            purchase
      */
     public PurchaseAttributeDate( String key, Timestamp value, Purchase purchase )
     {
@@ -100,7 +103,8 @@ public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase> imple
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Purchase owner )
     {
@@ -133,6 +137,5 @@ public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase> imple
     // {
     // this.purchase = purchase;
     // }
-
 
 }

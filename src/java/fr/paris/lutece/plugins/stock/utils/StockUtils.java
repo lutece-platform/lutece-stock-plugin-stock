@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 /**
  * This class provides utils methodes
  */
@@ -56,13 +55,15 @@ public final class StockUtils
     /**
      * Private constructor
      */
-    private StockUtils(  )
+    private StockUtils( )
     {
     }
 
     /**
      * Converts a String into Integer
-     * @param strToConvert The {@link String} object to convert into {@link Integer}
+     * 
+     * @param strToConvert
+     *            The {@link String} object to convert into {@link Integer}
      * @return The {@link Integer} object of the given {@link String} object or null if an error occured
      */
     public static Integer getInteger( String strToConvert )
@@ -73,7 +74,7 @@ public final class StockUtils
             {
                 return Integer.parseInt( strToConvert );
             }
-            catch ( NumberFormatException nfe )
+            catch( NumberFormatException nfe )
             {
                 AppLogService.error( nfe );
             }
@@ -84,7 +85,9 @@ public final class StockUtils
 
     /**
      * Converts a String into Float
-     * @param strToConvert The {@link String} object to convert into {@link Float}
+     * 
+     * @param strToConvert
+     *            The {@link String} object to convert into {@link Float}
      * @return The {@link Float} object of the given {@link String} object or null if an error occured
      */
     public static Float getFloat( String strToConvert )
@@ -95,7 +98,7 @@ public final class StockUtils
             {
                 return Float.parseFloat( strToConvert );
             }
-            catch ( NumberFormatException nfe )
+            catch( NumberFormatException nfe )
             {
                 AppLogService.error( nfe );
             }
@@ -105,11 +108,14 @@ public final class StockUtils
     }
 
     /**
-    * Get the hour from String date
-    * @param strHour the date to format
-    * @param locale The Locale
-    * @return The Timestamp or null else
-    */
+     * Get the hour from String date
+     * 
+     * @param strHour
+     *            the date to format
+     * @param locale
+     *            The Locale
+     * @return The Timestamp or null else
+     */
     public static Timestamp formatHour( String strHour, Locale locale )
     {
         Date date = null;
@@ -133,7 +139,7 @@ public final class StockUtils
             }
             else
             {
-                dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, Locale.getDefault(  ) );
+                dateFormat = DateFormat.getDateInstance( DateFormat.SHORT, Locale.getDefault( ) );
             }
 
             dateFormat.setLenient( false );
@@ -142,7 +148,7 @@ public final class StockUtils
             {
                 date = dateFormat.parse( strHour );
             }
-            catch ( ParseException e )
+            catch( ParseException e )
             {
                 return null;
             }
@@ -150,7 +156,7 @@ public final class StockUtils
 
         if ( date != null )
         {
-            return new Timestamp( date.getTime(  ) );
+            return new Timestamp( date.getTime( ) );
         }
         else
         {

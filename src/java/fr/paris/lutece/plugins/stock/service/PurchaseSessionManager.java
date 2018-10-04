@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,10 +56,9 @@ import javax.inject.Named;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-
 /**
- * Singleton spring. Store active purchase (not yet stored into database) and
- * allow to reserve some.
+ * Singleton spring. Store active purchase (not yet stored into database) and allow to reserve some.
+ * 
  * @author aBataille
  */
 public class PurchaseSessionManager implements IPurchaseSessionManager
@@ -96,31 +95,30 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#reserve(fr.paris
-     * .lutece.plugins.stock.business.purchase.IPurchaseDTO, java.lang.Long)
+     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#reserve(fr.paris .lutece.plugins.stock.business.purchase.IPurchaseDTO, java.lang.Long)
      */
     /**
      * {@inheritDoc}
      */
     public void reserve( String sessionId, IPurchaseDTO purchase ) throws PurchaseUnavailable
     {
-        synchronized ( _activePurchaseBySession ){
+        synchronized( _activePurchaseBySession )
+        {
             Integer offerId = purchase.getOfferId( );
-            //place restantes
+            // place restantes
             Integer qttInDb = _offerService.getQuantity( offerId );
-            //place actuellement reservé en session
+            // place actuellement reservé en session
             Integer qttIdle = _idleQuantity.get( offerId );
             Integer qttAvailable;
-    
+
             if ( qttIdle == null )
             {
                 qttIdle = 0;
             }
-    
+
             // Quantité disponible = quantité en base - quantité réservée en attente
             qttAvailable = qttInDb - qttIdle;
-    
+
             if ( ( qttAvailable - purchase.getQuantity( ) ) < 0 )
             {
                 throw new PurchaseUnavailable( offerId, "Quantité restante insuffisante (" + qttAvailable + ")" );
@@ -128,7 +126,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             // Quantité disponible ok
             qttIdle = qttIdle + purchase.getQuantity( );
             _idleQuantity.put( offerId, qttIdle );
-    
+
             // Ajout de l'achat dans la liste
             addPurchase( sessionId, purchase );
         }
@@ -137,9 +135,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#hasReserved(java
-     * .lang.Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
+     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#hasReserved(java .lang.Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
      */
     /**
      * {@inheritDoc}
@@ -148,14 +144,13 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     {
         LOG.debug( "Call checkReserved" );
         boolean hasReserved = false;
-        synchronized ( _activePurchaseBySession )
+        synchronized( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) != null )
             {
                 for ( IPurchaseDTO purchaseIdle : _activePurchaseBySession.get( sessionId ) )
                 {
-                    if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) )
-                            && purchaseIdle.getQuantity( ).equals( purchase.getQuantity( ) ) )
+                    if ( purchaseIdle.getOfferId( ).equals( purchase.getOfferId( ) ) && purchaseIdle.getQuantity( ).equals( purchase.getQuantity( ) ) )
                     {
                         hasReserved = true;
                     }
@@ -163,8 +158,8 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
             }
             if ( !hasReserved )
             {
-                throw new PurchaseSessionExpired( purchase.getOfferId( ), "Aucune session d'achat trouvée (sid="
-                        + sessionId + ", id offre=" + purchase.getOfferId( ) + ", qtt=" + purchase.getQuantity( ) + ")" );
+                throw new PurchaseSessionExpired( purchase.getOfferId( ), "Aucune session d'achat trouvée (sid=" + sessionId + ", id offre="
+                        + purchase.getOfferId( ) + ", qtt=" + purchase.getQuantity( ) + ")" );
             }
         }
     }
@@ -172,9 +167,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#release(java.lang
-     * .Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
+     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#release(java.lang .Long, fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO)
      */
     /**
      * {@inheritDoc}
@@ -182,7 +175,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public synchronized void release( String sessionId, IPurchaseDTO purchase )
     {
         LOG.debug( "Call release" );
-        synchronized ( _activePurchaseBySession )
+        synchronized( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) != null )
             {
@@ -204,9 +197,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IPurchaseSession#releaseAll(java
-     * .lang.Long)
+     * @see fr.paris.lutece.plugins.stock.service.IPurchaseSession#releaseAll(java .lang.Long)
      */
     /**
      * {@inheritDoc}
@@ -214,7 +205,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public synchronized void releaseAll( String sessionId )
     {
         LOG.debug( "Call releaseAll" );
-        synchronized ( _activePurchaseBySession )
+        synchronized( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) != null )
             {
@@ -232,13 +223,16 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
 
     /**
      * Add purchase for user
-     * @param sessionId session id
-     * @param purchase purchase
+     * 
+     * @param sessionId
+     *            session id
+     * @param purchase
+     *            purchase
      */
     private void addPurchase( String sessionId, IPurchaseDTO purchase )
     {
         LOG.debug( "Call addPurchase" );
-        synchronized ( _activePurchaseBySession )
+        synchronized( _activePurchaseBySession )
         {
             if ( _activePurchaseBySession.get( sessionId ) == null )
             {
@@ -253,8 +247,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                     {
                         if ( LOG.isDebugEnabled( ) )
                         {
-                            LOG.debug( "Achat pour le produit id " + purchase.getOfferId( )
-                                    + " déjà en cours sur la session " + sessionId
+                            LOG.debug( "Achat pour le produit id " + purchase.getOfferId( ) + " déjà en cours sur la session " + sessionId
                                     + " - suppression de l'achat en attente" );
                         }
                         release( sessionId, purchase );
@@ -270,11 +263,11 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     @Override
     public Integer updateQuantityWithSession( Integer quantity, Integer offerId )
     {
-        //quantité actuellement reservé en session
+        // quantité actuellement reservé en session
         Integer qttIdle = _idleQuantity.get( offerId );
         int quantityCopie = quantity;
 
-        //si il existe en session une quantité déjà reservé pour l'offre, on doit la retirer de la quantité disponible pour l'offre 
+        // si il existe en session une quantité déjà reservé pour l'offre, on doit la retirer de la quantité disponible pour l'offre
         if ( qttIdle != null )
         {
             quantityCopie -= qttIdle;
@@ -292,9 +285,9 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
     public void clearPurchase( Integer minutes )
     {
         LOG.debug( "Call clearPurchase" );
-        synchronized ( _activePurchaseBySession )
+        synchronized( _activePurchaseBySession )
         {
-            //itération des liste de réservations pour chaque session
+            // itération des liste de réservations pour chaque session
             for ( Entry<String, List<IPurchaseDTO>> entry : _activePurchaseBySession.entrySet( ) )
             {
                 String idSession = entry.getKey( );
@@ -305,8 +298,8 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                     if ( !shouldBeKeep( purchaseControled, minutes ) )
                     {
                         deleteFromSession( iterator, purchaseControled );
-                        LOG.debug( "Suppression de la reservation pour l'offre d'id " + purchaseControled.getOfferId( )
-                                + " de l'utilisateur " + purchaseControled.getUserName( ) );
+                        LOG.debug( "Suppression de la reservation pour l'offre d'id " + purchaseControled.getOfferId( ) + " de l'utilisateur "
+                                + purchaseControled.getUserName( ) );
                     }
                 }
             }
@@ -315,20 +308,25 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
 
     /**
      * Remove purchase from session manager
-     * @param iterator the iterator with purchase
-     * @param purchaseControled the purchase
+     * 
+     * @param iterator
+     *            the iterator with purchase
+     * @param purchaseControled
+     *            the purchase
      */
     private void deleteFromSession( Iterator<IPurchaseDTO> iterator, IPurchaseDTO purchaseControled )
     {
-        _idleQuantity.put( purchaseControled.getOfferId( ), _idleQuantity.get( purchaseControled.getOfferId( ) )
-                - purchaseControled.getQuantity( ) );
+        _idleQuantity.put( purchaseControled.getOfferId( ), _idleQuantity.get( purchaseControled.getOfferId( ) ) - purchaseControled.getQuantity( ) );
         iterator.remove( );
     }
 
     /**
      * Check if a purchase should be keep in session
-     * @param purchase the purchase to check
-     * @param minutes the number max of minutes to keep purchase
+     * 
+     * @param purchase
+     *            the purchase to check
+     * @param minutes
+     *            the number max of minutes to keep purchase
      * @return true to keep, false to remove
      */
     private boolean shouldBeKeep( IPurchaseDTO purchase, Integer minutes )
@@ -336,7 +334,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         boolean toKeep = true;
         String dateCreate = purchase.getDate( );
         String hourCreate = purchase.getHeure( );
-        //si ces deux attributs ne sont pas présent, la reservation n'a pas été faite sur le FO et n'est donc pas concernée.
+        // si ces deux attributs ne sont pas présent, la reservation n'a pas été faite sur le FO et n'est donc pas concernée.
         if ( StringUtils.isNotBlank( dateCreate ) && StringUtils.isNotBlank( hourCreate ) )
         {
             try
@@ -351,7 +349,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
                     toKeep = false;
                 }
             }
-            catch ( ParseException e )
+            catch( ParseException e )
             {
                 LOG.error( "Erreur de conversion de string => date : " + e );
             }

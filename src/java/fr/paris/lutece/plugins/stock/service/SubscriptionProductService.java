@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,10 +49,10 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  * 
  * ProductService
+ * 
  * @author jchaline
  * 
  */
@@ -69,8 +69,7 @@ public class SubscriptionProductService extends AbstractService implements ISubs
     @Override
     public boolean hasUserSubscribedToProduct( String strUserEmail, String strIdProduct )
     {
-        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail,
-                StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
+        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail, StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
                 StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY, strIdProduct );
         return SubscriptionService.getInstance( ).findByFilter( filter ).size( ) > 0;
     }
@@ -117,8 +116,7 @@ public class SubscriptionProductService extends AbstractService implements ISubs
     @Override
     public void doDeleteSubscriptionProduct( String strUserEmail, String strIdProduct )
     {
-        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail,
-                StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
+        SubscriptionFilter filter = new SubscriptionFilter( strUserEmail, StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
                 StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY, strIdProduct );
 
         List<Subscription> listSubscription = SubscriptionService.getInstance( ).findByFilter( filter );

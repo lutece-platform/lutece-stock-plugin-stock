@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,8 +48,10 @@ public class PurchaseSessionExpired extends PurchaseException
     /**
      * Instantiates a new purchase session expired.
      * 
-     * @param purchaseId the purchase id
-     * @param msg the msg
+     * @param purchaseId
+     *            the purchase id
+     * @param msg
+     *            the msg
      */
     public PurchaseSessionExpired( Integer purchaseId, String msg )
     {
@@ -70,7 +72,8 @@ public class PurchaseSessionExpired extends PurchaseException
     /**
      * Sets the purchase id.
      * 
-     * @param purchaseId the purchaseId to set
+     * @param purchaseId
+     *            the purchaseId to set
      */
     public void setPurchaseId( Integer purchaseId )
     {

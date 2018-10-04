@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.stock.business.purchase.exception;
 
 /**
  * General exception for forbidden purchase
+ * 
  * @author abataille
  */
 public class PurchaseUnavailable extends PurchaseException
@@ -49,14 +50,17 @@ public class PurchaseUnavailable extends PurchaseException
     /**
      * Instantiates a new purchase unavailable.
      * 
-     * @param purchaseId the purchase id
-     * @param msg the msg
+     * @param purchaseId
+     *            the purchase id
+     * @param msg
+     *            the msg
      */
     public PurchaseUnavailable( Integer purchaseId, String msg )
     {
         super( purchaseId, msg );
         this._purchaseId = purchaseId;
     }
+
     /**
      * @return the purchaseId
      */
@@ -64,8 +68,10 @@ public class PurchaseUnavailable extends PurchaseException
     {
         return _purchaseId;
     }
+
     /**
-     * @param purchaseId the purchaseId to set
+     * @param purchaseId
+     *            the purchaseId to set
      */
     public void setPurchaseId( Integer purchaseId )
     {

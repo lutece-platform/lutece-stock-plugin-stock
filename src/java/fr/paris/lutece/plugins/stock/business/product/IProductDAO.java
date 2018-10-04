@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 
 import java.util.List;
 
-
 /**
  * IPersonDAO Interface
  */
@@ -56,43 +55,56 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
 
     /**
      * Finds by filter
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * 
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return the product list
      */
     ResultList<Product> findByFilter( ProductFilter filter, PaginationProperties paginationProperties );
 
     /**
      * Returns products by name
-     * @param name product name
+     * 
+     * @param name
+     *            product name
      * @return products list
      */
     List<Product> getAllByName( String name );
 
     /**
      * Return the number of current product
-     * @param strDate the current date
+     * 
+     * @param strDate
+     *            the current date
      * @return number of product
      */
     Integer getCountProductALAfficheByDate( String strDate );
 
     /**
      * Return the number of future product
-     * @param strDate the current date
+     * 
+     * @param strDate
+     *            the current date
      * @return number of product
      */
     Integer getCountProductAVenirByDate( String strDate );
 
     /**
      * Check if product is ful
-     * @param productId the product id
+     * 
+     * @param productId
+     *            the product id
      * @return true if full, false otherwise
      */
     Boolean isFull( Integer productId );
 
     /**
      * Check if product is type of representation
-     * @param genreId the genre to check
+     * 
+     * @param genreId
+     *            the genre to check
      * @return true if product is, false otherwise
      */
     Boolean isType( Integer productId, Integer genreId );

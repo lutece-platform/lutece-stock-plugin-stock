@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 /**
  * OfferGenre entity.
  * 
@@ -66,7 +65,6 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5200753622831317126L;
-
 
     /** Sequence name. */
     private static final String JPA_SEQUENCE_NAME = "stock_offer_genre_sequence";
@@ -88,19 +86,19 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
 
     /** The _attribute num list. */
     private Set<OfferGenreAttributeNum> _attributeNumList;
-    
+
     /**
      * 
      * Creates a new OfferGenre.java object.
      */
-    public OfferGenre(  )
+    public OfferGenre( )
     {
-        super(  );
+        super( );
         this._attributeDateList = new HashSet<OfferGenreAttributeDate>( );
         this._attributeList = new HashSet<OfferGenreAttribute>( );
         this._attributeNumList = new HashSet<OfferGenreAttributeNum>( );
     }
-    
+
     /**
      * Get the identifier number of this offer genre.
      * 
@@ -110,7 +108,7 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     @Id
     @GeneratedValue( strategy = GenerationType.TABLE, generator = JPA_SEQUENCE_NAME )
     @Column( name = "id_offer_genre" )
-    public Integer getId(  )
+    public Integer getId( )
     {
         return _nIdGenre;
     }
@@ -118,7 +116,8 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /**
      * setter id.
      * 
-     * @param nIdGenre id
+     * @param nIdGenre
+     *            id
      */
     public void setId( Integer nIdGenre )
     {
@@ -131,7 +130,7 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
      * @return the name
      */
     @Column( name = "name" )
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
@@ -139,7 +138,8 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /**
      * Set name.
      * 
-     * @param strName name
+     * @param strName
+     *            name
      */
     public void setName( String strName )
     {
@@ -149,13 +149,14 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
      */
     /**
      * {@inheritDoc}
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferGenreAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -164,7 +165,8 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /**
      * Sets the attribute list.
      * 
-     * @param stringAttribute the new attribute list
+     * @param stringAttribute
+     *            the new attribute list
      */
     public void setAttributeList( Set<OfferGenreAttribute> stringAttribute )
     {
@@ -174,14 +176,14 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList
-     * ()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList ()
      */
     /**
      * {@inheritDoc}
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferGenreAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -190,7 +192,8 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /**
      * Sets the attribute date list.
      * 
-     * @param dateAttribute the new attribute date list
+     * @param dateAttribute
+     *            the new attribute date list
      */
     public void setAttributeDateList( Set<OfferGenreAttributeDate> dateAttribute )
     {
@@ -200,14 +203,14 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList
-     * ()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList ()
      */
     /**
      * {@inheritDoc}
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferGenreAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -216,7 +219,8 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     /**
      * Sets the attribute num list.
      * 
-     * @param numAttribute the new attribute num list
+     * @param numAttribute
+     *            the new attribute num list
      */
     public void setAttributeNumList( Set<OfferGenreAttributeNum> numAttribute )
     {

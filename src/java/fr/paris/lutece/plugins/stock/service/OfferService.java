@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  * 
  * ProductService
@@ -58,9 +57,7 @@ public class OfferService extends AbstractService implements IOfferService
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IOfferService#getQuantity(java.
-     * lang.Integer)
+     * @see fr.paris.lutece.plugins.stock.service.IOfferService#getQuantity(java. lang.Integer)
      */
     /**
      * {@inheritDoc}
@@ -73,9 +70,7 @@ public class OfferService extends AbstractService implements IOfferService
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IOfferService#getQuantity(java.
-     * lang.Integer)
+     * @see fr.paris.lutece.plugins.stock.service.IOfferService#getQuantity(java. lang.Integer)
      */
     /**
      * {@inheritDoc}
@@ -88,9 +83,7 @@ public class OfferService extends AbstractService implements IOfferService
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.service.IOfferService#findById(java.lang
-     * .Integer)
+     * @see fr.paris.lutece.plugins.stock.service.IOfferService#findById(java.lang .Integer)
      */
     /**
      * {@inheritDoc}

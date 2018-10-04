@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Product.
@@ -111,9 +110,9 @@ public class Product extends StockEntityBean<Product>
     /**
      * Constructor.
      */
-    public Product(  )
+    public Product( )
     {
-        super(  );
+        super( );
         this._attributeDateList = new HashSet<ProductAttributeDate>( );
         this._attributeList = new HashSet<ProductAttribute>( );
         this._attributeNumList = new HashSet<ProductAttributeNum>( );
@@ -124,14 +123,15 @@ public class Product extends StockEntityBean<Product>
     /**
      * Constructor from an other product object.
      * 
-     * @param product the product
+     * @param product
+     *            the product
      */
     public Product( Product product )
     {
         _strName = product.getName( );
         _strDescription = product.getDescription( );
-        _price = product.getPrice(  );
-        _category = product.getCategory(  );
+        _price = product.getPrice( );
+        _category = product.getCategory( );
         _idProduct = product.getId( );
     }
 
@@ -152,7 +152,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the product id.
      * 
-     * @param idProduct the product id
+     * @param idProduct
+     *            the product id
      */
     public void setId( Integer idProduct )
     {
@@ -173,13 +174,13 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the product description.
      * 
-     * @param description the product description
+     * @param description
+     *            the product description
      */
     public void setDescription( String description )
     {
         _strDescription = description;
     }
-
 
     /**
      * Return the product name.
@@ -195,7 +196,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the product name.
      * 
-     * @param name the product name
+     * @param name
+     *            the product name
      */
     public void setName( String name )
     {
@@ -216,7 +218,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the price.
      * 
-     * @param price the price
+     * @param price
+     *            the price
      */
     public void setPrice( Float price )
     {
@@ -230,7 +233,7 @@ public class Product extends StockEntityBean<Product>
      */
     @ManyToOne( fetch = FetchType.LAZY )
     @JoinColumn( name = "category_id_category", nullable = true )
-    public Category getCategory(  )
+    public Category getCategory( )
     {
         return _category;
     }
@@ -238,7 +241,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the category linked to the product.
      * 
-     * @param category the category
+     * @param category
+     *            the category
      */
     public void setCategory( Category category )
     {
@@ -260,21 +264,22 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set the provider linked to the product.
      * 
-     * @param provider the provider
+     * @param provider
+     *            the provider
      */
     public void setProvider( Provider provider )
     {
         _provider = provider;
     }
 
-
-
     /**
      * Get the product list.
      * 
      * @return the product list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -283,7 +288,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Sets the attribute list.
      * 
-     * @param stringAttribute the new attribute list
+     * @param stringAttribute
+     *            the new attribute list
      */
     public void setAttributeList( Set<ProductAttribute> stringAttribute )
     {
@@ -295,7 +301,9 @@ public class Product extends StockEntityBean<Product>
      * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -304,7 +312,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Sets the attribute date list.
      * 
-     * @param dateAttribute the new attribute date list
+     * @param dateAttribute
+     *            the new attribute date list
      */
     public void setAttributeDateList( Set<ProductAttributeDate> dateAttribute )
     {
@@ -316,7 +325,9 @@ public class Product extends StockEntityBean<Product>
      * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -325,7 +336,8 @@ public class Product extends StockEntityBean<Product>
     /**
      * Set attribute list.
      * 
-     * @param numAttribute numAttribute
+     * @param numAttribute
+     *            numAttribute
      */
     public void setAttributeNumList( Set<ProductAttributeNum> numAttribute )
     {

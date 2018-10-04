@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,8 +38,6 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
-
-
 /**
  *
  * ProductFilter
@@ -60,16 +58,19 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Return the category id
+     * 
      * @return the category id
      */
-    public Integer getIdCategory(  )
+    public Integer getIdCategory( )
     {
         return _idCategory;
     }
 
     /**
      * Set the category id
-     * @param idCategory the category id
+     * 
+     * @param idCategory
+     *            the category id
      */
     public void setIdCategory( Integer idCategory )
     {
@@ -78,6 +79,7 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Return the provider id
+     * 
      * @return the provider id
      */
     public Integer getIdProvider( )
@@ -87,7 +89,9 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Set the provider id
-     * @param idProvider the provider id
+     * 
+     * @param idProvider
+     *            the provider id
      */
     public void setIdProvider( Integer idProvider )
     {
@@ -96,6 +100,7 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Return the product id
+     * 
      * @return the product id
      */
     public String getName( )
@@ -105,26 +110,30 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Set the product name
-     * @param name the product name
+     * 
+     * @param name
+     *            the product name
      */
     public void setName( String name )
     {
         _name = name;
     }
 
-
     /**
      * Return true if the order is ascending
+     * 
      * @return true if the order is ascending
      */
-    public boolean isOrderAsc(  )
+    public boolean isOrderAsc( )
     {
         return _bOrderAsc;
     }
 
     /**
      * Set the order, true for ascending false for descending
-     * @param bOrderAsc the wanted order ( true if the order is ascending )
+     * 
+     * @param bOrderAsc
+     *            the wanted order ( true if the order is ascending )
      */
     public void setOrderAsc( boolean bOrderAsc )
     {
@@ -133,16 +142,19 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Get the colunm for order by
+     * 
      * @return the column name
      */
-    public List<String> getOrders(  )
+    public List<String> getOrders( )
     {
         return _strOrders;
     }
 
     /**
      * Set the column to order by
-     * @param strOrders the column name
+     * 
+     * @param strOrders
+     *            the column name
      */
     public void setOrders( List<String> strOrders )
     {
@@ -151,28 +163,31 @@ public class ProductFilter implements BeanFilter
 
     /**
      * Return the product id for filter
+     * 
      * @return the product id for filter
      */
-    public Integer getIdProduct(  )
+    public Integer getIdProduct( )
     {
         return _idProduct;
     }
 
     /**
      * Set the product id to filter
-     * @param idProduct the product id to filter
+     * 
+     * @param idProduct
+     *            the product id to filter
      */
     public void setIdProduct( Integer idProduct )
     {
         this._idProduct = idProduct;
     }
 
-
     /**
      * Return true if there is filters
+     * 
      * @return boolean
      */
-    public boolean hasFilter(  )
+    public boolean hasFilter( )
     {
         return !( ( _strOrders == null ) && ( _idCategory == null ) );
     }
@@ -186,7 +201,8 @@ public class ProductFilter implements BeanFilter
     }
 
     /**
-     * @param dateStart the dateStart to set
+     * @param dateStart
+     *            the dateStart to set
      */
     public void setDateFrom( String dateStart )
     {
@@ -202,7 +218,8 @@ public class ProductFilter implements BeanFilter
     }
 
     /**
-     * @param dateEnd the dateEnd to set
+     * @param dateEnd
+     *            the dateEnd to set
      */
     public void setDateTo( String dateEnd )
     {
@@ -218,7 +235,8 @@ public class ProductFilter implements BeanFilter
     }
 
     /**
-     * @param dateThe the dateThe to set
+     * @param dateThe
+     *            the dateThe to set
      */
     public void setDateThe( String dateThe )
     {
@@ -234,7 +252,8 @@ public class ProductFilter implements BeanFilter
     }
 
     /**
-     * @param alaffiche the alaffiche to set
+     * @param alaffiche
+     *            the alaffiche to set
      */
     public void setAlaffiche( Boolean alaffiche )
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 
-
 /**
  * Utility class provided for dynamic attributes
  * 
@@ -58,16 +57,21 @@ public final class AttributeNumUtils
     {
 
     }
+
     /**
      * Return predicate greaterThanOrEqualTo for dynamic attribute
-     * @param builder criteria builder
-     * @param join join with dyn attributes
-     * @param key key of dyn attribute
-     * @param value value
+     * 
+     * @param builder
+     *            criteria builder
+     * @param join
+     *            join with dyn attributes
+     * @param key
+     *            key of dyn attribute
+     * @param value
+     *            value
      * @return predicate
      */
-    public static Predicate greaterThanOrEqualTo( CriteriaBuilder builder,
-            Join<?, ? extends AbstractAttributeNum<?>> join, String key, BigDecimal value )
+    public static Predicate greaterThanOrEqualTo( CriteriaBuilder builder, Join<?, ? extends AbstractAttributeNum<?>> join, String key, BigDecimal value )
     {
         return builder.and( builder.equal( join.get( AbstractAttributeNum_.key ), key ),
                 builder.greaterThanOrEqualTo( join.get( AbstractAttributeNum_.value ), value ) );
@@ -75,15 +79,18 @@ public final class AttributeNumUtils
 
     /**
      * Return predicate lessThanOrEqualTo for dynamic attribute
-     * @param builder criteria builder
-     * @param join join with dyn attributes
-     * @param key key of dyn attribute
-     * @param value value
+     * 
+     * @param builder
+     *            criteria builder
+     * @param join
+     *            join with dyn attributes
+     * @param key
+     *            key of dyn attribute
+     * @param value
+     *            value
      * @return predicate
      */
-    public static Predicate lessThanOrEqualTo( CriteriaBuilder builder,
-            Join<?, ? extends AbstractAttributeNum<?>> join,
-            String key, BigDecimal value )
+    public static Predicate lessThanOrEqualTo( CriteriaBuilder builder, Join<?, ? extends AbstractAttributeNum<?>> join, String key, BigDecimal value )
     {
         return builder.and( builder.equal( join.get( AbstractAttributeNum_.key ), key ),
                 builder.lessThanOrEqualTo( join.get( AbstractAttributeNum_.value ), value ) );
@@ -91,18 +98,20 @@ public final class AttributeNumUtils
 
     /**
      * Return predicate equal for dynamic attribute
-     * @param builder criteria builder
-     * @param join join with dyn attributes
-     * @param key key of dyn attribute
-     * @param value value
+     * 
+     * @param builder
+     *            criteria builder
+     * @param join
+     *            join with dyn attributes
+     * @param key
+     *            key of dyn attribute
+     * @param value
+     *            value
      * @return predicate
      */
-    public static Predicate equal( CriteriaBuilder builder, Join<?, ? extends AbstractAttributeNum<?>> join,
-            String key,
-            BigDecimal value )
+    public static Predicate equal( CriteriaBuilder builder, Join<?, ? extends AbstractAttributeNum<?>> join, String key, BigDecimal value )
     {
-        return builder.and( builder.equal( join.get( AbstractAttributeNum_.key ), key ),
-                builder.equal( join.get( AbstractAttributeNum_.value ), value ) );
+        return builder.and( builder.equal( join.get( AbstractAttributeNum_.key ), key ), builder.equal( join.get( AbstractAttributeNum_.value ), value ) );
     }
 
 }

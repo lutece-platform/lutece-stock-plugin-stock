@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,9 +37,9 @@ import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
 
-
 /**
  * Super class for composite id
+ * 
  * @author abataille
  */
 @MappedSuperclass
@@ -52,7 +52,6 @@ public abstract class AbstractAttributeId implements Serializable
     private static final long serialVersionUID = -3825993237137102586L;
     protected String _key;
 
-
     /**
      * @return the key
      */
@@ -62,12 +61,12 @@ public abstract class AbstractAttributeId implements Serializable
     }
 
     /**
-     * @param key the key to set
+     * @param key
+     *            the key to set
      */
     public void setKey( String key )
     {
         this._key = key;
     }
-
 
 }

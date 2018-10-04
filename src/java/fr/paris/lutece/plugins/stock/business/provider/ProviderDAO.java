@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,6 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides Data Access methods for {@link Provider} objects
  */
@@ -63,7 +62,7 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
      * {@inheritDoc}
      */
     @Override
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return StockPlugin.PLUGIN_NAME;
     }
@@ -71,13 +70,14 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
     /**
      * Find all providers with product fetched.
      * 
-     * @param paginationProperties the pagination properties
+     * @param paginationProperties
+     *            the pagination properties
      * @return list of providers
      */
     public List<Provider> findAllWithProducts( PaginationProperties paginationProperties )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Provider> cq = cb.createQuery( Provider.class );
 
@@ -87,18 +87,20 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
 
         TypedQuery<Provider> query = em.createQuery( cq );
 
-        return query.getResultList(  );
+        return query.getResultList( );
     }
 
     /**
      * Find provider by id with product fetched
-     * @param nId the id
+     * 
+     * @param nId
+     *            the id
      * @return the provider found
      */
     public Provider findByIdWithProducts( int nId )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Provider> cq = cb.createQuery( Provider.class );
 
@@ -109,20 +111,22 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
 
         TypedQuery<Provider> query = em.createQuery( cq );
 
-        return query.getSingleResult(  );
+        return query.getSingleResult( );
     }
 
     /**
      * Find providers by filter.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return list of providers
      */
     public ResultList<Provider> findByFilter( ProviderFilter filter, PaginationProperties paginationProperties )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Provider> cq = cb.createQuery( Provider.class );
 
@@ -136,98 +140,104 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
 
     /**
      * Build the criteria query used when providers are searched by filter
-     * @param filter the filter
-     * @param root the provider root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * 
+     * @param filter
+     *            the filter
+     * @param root
+     *            the provider root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    private void buildCriteriaQuery( ProviderFilter filter, Root<Provider> root, CriteriaQuery<Provider> query,
-        CriteriaBuilder builder )
+    private void buildCriteriaQuery( ProviderFilter filter, Root<Provider> root, CriteriaQuery<Provider> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>(  );
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
 
-        if ( StringUtils.isNotBlank( filter.getName(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Provider_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getName(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Provider_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
 
-            //listPredicates.add( cb.like( root.<String>get( Provider.ATTRIBUTE_NAME), StockJPAUtils.buildCriteriaLikeString( filter.getName() ) ) );
+            // listPredicates.add( cb.like( root.<String>get( Provider.ATTRIBUTE_NAME), StockJPAUtils.buildCriteriaLikeString( filter.getName() ) ) );
         }
 
-        if ( StringUtils.isNotBlank( filter.getAddress(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getAddress( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Provider_.address ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getAddress(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Provider_.address ), StockJPAUtils.buildCriteriaLikeString( filter.getAddress( ) ) ) );
 
-            //listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_ADDRESS), StockJPAUtils.buildCriteriaLikeString( filter.getAddress() ) ) );
+            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_ADDRESS), StockJPAUtils.buildCriteriaLikeString( filter.getAddress() ) )
+            // );
         }
 
-        if ( StringUtils.isNotBlank( filter.getContactName(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getContactName( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Provider_.contactName ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getContactName(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Provider_.contactName ), StockJPAUtils.buildCriteriaLikeString( filter.getContactName( ) ) ) );
 
-            //listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_CONTACT_NAME), StockJPAUtils.buildCriteriaLikeString( filter.getContactName() ) ) );
+            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_CONTACT_NAME), StockJPAUtils.buildCriteriaLikeString(
+            // filter.getContactName() ) ) );
         }
 
-        if ( StringUtils.isNotBlank( filter.getMail(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getMail( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Provider_.mail ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getMail(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Provider_.mail ), StockJPAUtils.buildCriteriaLikeString( filter.getMail( ) ) ) );
 
-            //listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_MAIL), StockJPAUtils.buildCriteriaLikeString( filter.getMail() ) ) );
+            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_MAIL), StockJPAUtils.buildCriteriaLikeString( filter.getMail() ) ) );
         }
 
-        if ( StringUtils.isNotBlank( filter.getPhoneNumber(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getPhoneNumber( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Provider_.phoneNumber ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getPhoneNumber(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Provider_.phoneNumber ), StockJPAUtils.buildCriteriaLikeString( filter.getPhoneNumber( ) ) ) );
 
-            //listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_PHONE_NUMBER), StockJPAUtils.buildCriteriaLikeString( filter.getPhoneNumber() ) ) );
+            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_PHONE_NUMBER), StockJPAUtils.buildCriteriaLikeString(
+            // filter.getPhoneNumber() ) ) );
         }
 
-        if ( filter.isProducts(  ) )
+        if ( filter.isProducts( ) )
         {
             root.fetch( Provider_.products, JoinType.LEFT );
         }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            query.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
     }
 
     /**
      * Add the order by parameter to the query
-     * @param filter the filter
-     * @param root the provider root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * 
+     * @param filter
+     *            the filter
+     * @param root
+     *            the provider root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    private void buildSortQuery( ProviderFilter filter, Root<Provider> root, CriteriaQuery<Provider> query,
-        CriteriaBuilder builder )
+    private void buildSortQuery( ProviderFilter filter, Root<Provider> root, CriteriaQuery<Provider> query, CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
             List<Order> orderList = new ArrayList<Order>( );
 
-            if ( filter.isOrderAsc(  ) )
+            if ( filter.isOrderAsc( ) )
             {
                 // get asc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		orderList.add( builder.asc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.asc( root.get( order ) ) );
+                }
             }
             else
             {
                 // get desc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		orderList.add( builder.desc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.desc( root.get( order ) ) );
+                }
             }
 
             query.orderBy( orderList );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,10 +44,8 @@ import fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDTO;
 import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseOutOfStock;
 import fr.paris.lutece.plugins.stock.business.purchase.exception.PurchaseSessionExpired;
 
-
 /**
- * To be overrided.
- * Default implementation for purchase rules.
+ * To be overrided. Default implementation for purchase rules.
  * 
  * @author abataille
  */
@@ -63,14 +61,15 @@ public class PurchaseRules implements IPurchaseRules
     @Named( "stock.offerService" )
     private IOfferService _offerService;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see fr.paris.lutece.plugins.stock.service.IPurchaseRules#checkBeforePurchase(fr.paris.lutece.plugins.stock.business.purchase.Purchase)
      */
     /**
      * {@inheritDoc}
      */
-    public void checkBeforePurchase( IPurchaseDTO purchase, String sessionId ) throws PurchaseOutOfStock,
-            PurchaseSessionExpired
+    public void checkBeforePurchase( IPurchaseDTO purchase, String sessionId ) throws PurchaseOutOfStock, PurchaseSessionExpired
     {
 
         LOGGER.trace( "Vérification des règles de gestion pour un achat, SID = " + sessionId );
@@ -83,8 +82,7 @@ public class PurchaseRules implements IPurchaseRules
         // Check quantity
         if ( purchase.getQuantity( ) > offer.getQuantity( ) )
         {
-            throw new PurchaseOutOfStock( offer.getId( ), purchase.getQuantity( ), offer
-                    .getQuantity( ), "Purchase out of stock." );
+            throw new PurchaseOutOfStock( offer.getId( ), purchase.getQuantity( ), offer.getQuantity( ), "Purchase out of stock." );
         }
 
     }

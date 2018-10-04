@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -14,7 +14,7 @@
  *     provided with the distribution.
  *
  *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
- *     contributors may be used to endorse or promote offers derived from
+ *     contributors may be used to endorse or promote products derived from
  *     this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -48,7 +48,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * Category
@@ -65,13 +64,16 @@ public class OfferAttributeDate extends AbstractAttributeDate<Offer> implements 
     private static final long serialVersionUID = -4613744479505847791L;
     private Offer _owner;
 
-
     /**
      * 
      * Creates a new OfferAttributeDate object.
-     * @param key key
-     * @param value value
-     * @param offer owner
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param offer
+     *            owner
      */
     public OfferAttributeDate( String key, Timestamp value, Offer offer )
     {
@@ -100,12 +102,14 @@ public class OfferAttributeDate extends AbstractAttributeDate<Offer> implements 
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Offer owner )
     {
         this._owner = owner;
     }
+
     /**
      * @return the key
      */

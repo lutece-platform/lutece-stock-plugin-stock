@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.stock;
 
 import fr.paris.lutece.test.LuteceTestCase;
 
-
 /**
  * Sample JPA unit testing
  *
@@ -45,22 +44,21 @@ public class CategoryServiceTest extends LuteceTestCase
     private static final String PROVIDER_ADDRESS = "anAddress";
     private static final String PROVIDER_MAIL = "aMail";
 
-    public void testService(  )
+    public void testService( )
     {
-        /*ProviderService service = new ProviderService();
-        
-        Provider provider = new Provider();
-        provider.setAddress( PROVIDER_ADDRESS );
-        provider.setMail( PROVIDER_MAIL );
-        
-        service.doCreateProvider(provider, new MokeHttpServletRequest() );
-        
-        int nIdProvider = provider.getIdProvider();
-        
-        Provider registeredProvider = service.getProvider(nIdProvider);
-        
-        assertNotNull( registeredProvider );
-        assertEquals(provider.getAddress(), registeredProvider.getAddress() );
-        assertEquals(provider.getMail(), registeredProvider.getMail());        */
+        /*
+         * ProviderService service = new ProviderService();
+         * 
+         * Provider provider = new Provider(); provider.setAddress( PROVIDER_ADDRESS ); provider.setMail( PROVIDER_MAIL );
+         * 
+         * service.doCreateProvider(provider, new MokeHttpServletRequest() );
+         * 
+         * int nIdProvider = provider.getIdProvider();
+         * 
+         * Provider registeredProvider = service.getProvider(nIdProvider);
+         * 
+         * assertNotNull( registeredProvider ); assertEquals(provider.getAddress(), registeredProvider.getAddress() ); assertEquals(provider.getMail(),
+         * registeredProvider.getMail());
+         */
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Offer.
@@ -97,10 +96,10 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
 
     /** The _type. */
     private OfferGenre _type;
-    
+
     /** The _nMinTickets. */
     private Integer _nMinTickets;
-    
+
     /** The _nMaxTickets. */
     private Integer _nMaxTickets;
 
@@ -133,7 +132,9 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * 
      * Creates a new Offer.java object.
-     * @param category category
+     * 
+     * @param category
+     *            category
      */
     public Offer( Category category )
     {
@@ -156,7 +157,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the offer id.
      * 
-     * @param idOffer the offer id
+     * @param idOffer
+     *            the offer id
      */
     public void setId( Integer idOffer )
     {
@@ -177,7 +179,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the category name.
      * 
-     * @param name the offer name
+     * @param name
+     *            the offer name
      */
     public void setName( String name )
     {
@@ -198,7 +201,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the category description.
      * 
-     * @param description the offer description
+     * @param description
+     *            the offer description
      */
     public void setDescription( String description )
     {
@@ -219,7 +223,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the category quantity.
      * 
-     * @param nQuantity the offer quantity
+     * @param nQuantity
+     *            the offer quantity
      */
     public void setQuantity( Integer nQuantity )
     {
@@ -241,7 +246,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the product.
      * 
-     * @param product the product
+     * @param product
+     *            the product
      */
     public void setProduct( Product product )
     {
@@ -263,7 +269,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the type.
      * 
-     * @param type the type
+     * @param type
+     *            the type
      */
     public void setType( OfferGenre type )
     {
@@ -276,7 +283,7 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * @return _nMinTickets
      */
     @Column( name = "min_tickets" )
-    public Integer getMinTickets(  )
+    public Integer getMinTickets( )
     {
         return _nMinTickets;
     }
@@ -284,7 +291,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the minimal number of tickets.
      * 
-     * @param minTickets the minimal number of tickets
+     * @param minTickets
+     *            the minimal number of tickets
      */
     public void setMinTickets( Integer minTickets )
     {
@@ -297,7 +305,7 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * @return _nMinTickets
      */
     @Column( name = "max_tickets" )
-    public Integer getMaxTickets()
+    public Integer getMaxTickets( )
     {
         return _nMaxTickets;
     }
@@ -305,9 +313,10 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the maximum number of tickets.
      * 
-     * @param maxTickets the maximum number of tickets
+     * @param maxTickets
+     *            the maximum number of tickets
      */
-    public void setMaxTickets(Integer _nMaxTickets)
+    public void setMaxTickets( Integer _nMaxTickets )
     {
         this._nMaxTickets = _nMaxTickets;
     }
@@ -317,7 +326,9 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -326,7 +337,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Sets the attribute list.
      * 
-     * @param stringAttribute the new attribute list
+     * @param stringAttribute
+     *            the new attribute list
      */
     public void setAttributeList( Set<OfferAttribute> stringAttribute )
     {
@@ -338,7 +350,9 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -347,7 +361,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Sets the attribute date list.
      * 
-     * @param dateAttribute the new attribute date list
+     * @param dateAttribute
+     *            the new attribute date list
      */
     public void setAttributeDateList( Set<OfferAttributeDate> dateAttribute )
     {
@@ -359,7 +374,9 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -368,7 +385,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Sets the attribute num list.
      * 
-     * @param numAttribute the new attribute num list
+     * @param numAttribute
+     *            the new attribute num list
      */
     public void setAttributeNumList( Set<OfferAttributeNum> numAttribute )
     {
@@ -378,7 +396,8 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Sets the statut.
      * 
-     * @param statut the statut to set
+     * @param statut
+     *            the statut to set
      */
     public void setStatut( String statut )
     {

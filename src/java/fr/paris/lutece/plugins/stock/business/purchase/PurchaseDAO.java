@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,15 +61,15 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides Data Access methods for {@link Purchase} objects.
  * 
- * @param <K> the key type
- * @param <E> the entity type
+ * @param <K>
+ *            the key type
+ * @param <E>
+ *            the entity type
  */
-public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  implements
-		IPurchaseDAO
+public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase> implements IPurchaseDAO
 {
 
     /*
@@ -77,23 +77,25 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
      * 
      * @see fr.paris.lutece.portal.service.jpa.JPALuteceDAO#getPluginName()
      */
-	@Override
-	public String getPluginName(  )
-	{
+    @Override
+    public String getPluginName( )
+    {
         return StockPlugin.PLUGIN_NAME;
-	}
+    }
 
     /**
      * Find purchases by filter.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return list of purchases
      */
     public ResultList<Purchase> findByFilter( PurchaseFilter filter, PaginationProperties paginationProperties )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Purchase> cq = cb.createQuery( Purchase.class );
 
@@ -104,111 +106,116 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
 
         return createPagedQuery( cq, paginationProperties ).getResultList( );
     }
-    
+
     /**
      * Build the criteria query used when purchases are searched by filter.
      * 
-     * @param filter the filter
-     * @param root the purchase root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the purchase root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildCriteriaQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query,
-        CriteriaBuilder builder )
+    protected void buildCriteriaQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>(  );
-        
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+
         Join<Purchase, Offer> offer = root.join( Purchase_.offer, JoinType.INNER );
         Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
         Join<Offer, OfferGenre> type = offer.join( Offer_.type, JoinType.INNER );
-        
-        if ( StringUtils.isNotBlank( filter.getProductName(  ) ) )
+
+        if ( StringUtils.isNotBlank( filter.getProductName( ) ) )
         {
-            listPredicates.add( builder.like( product.get( Product_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getProductName(  ) ) ) );
+            listPredicates.add( builder.like( product.get( Product_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getProductName( ) ) ) );
         }
 
         if ( filter.getIdProduct( ) != null && filter.getIdProduct( ) > 0 )
         {
             listPredicates.add( builder.equal( product.get( Product_.id ), filter.getIdProduct( ) ) );
         }
-        
-        if ( filter.getIdGenre(  ) != null && filter.getIdGenre(  ) > 0 )
+
+        if ( filter.getIdGenre( ) != null && filter.getIdGenre( ) > 0 )
         {
-            listPredicates.add( builder.equal( type.get( OfferGenre_.id ),
-            		filter.getIdGenre(  ) ) );
-        }
-        
-        if ( filter.getIdOffer(  ) != null && filter.getIdOffer(  ) > 0 )
-        {
-            listPredicates.add( builder.equal( offer.get( Offer_.id ),
-            		filter.getIdOffer(  ) ) );
+            listPredicates.add( builder.equal( type.get( OfferGenre_.id ), filter.getIdGenre( ) ) );
         }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( filter.getIdOffer( ) != null && filter.getIdOffer( ) > 0 )
+        {
+            listPredicates.add( builder.equal( offer.get( Offer_.id ), filter.getIdOffer( ) ) );
+        }
+
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            query.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
     }
-    
+
     /**
      * Add the order by parameter to the query.
      * 
-     * @param filter the filter
-     * @param root the purchase root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the purchase root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildSortQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query,
-        CriteriaBuilder builder )
+    protected void buildSortQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query, CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
             List<Order> orderList = new ArrayList<Order>( );
-            
+
             Join<Purchase, Offer> offer = root.join( Purchase_.offer, JoinType.INNER );
             Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
             Join<Offer, OfferGenre> type = offer.join( Offer_.type, JoinType.INNER );
 
-            if ( filter.isOrderAsc(  ) )
+            if ( filter.isOrderAsc( ) )
             {
                 // get asc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		if ( order.equals( "offer.product.name" ) )
-            		{
-            			orderList.add( builder.asc( product.get( "name" ) ) );
-            		}
-            		else if ( order.equals( "offer.type.name" ) )
-            		{
-            			orderList.add( builder.asc( type.get( "name" ) ) );
-            		}
-            		else
-            		{
-            			orderList.add( builder.asc( root.get( order ) ) );
-            		}
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    if ( order.equals( "offer.product.name" ) )
+                    {
+                        orderList.add( builder.asc( product.get( "name" ) ) );
+                    }
+                    else
+                        if ( order.equals( "offer.type.name" ) )
+                        {
+                            orderList.add( builder.asc( type.get( "name" ) ) );
+                        }
+                        else
+                        {
+                            orderList.add( builder.asc( root.get( order ) ) );
+                        }
+                }
             }
             else
             {
                 // get desc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		if ( order.equals( "offer.product.name" ) )
-            		{
-            			orderList.add( builder.desc( product.get( "name" ) ) );
-            		}
-            		else if ( order.equals( "offer.type.name" ) )
-            		{
-            			orderList.add( builder.desc( type.get( "name" ) ) );
-            		}
-            		else
-            		{
-            			orderList.add( builder.desc( root.get( order ) ) );
-            		}
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    if ( order.equals( "offer.product.name" ) )
+                    {
+                        orderList.add( builder.desc( product.get( "name" ) ) );
+                    }
+                    else
+                        if ( order.equals( "offer.type.name" ) )
+                        {
+                            orderList.add( builder.desc( type.get( "name" ) ) );
+                        }
+                        else
+                        {
+                            orderList.add( builder.desc( root.get( order ) ) );
+                        }
+                }
             }
 
             query.orderBy( orderList );
@@ -219,9 +226,9 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
      * {@inheritDoc}
      */
     public Integer getQuantityPurchasedByIdProductAndUserName( Integer idProduct, Integer idOfferGenre, String userName )
-	{
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+    {
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Purchase> cq = cb.createQuery( Purchase.class );
 
@@ -235,20 +242,18 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase>  impl
 
         ResultList<Purchase> listPurchase = createPagedQuery( cq, null ).getResultList( );
         Integer numberOfReservation = 0;
-        for( Purchase purchase : listPurchase )
+        for ( Purchase purchase : listPurchase )
         {
-        	numberOfReservation += purchase.getQuantity( );
+            numberOfReservation += purchase.getQuantity( );
         }
-        
+
         return numberOfReservation;
-	}
+    }
 
     /*
      * (non-Javadoc)
      * 
-     * @see fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDAO#
-     * getCountPurchaseByBeginDateAndLastDate(java.lang.String,
-     * java.lang.String)
+     * @see fr.paris.lutece.plugins.stock.business.purchase.IPurchaseDAO# getCountPurchaseByBeginDateAndLastDate(java.lang.String, java.lang.String)
      */
     /**
      * {@inheritDoc}

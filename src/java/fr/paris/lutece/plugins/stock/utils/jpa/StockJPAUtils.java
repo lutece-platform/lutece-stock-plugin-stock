@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.utils.jpa;
 
-
 /**
  *
  * JPA Utils methods
@@ -52,14 +51,16 @@ public final class StockJPAUtils
     /**
      * empty constructor
      */
-    private StockJPAUtils(  )
+    private StockJPAUtils( )
     {
         // nothing
     }
 
     /**
      * Encloses string with percent "%"
-     * @param strToEnclose string to enclose
+     * 
+     * @param strToEnclose
+     *            string to enclose
      * @return <code>"%" + strToEnclose + "%"</code>
      */
     public static String buildCriteriaLikeString( String strToEnclose )

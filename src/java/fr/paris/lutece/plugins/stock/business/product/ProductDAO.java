@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,12 +54,13 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides Data Access methods for {@link Product} objects.
  * 
- * @param <K> the key type
- * @param <E> the element type
+ * @param <K>
+ *            the key type
+ * @param <E>
+ *            the element type
  */
 public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> implements IProductDAO
 {
@@ -67,10 +68,9 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /** The Constant JPQL_GET_QUANTITY. */
     private static final String JPQL_IS_FULL = "SELECT CASE WHEN (SUM(p.quantity) > po.quantity) "
             + "THEN 0 WHEN (SUM(p.quantity) = po.quantity) THEN 0 ELSE 1 END FROM Purchase p, Offer po "
-            + "WHERE p.offer.id IN (SELECT o.id FROM Offer o WHERE o.product.id = :productId) "
-            + "AND p.offer.id = po.id GROUP BY p.offer.id";
-    private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
-            + "FROM Product p, Offer o " + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
+            + "WHERE p.offer.id IN (SELECT o.id FROM Offer o WHERE o.product.id = :productId) " + "AND p.offer.id = po.id GROUP BY p.offer.id";
+    private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
+            + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
     /**
      * 
@@ -85,7 +85,8 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /**
      * Find product list by filter.
      * 
-     * @param filter the filter
+     * @param filter
+     *            the filter
      * @return the list of product
      */
     public List<Product> findByFilter( ProductFilter filter )
@@ -109,8 +110,10 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /**
      * Finds by filter.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return the product list
      */
     public ResultList<Product> findByFilter( ProductFilter filter, PaginationProperties paginationProperties )
@@ -121,8 +124,8 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         CriteriaQuery<Product> cq = cb.createQuery( Product.class );
 
         Root<Product> root = cq.from( Product.class );
-        //        root.fetch( Product_.category, JoinType.LEFT );
-        //        root.fetch( Product_.provider, JoinType.LEFT );
+        // root.fetch( Product_.category, JoinType.LEFT );
+        // root.fetch( Product_.provider, JoinType.LEFT );
         buildCriteriaQuery( filter, root, cq, cb );
         buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
@@ -133,9 +136,12 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /**
      * Build the predicate list from filter.
      * 
-     * @param filter the filter
-     * @param root the product root
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the product root
+     * @param builder
+     *            the criteria builder
      * @return the predicate list
      */
     protected List<Predicate> buildPredicates( ProductFilter filter, Root<Product> root, CriteriaBuilder builder )
@@ -154,21 +160,23 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /**
      * Build the criteria query from the filter.
      * 
-     * @param filter the filter
-     * @param root the category root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the category root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildCriteriaQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query,
-            CriteriaBuilder builder )
+    protected void buildCriteriaQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query, CriteriaBuilder builder )
     {
         // predicates list
         List<Predicate> listPredicates = new ArrayList<Predicate>( );
 
         if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Product_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
+            listPredicates.add( builder.like( root.get( Product_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
         }
 
         if ( filter.getIdCategory( ) != null && filter.getIdCategory( ) > 0 )
@@ -184,20 +192,23 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            query.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
     }
 
     /**
      * Build the sort query.
      * 
-     * @param filter the filter
-     * @param root the product root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the product root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildSortQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query,
-            CriteriaBuilder builder )
+    protected void buildSortQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query, CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
@@ -227,9 +238,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.product.IProductDAO#getAllByName
-     * (java.lang.String)
+     * @see fr.paris.lutece.plugins.stock.business.product.IProductDAO#getAllByName (java.lang.String)
      */
     /**
      * {@inheritDoc}
@@ -253,9 +262,9 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            cq.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            cq.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
-        //buildSortQuery( filter, root, cq, cb );
+        // buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
 
         TypedQuery<Product> query = em.createQuery( cq );
@@ -329,9 +338,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java
-     * .lang.Integer)
+     * @see fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java .lang.Integer)
      */
     /**
      * {@inheritDoc}
@@ -357,7 +364,9 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 
     /**
      * Check if product is type of representation
-     * @param genreId the genre to check
+     * 
+     * @param genreId
+     *            the genre to check
      * @return true if product is, false otherwise
      */
     public Boolean isType( Integer productId, Integer genreId )

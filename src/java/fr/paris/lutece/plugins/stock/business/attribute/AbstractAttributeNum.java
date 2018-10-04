@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,11 +43,12 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.MappedSuperclass;
 
-
 /**
  * 
  * Category
- * @param <E> entity
+ * 
+ * @param <E>
+ *            entity
  */
 @MappedSuperclass
 @IdClass( value = AbstractAttributeId.class )
@@ -64,15 +65,13 @@ public abstract class AbstractAttributeNum<E extends StockEntityBean<?>> impleme
     protected String _key;
     protected BigDecimal _value;
 
-
     /**
      * Constructor
      */
-    public AbstractAttributeNum(  )
+    public AbstractAttributeNum( )
     {
-        super(  );
+        super( );
     }
-
 
     // /**
     // * @return the id
@@ -107,7 +106,8 @@ public abstract class AbstractAttributeNum<E extends StockEntityBean<?>> impleme
     }
 
     /**
-     * @param key the key to set
+     * @param key
+     *            the key to set
      */
     public void setKey( String key )
     {
@@ -124,7 +124,8 @@ public abstract class AbstractAttributeNum<E extends StockEntityBean<?>> impleme
     }
 
     /**
-     * @param value the value to set
+     * @param value
+     *            the value to set
      */
     public void setValue( BigDecimal value )
     {

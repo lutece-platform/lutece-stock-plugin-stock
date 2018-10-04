@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * Category
@@ -66,13 +65,16 @@ public class ProductAttributeDate extends AbstractAttributeDate<Product> impleme
 
     private Product _owner;
 
-
     /**
      * 
      * Creates a new ProductAttributeDate.java object.
-     * @param key key
-     * @param value value
-     * @param product product
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param product
+     *            product
      */
     public ProductAttributeDate( String key, Timestamp value, Product product )
     {
@@ -90,7 +92,6 @@ public class ProductAttributeDate extends AbstractAttributeDate<Product> impleme
         super( );
     }
 
-
     /**
      * @return the id
      */
@@ -103,12 +104,14 @@ public class ProductAttributeDate extends AbstractAttributeDate<Product> impleme
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Product owner )
     {
         this._owner = owner;
     }
+
     /**
      * @return the key
      */

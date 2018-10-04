@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.stock.business.product;
 
 import java.io.File;
 
-
 /**
  * The Interface IProductImageDAO.
  */
@@ -45,32 +44,38 @@ public interface IProductImageDAO
     /**
      * Save image.
      * 
-     * @param idProduct the id product
-     * @param fisTbImage the fis tb image
-     * @param fisImage the fis image
+     * @param idProduct
+     *            the id product
+     * @param fisTbImage
+     *            the fis tb image
+     * @param fisImage
+     *            the fis image
      */
     void saveImage( Integer idProduct, File fisTbImage, File fisImage );
 
     /**
      * Gets the image.
      * 
-     * @param idProduct the id product
+     * @param idProduct
+     *            the id product
      * @return the image
      */
-    byte[] getImage( Integer idProduct );
+    byte [ ] getImage( Integer idProduct );
 
     /**
      * Gets the thumbnail image.
      * 
-     * @param idProduct the id product
+     * @param idProduct
+     *            the id product
      * @return the tb image
      */
-    byte[] getTbImage( Integer idProduct );
+    byte [ ] getTbImage( Integer idProduct );
 
     /**
      * Removes the image in database.
      * 
-     * @param idProduct the id product
+     * @param idProduct
+     *            the id product
      */
     void remove( Integer idProduct );
 

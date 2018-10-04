@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,12 +56,13 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides Data Access methods for {@link Offer} objects.
  * 
- * @param <K> the key type
- * @param <E> the entity type
+ * @param <K>
+ *            the key type
+ * @param <E>
+ *            the entity type
  */
 public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements IOfferDAO
 {
@@ -83,8 +84,10 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
     /**
      * Find offers by filter.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return list of offers
      */
     public ResultList<Offer> findByFilter( OfferFilter filter, PaginationProperties paginationProperties )
@@ -105,13 +108,16 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
     /**
      * Build the criteria query used when offers are searched by filter.
      * 
-     * @param filter the filter
-     * @param root the offer root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the offer root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildCriteriaQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query,
-            CriteriaBuilder builder )
+    protected void buildCriteriaQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query, CriteriaBuilder builder )
     {
         // predicates list
         List<Predicate> listPredicates = new ArrayList<Predicate>( );
@@ -121,14 +127,12 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
 
         if ( StringUtils.isNotBlank( filter.getProductName( ) ) )
         {
-            listPredicates.add( builder.like( product.get( Product_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getProductName( ) ) ) );
+            listPredicates.add( builder.like( product.get( Product_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getProductName( ) ) ) );
         }
 
         if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Offer_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
+            listPredicates.add( builder.like( root.get( Offer_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
         }
         if ( filter.getIdGenre( ) != null && filter.getIdGenre( ) > 0 )
         {
@@ -143,20 +147,23 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
         if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            query.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
     }
 
     /**
      * Add the order by parameter to the query.
      * 
-     * @param filter the filter
-     * @param root the offer root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * @param filter
+     *            the filter
+     * @param root
+     *            the offer root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    protected void buildSortQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query,
-            CriteriaBuilder builder )
+    protected void buildSortQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query, CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
@@ -173,14 +180,15 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
                     {
                         orderList.add( builder.asc( product.get( "name" ) ) );
                     }
-                    else if ( order.equals( "type.name" ) )
-                    {
-                        orderList.add( builder.asc( type.get( "name" ) ) );
-                    }
                     else
-                    {
-                        orderList.add( builder.asc( root.get( order ) ) );
-                    }
+                        if ( order.equals( "type.name" ) )
+                        {
+                            orderList.add( builder.asc( type.get( "name" ) ) );
+                        }
+                        else
+                        {
+                            orderList.add( builder.asc( root.get( order ) ) );
+                        }
                 }
             }
             else
@@ -192,14 +200,15 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
                     {
                         orderList.add( builder.desc( product.get( "name" ) ) );
                     }
-                    else if ( order.equals( "type.name" ) )
-                    {
-                        orderList.add( builder.desc( type.get( "name" ) ) );
-                    }
                     else
-                    {
-                        orderList.add( builder.desc( root.get( order ) ) );
-                    }
+                        if ( order.equals( "type.name" ) )
+                        {
+                            orderList.add( builder.desc( type.get( "name" ) ) );
+                        }
+                        else
+                        {
+                            orderList.add( builder.desc( root.get( order ) ) );
+                        }
                 }
             }
 
@@ -210,9 +219,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#findByProduct(
-     * java.lang.Integer)
+     * @see fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#findByProduct( java.lang.Integer)
      */
     /**
      * {@inheritDoc}
@@ -239,9 +246,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java
-     * .lang.Integer)
+     * @see fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java .lang.Integer)
      */
     /**
      * {@inheritDoc}

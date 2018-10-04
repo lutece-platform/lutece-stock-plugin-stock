@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,49 +39,59 @@ import fr.paris.lutece.util.jpa.IGenericDAO;
 
 import java.util.List;
 
-
 /**
-* IPersonDAO Interface
-*/
+ * IPersonDAO Interface
+ */
 public interface ICategoryDAO extends IGenericDAO<Integer, Category>
 {
     /**
      * Finds all first level categories (i.e. parent == null ) and fetch children
+     * 
      * @return all first level categories
      */
-    List<Category> selectAllFirstLevelWithChildrenWithProduct(  );
+    List<Category> selectAllFirstLevelWithChildrenWithProduct( );
 
     /**
      * Finds all category's children and fetch children
-     * @param idCategory the id of upper category
+     * 
+     * @param idCategory
+     *            the id of upper category
      * @return all category's children
      */
     List<Category> selectAllChildrenWithChildrenWithProduct( Integer idCategory );
 
     /**
-     * Finds a category and all his subcategories  and fetch children
-     * @param idCategory the id of upper category
+     * Finds a category and all his subcategories and fetch children
+     * 
+     * @param idCategory
+     *            the id of upper category
      * @return the category
      */
     Category findByIdWithChildren( Integer idCategory );
 
     /**
      * Finds a category and fetch parent
-     * @param idCategory the id of the searched category
+     * 
+     * @param idCategory
+     *            the id of the searched category
      * @return the category
      */
     Category findByIdWithParent( Integer idCategory );
 
     /**
      * Finds a category and fetch products
-     * @param idCategory the id of the searched category
+     * 
+     * @param idCategory
+     *            the id of the searched category
      * @return the category
      */
     Category findByIdWithProduct( Integer idCategory );
 
     /**
      * Finds by filter and fetch children
-     * @param filter the filter
+     * 
+     * @param filter
+     *            the filter
      * @return the category list
      */
     List<Category> findByFilterWithChildren( CategoryFilter filter );
@@ -89,8 +99,11 @@ public interface ICategoryDAO extends IGenericDAO<Integer, Category>
     /**
      * 
      * Finds by filter
-     * @param filter the filter
-     * @param paginationProperties properties for pagination
+     * 
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            properties for pagination
      * @return the category list
      */
     ResultList<Category> findByFilter( CategoryFilter filter, PaginationProperties paginationProperties );
@@ -98,21 +111,27 @@ public interface ICategoryDAO extends IGenericDAO<Integer, Category>
     /**
      * 
      * Finds by filter
-     * @param filter the filter
+     * 
+     * @param filter
+     *            the filter
      * @return the category list
      */
     List<Category> findByFilter( CategoryFilter filter );
 
     /**
      * Returns categories by name
-     * @param name category name
+     * 
+     * @param name
+     *            category name
      * @return list of categories
      */
     List<Category> getAllByName( String name );
 
     /**
      * Return all category
-     * @param orderList the order list
+     * 
+     * @param orderList
+     *            the order list
      * @return the list of all category
      */
     ResultList<Category> findAll( List<String> orderList );

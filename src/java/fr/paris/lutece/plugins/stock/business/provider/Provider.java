@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 /**
  *
  * Provider
@@ -91,7 +90,7 @@ public class Provider extends StockEntityBean<Provider>
     /**
      * Constructor
      */
-    public Provider(  )
+    public Provider( )
     {
         this._attributeDateList = new HashSet<ProviderAttributeDate>( );
         this._attributeList = new HashSet<ProviderAttribute>( );
@@ -100,7 +99,9 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Construct a new provider from an other
-     * @param provider a provider object to copy
+     * 
+     * @param provider
+     *            a provider object to copy
      */
     public Provider( Provider provider )
     {
@@ -112,22 +113,25 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Copy values from a provider object to this
-     * @param provider a provider object
+     * 
+     * @param provider
+     *            a provider object
      */
     private void copy( Provider provider )
     {
         setId( provider.getId( ) );
-        setName( provider.getName(  ) );
-        setAddress( provider.getAddress(  ) );
-        setContactName( provider.getContactName(  ) );
-        setPhoneNumber( provider.getPhoneNumber(  ) );
-        setMail( provider.getMail(  ) );
-        setComment( provider.getComment(  ) );
-        setProducts( provider.getProducts(  ) );
+        setName( provider.getName( ) );
+        setAddress( provider.getAddress( ) );
+        setContactName( provider.getContactName( ) );
+        setPhoneNumber( provider.getPhoneNumber( ) );
+        setMail( provider.getMail( ) );
+        setComment( provider.getComment( ) );
+        setProducts( provider.getProducts( ) );
     }
 
     /**
      * Return the provider id
+     * 
      * @return the provider id
      */
     @TableGenerator( table = StockJPAUtils.SEQUENCE_TABLE_NAME, name = JPA_SEQUENCE_NAME, pkColumnValue = JPA_COLUNM_NAME, allocationSize = 1 )
@@ -141,7 +145,9 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Set the provider id
-     * @param idProvider the provider id
+     * 
+     * @param idProvider
+     *            the provider id
      */
     public void setId( Integer idProvider )
     {
@@ -150,17 +156,20 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the phone number to contact the provider
+     * 
      * @return the phone number
      */
     @Column( name = "phone_number" )
-    public String getPhoneNumber(  )
+    public String getPhoneNumber( )
     {
         return _strPhoneNumber;
     }
 
     /**
      * Set the phone number
-     * @param strPhoneNumber the phone number
+     * 
+     * @param strPhoneNumber
+     *            the phone number
      */
     public void setPhoneNumber( String strPhoneNumber )
     {
@@ -169,17 +178,20 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the provider address
+     * 
      * @return the provider address
      */
     @Column( name = "address" )
-    public String getAddress(  )
+    public String getAddress( )
     {
         return _strAddress;
     }
 
     /**
      * Set the provider address
-     * @param address address
+     * 
+     * @param address
+     *            address
      */
     public void setAddress( String address )
     {
@@ -188,17 +200,20 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the provider mail
+     * 
      * @return the mail
      */
     @Column( name = "mail" )
-    public String getMail(  )
+    public String getMail( )
     {
         return _strMail;
     }
 
     /**
      * Set the provider mail
-     * @param mail the mail
+     * 
+     * @param mail
+     *            the mail
      */
     public void setMail( String mail )
     {
@@ -207,17 +222,20 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the provider name
+     * 
      * @return the provider name
      */
     @Column( name = "name" )
-    public String getName(  )
+    public String getName( )
     {
         return this._strName;
     }
 
     /**
      * Set the provider name
-     * @param name the provider name
+     * 
+     * @param name
+     *            the provider name
      */
     public void setName( String name )
     {
@@ -226,17 +244,20 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the product list
+     * 
      * @return the product list
      */
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    public List<Category> getProducts(  )
+    public List<Category> getProducts( )
     {
         return _listProducts;
     }
 
     /**
      * Set the product list
-     * @param products the product list
+     * 
+     * @param products
+     *            the product list
      */
     public void setProducts( List<Category> products )
     {
@@ -245,16 +266,19 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the contact name
+     * 
      * @return the contact name
      */
-    public String getContactName(  )
+    public String getContactName( )
     {
         return _strContactName;
     }
 
     /**
      * Set the contact name
-     * @param contactName the name of the contact
+     * 
+     * @param contactName
+     *            the name of the contact
      */
     public void setContactName( String contactName )
     {
@@ -263,16 +287,19 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Get the comment
+     * 
      * @return the comment
      */
-    public String getComment(  )
+    public String getComment( )
     {
         return _strComment;
     }
 
     /**
      * Set the comment
-     * @param comment the comment
+     * 
+     * @param comment
+     *            the comment
      */
     public void setComment( String comment )
     {
@@ -281,9 +308,12 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProviderAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -296,9 +326,12 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProviderAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -307,7 +340,8 @@ public class Provider extends StockEntityBean<Provider>
     /**
      * Sets the attribute date list.
      * 
-     * @param dateAttribute the new attribute date list
+     * @param dateAttribute
+     *            the new attribute date list
      */
     public void setAttributeDateList( Set<ProviderAttributeDate> dateAttribute )
     {
@@ -316,9 +350,12 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProviderAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -326,12 +363,13 @@ public class Provider extends StockEntityBean<Provider>
 
     /**
      * Set attribute list
-     * @param numAttribute numAttribute
+     * 
+     * @param numAttribute
+     *            numAttribute
      */
     public void setAttributeNumList( Set<ProviderAttributeNum> numAttribute )
     {
         this._attributeNumList = numAttribute;
     }
-
 
 }

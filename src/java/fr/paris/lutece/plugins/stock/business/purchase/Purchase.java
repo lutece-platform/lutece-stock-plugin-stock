@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-
 /**
  *
  * Purchase
@@ -89,9 +88,9 @@ public class Purchase extends StockEntityBean<Purchase>
      * 
      * Creates a new Purchase.java object.
      */
-    public Purchase(  )
+    public Purchase( )
     {
-        super(  );
+        super( );
         this._offer = new Offer( );
         this._attributeDateList = new HashSet<PurchaseAttributeDate>( );
         this._attributeList = new HashSet<PurchaseAttribute>( );
@@ -100,6 +99,7 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Return purchase id
+     * 
      * @return purchase id
      */
     @TableGenerator( table = StockJPAUtils.SEQUENCE_TABLE_NAME, name = JPA_SEQUENCE_NAME, pkColumnValue = JPA_COLUMN_NAME, allocationSize = 1 )
@@ -113,7 +113,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set the purchase id
-     * @param idPurchase the purchase id
+     * 
+     * @param idPurchase
+     *            the purchase id
      */
     public void setId( Integer idPurchase )
     {
@@ -122,6 +124,7 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Return the purchase userName
+     * 
      * @return the userName
      */
     @Column( name = "userName" )
@@ -132,15 +135,18 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set the category userName
-     * @param userName the purchase userName
+     * 
+     * @param userName
+     *            the purchase userName
      */
     public void setUserName( String userName )
     {
-    	_strUserName = userName;
+        _strUserName = userName;
     }
 
     /**
      * Return the purchase quantity
+     * 
      * @return the quantity
      */
     @Column( name = "quantity" )
@@ -151,7 +157,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set the category quantity
-     * @param nQuantity the purchase quantity
+     * 
+     * @param nQuantity
+     *            the purchase quantity
      */
     public void setQuantity( Integer nQuantity )
     {
@@ -160,6 +168,7 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Return the offer
+     * 
      * @return the offer
      */
     @ManyToOne( optional = true, fetch = FetchType.LAZY )
@@ -171,7 +180,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set the offer
-     * @param offer the offer
+     * 
+     * @param offer
+     *            the offer
      */
     public void setOffer( Offer offer )
     {
@@ -180,9 +191,12 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<PurchaseAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -190,7 +204,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set attribute list
-     * @param stringAttribute stringAttribute
+     * 
+     * @param stringAttribute
+     *            stringAttribute
      */
     public void setAttributeList( Set<PurchaseAttribute> stringAttribute )
     {
@@ -199,9 +215,12 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<PurchaseAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -209,7 +228,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set attribute list
-     * @param dateAttribute dateAttribute
+     * 
+     * @param dateAttribute
+     *            dateAttribute
      */
     public void setAttributeDateList( Set<PurchaseAttributeDate> dateAttribute )
     {
@@ -218,9 +239,12 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Returns dynamic attributes list
+     * 
      * @return dynamic attributes list
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<PurchaseAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -228,7 +252,9 @@ public class Purchase extends StockEntityBean<Purchase>
 
     /**
      * Set attribute list
-     * @param numAttribute numAttribute
+     * 
+     * @param numAttribute
+     *            numAttribute
      */
     public void setAttributeNumList( Set<PurchaseAttributeNum> numAttribute )
     {

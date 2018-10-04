@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,6 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
-
 /**
  *
  * ProviderFilter
@@ -60,16 +59,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the adress filtered
+     * 
      * @return the adress
      */
-    public String getAddress(  )
+    public String getAddress( )
     {
         return _strAddress;
     }
 
     /**
      * Set the adress to filter
-     * @param address to filter
+     * 
+     * @param address
+     *            to filter
      */
     public void setAddress( String address )
     {
@@ -78,16 +80,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the comment filtered
+     * 
      * @return the comment filtered
      */
-    public String getComment(  )
+    public String getComment( )
     {
         return _strComment;
     }
 
     /**
      * Set the comment to filter
-     * @param comment to filter
+     * 
+     * @param comment
+     *            to filter
      */
     public void setComment( String comment )
     {
@@ -96,16 +101,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the contact filtered
+     * 
      * @return the contact to filter
      */
-    public String getContactName(  )
+    public String getContactName( )
     {
         return _strContactName;
     }
 
     /**
      * Set the contact to filter
-     * @param contactName  the contact to filter
+     * 
+     * @param contactName
+     *            the contact to filter
      */
     public void setContactName( String contactName )
     {
@@ -114,16 +122,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the provider mail filtered
+     * 
      * @return the provider mail
      */
-    public String getMail(  )
+    public String getMail( )
     {
         return _strMail;
     }
 
     /**
      * Set the provider mail to filter
-     * @param mail the mail to fitler
+     * 
+     * @param mail
+     *            the mail to fitler
      */
     public void setMail( String mail )
     {
@@ -132,16 +143,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the provider name filtered
+     * 
      * @return the name filtered
      */
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
 
     /**
      * Set the name to filter
-     * @param name the name to filter
+     * 
+     * @param name
+     *            the name to filter
      */
     public void setName( String name )
     {
@@ -150,16 +164,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return the phone number
+     * 
      * @return the phone number
      */
-    public String getPhoneNumber(  )
+    public String getPhoneNumber( )
     {
         return _strPhoneNumber;
     }
 
     /**
      * Set the phonenumber to filter
-     * @param phoneNumber to filter
+     * 
+     * @param phoneNumber
+     *            to filter
      */
     public void setPhoneNumber( String phoneNumber )
     {
@@ -168,16 +185,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return true if the order is ascending
+     * 
      * @return true if ascending false if descending
      */
-    public boolean isOrderAsc(  )
+    public boolean isOrderAsc( )
     {
         return _orderAsc;
     }
 
     /**
      * Set the order way
-     * @param isOrderAsc true if ascending false if descending
+     * 
+     * @param isOrderAsc
+     *            true if ascending false if descending
      */
     public void setOrderAsc( boolean isOrderAsc )
     {
@@ -186,16 +206,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Get the order column name
+     * 
      * @return the column name
      */
-    public List<String> getOrders(  )
+    public List<String> getOrders( )
     {
         return _orders;
     }
 
     /**
      * Set the column to order
-     * @param orders the column name
+     * 
+     * @param orders
+     *            the column name
      */
     public void setOrders( List<String> orders )
     {
@@ -204,16 +227,19 @@ public class ProviderFilter implements BeanFilter
 
     /**
      * Return true if provider must have product
+     * 
      * @return boolean true if we want the products of the provider. False otherwise
      */
-    public boolean isProducts(  )
+    public boolean isProducts( )
     {
         return _bProducts;
     }
 
     /**
      * Set if a provider must have product
-     * @param bProducts true if we want the products of the provider. False otherwise
+     * 
+     * @param bProducts
+     *            true if we want the products of the provider. False otherwise
      */
     public void setProducts( boolean bProducts )
     {

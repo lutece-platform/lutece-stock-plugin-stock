@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,15 +38,15 @@ import java.sql.Timestamp;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-
 /**
  * Metamodel for AbstractAttributeDate
  * 
  * @author abataille
  */
 // CHECKSTYLE:OFF
-@StaticMetamodel(AbstractAttributeDate.class)
-public abstract class AbstractAttributeDate_ {
+@StaticMetamodel( AbstractAttributeDate.class )
+public abstract class AbstractAttributeDate_
+{
 
     public static volatile SingularAttribute<AbstractAttributeDate<?>, Integer> owner;
     public static volatile SingularAttribute<AbstractAttributeDate<?>, Timestamp> value;

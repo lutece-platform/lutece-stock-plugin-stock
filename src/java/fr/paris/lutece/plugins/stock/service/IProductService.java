@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  * 
  * IProductService
@@ -51,20 +50,25 @@ public interface IProductService
 
     /**
      * Return a list of all products
+     * 
      * @return list of product
      */
     List<Product> getAllProduct( );
 
     /**
      * Check if product is ful
-     * @param productId the product id
+     * 
+     * @param productId
+     *            the product id
      * @return true if full, false otherwise
      */
     Boolean isFull( Integer productId );
 
     /**
      * Check if product is type of representation
-     * @param genreId the genre to check
+     * 
+     * @param genreId
+     *            the genre to check
      * @return true if product is, false otherwise
      */
     Boolean isType( Integer productId, Integer genreId );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-
 /**
  * Session listener for releasing all unconfirmed purchases on session expire
  * 
@@ -49,19 +48,19 @@ import javax.servlet.http.HttpSessionListener;
 public class StockSessionListener implements HttpSessionListener
 {
 
-
     /**
      * Call when session expire. Release all currents purchases.
-     * @param se session event
+     * 
+     * @param se
+     *            session event
      */
     public void sessionDestroyed( HttpSessionEvent se )
     {
 
         HttpSession session = se.getSession( );
         String sid = session.getId( );
-        PurchaseSessionManager purchaseSessionManager = SpringContextService.getContext( ).getBean(
-                PurchaseSessionManager.class );
-        synchronized ( this )
+        PurchaseSessionManager purchaseSessionManager = SpringContextService.getContext( ).getBean( PurchaseSessionManager.class );
+        synchronized( this )
         {
             purchaseSessionManager.releaseAll( sid );
         }
@@ -69,10 +68,12 @@ public class StockSessionListener implements HttpSessionListener
 
     /**
      * Unimplemented
-     * @param se session event
+     * 
+     * @param se
+     *            session event
      */
     public void sessionCreated( HttpSessionEvent se )
     {
-        // do nothing 
+        // do nothing
     }
 }

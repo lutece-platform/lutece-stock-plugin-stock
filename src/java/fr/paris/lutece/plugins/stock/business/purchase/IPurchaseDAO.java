@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,18 +37,19 @@ import fr.paris.lutece.plugins.stock.commons.ResultList;
 import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 import fr.paris.lutece.util.jpa.IGenericDAO;
 
-
 /**
-* IPurchaseDAO Interface
-*/
+ * IPurchaseDAO Interface
+ */
 public interface IPurchaseDAO extends IGenericDAO<Integer, Purchase>
 {
 
     /**
      * Find by filter with paginator.
      * 
-     * @param filter the filter
-     * @param paginationProperties the pagination properties
+     * @param filter
+     *            the filter
+     * @param paginationProperties
+     *            the pagination properties
      * @return the purchase list filtered
      */
     ResultList<Purchase> findByFilter( PurchaseFilter filter, PaginationProperties paginationProperties );
@@ -56,17 +57,23 @@ public interface IPurchaseDAO extends IGenericDAO<Integer, Purchase>
     /**
      * Return the number of reservation for an offer and an agent.
      * 
-     * @param id offer id
-     * @param idOfferGenre the id offer genre
-     * @param userName agent userName
+     * @param id
+     *            offer id
+     * @param idOfferGenre
+     *            the id offer genre
+     * @param userName
+     *            agent userName
      * @return number of reservation
      */
     Integer getQuantityPurchasedByIdProductAndUserName( Integer id, Integer idOfferGenre, String userName );
 
     /**
      * Return the number of purchase for the current month
-     * @param strDateDebut the first date of the month
-     * @param strDateFin the last date of the month
+     * 
+     * @param strDateDebut
+     *            the first date of the month
+     * @param strDateFin
+     *            the last date of the month
      * @return number of purchase
      */
     Integer getCountPurchaseByBeginDateAndLastDate( String strDateDebut, String strDateFin );

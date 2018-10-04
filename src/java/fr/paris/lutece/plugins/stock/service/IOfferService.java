@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  * 
  * IProductService
@@ -51,21 +50,27 @@ public interface IOfferService
 
     /**
      * List all offers for a product
-     * @param productId product to find
+     * 
+     * @param productId
+     *            product to find
      * @return list of corresponding {@link Offer}
      */
     List<Offer> findByProduct( Integer productId );
 
     /**
      * Return available quantity of offer
-     * @param offerId offer id
+     * 
+     * @param offerId
+     *            offer id
      * @return quantity available
      */
     Integer getQuantity( Integer offerId );
 
     /**
      * Returns offer
-     * @param offerId id of offer
+     * 
+     * @param offerId
+     *            id of offer
      * @return offer
      */
     Offer findById( Integer offerId );

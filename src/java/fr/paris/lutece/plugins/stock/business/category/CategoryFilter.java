@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,6 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
-
 /**
  *
  * CategoryFilter
@@ -56,16 +55,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Return true if the filter is set to product null
+     * 
      * @return boolean
      */
-    public Boolean getProductNull(  )
+    public Boolean getProductNull( )
     {
         return _productNull;
     }
 
     /**
      * Set if the filter is set to product null
-     * @param productNull the boolean
+     * 
+     * @param productNull
+     *            the boolean
      */
     public void setProductNull( Boolean productNull )
     {
@@ -74,16 +76,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Return true if the order is set to ascending
+     * 
      * @return the boolean
      */
-    public boolean isOrderAsc(  )
+    public boolean isOrderAsc( )
     {
         return _bOrderAsc;
     }
 
     /**
      * Set the order to ascending or descending
-     * @param bOrderAsc the order (true if ascending)
+     * 
+     * @param bOrderAsc
+     *            the order (true if ascending)
      */
     public void setOrderAsc( boolean bOrderAsc )
     {
@@ -92,16 +97,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Get the order column name
+     * 
      * @return the column name
      */
-    public List<String> getOrders(  )
+    public List<String> getOrders( )
     {
         return _orders;
     }
 
     /**
      * Set the column to order
-     * @param orders the column name
+     * 
+     * @param orders
+     *            the column name
      */
     public void setOrders( List<String> orders )
     {
@@ -110,16 +118,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Get the category id filtered
+     * 
      * @return the category id
      */
-    public Integer getIdCategory(  )
+    public Integer getIdCategory( )
     {
         return _idCategory;
     }
 
     /**
      * Set the category id to filter
-     * @param idCategory the category id
+     * 
+     * @param idCategory
+     *            the category id
      */
     public void setIdCategory( Integer idCategory )
     {
@@ -128,16 +139,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Get the status filtered
+     * 
      * @return true if the status must be active
      */
-    public Boolean getStatus(  )
+    public Boolean getStatus( )
     {
         return _status;
     }
 
     /**
      * Set the status filtered
-     * @param status the status
+     * 
+     * @param status
+     *            the status
      */
     public void setStatus( Boolean status )
     {
@@ -146,16 +160,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * return the category name filtered
+     * 
      * @return the category name
      */
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
 
     /**
      * Set the category name to filter
-     * @param name the category name
+     * 
+     * @param name
+     *            the category name
      */
     public void setName( String name )
     {
@@ -164,16 +181,19 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Get the parent filtered
+     * 
      * @return the parent
      */
-    public Integer getParentCategory(  )
+    public Integer getParentCategory( )
     {
         return _parentCategory;
     }
 
     /**
      * Set the parent to filter
-     * @param parentCategory the parent
+     * 
+     * @param parentCategory
+     *            the parent
      */
     public void setParentCategory( Integer parentCategory )
     {
@@ -182,11 +202,11 @@ public class CategoryFilter implements BeanFilter
 
     /**
      * Return true if there is filters
+     * 
      * @return true if there is filters
      */
-    public boolean hasFilter(  )
+    public boolean hasFilter( )
     {
-        return ( _productNull != null ) || ( _status != null ) || ( _idCategory != null ) || ( _parentCategory != null ) ||
-        ( _strName != null );
+        return ( _productNull != null ) || ( _status != null ) || ( _idCategory != null ) || ( _parentCategory != null ) || ( _strName != null );
     }
 }

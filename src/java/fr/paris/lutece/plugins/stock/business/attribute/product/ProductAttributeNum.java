@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * Category
@@ -63,7 +62,7 @@ public class ProductAttributeNum extends AbstractAttributeNum<Product> implement
      *
      */
     private static final long serialVersionUID = -2152281074558217469L;
-    
+
     private Product _owner;
 
     /**
@@ -77,9 +76,13 @@ public class ProductAttributeNum extends AbstractAttributeNum<Product> implement
     /**
      * 
      * Creates a new ProductAttributeNum.java object.
-     * @param key key
-     * @param value value
-     * @param product product
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param product
+     *            product
      */
     public ProductAttributeNum( String key, BigDecimal value, Product product )
     {
@@ -87,8 +90,6 @@ public class ProductAttributeNum extends AbstractAttributeNum<Product> implement
         this._value = value;
         this._owner = product;
     }
-
-
 
     /**
      * @return the id
@@ -102,7 +103,8 @@ public class ProductAttributeNum extends AbstractAttributeNum<Product> implement
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Product owner )
     {

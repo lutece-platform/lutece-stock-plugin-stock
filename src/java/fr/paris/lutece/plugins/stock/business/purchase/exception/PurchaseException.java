@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,8 +47,10 @@ public class PurchaseException extends Exception
     /**
      * Instantiates a new purchase exception.
      * 
-     * @param purchaseId the purchase id
-     * @param msg the msg
+     * @param purchaseId
+     *            the purchase id
+     * @param msg
+     *            the msg
      */
     public PurchaseException( Integer purchaseId, String msg )
     {
@@ -69,7 +71,8 @@ public class PurchaseException extends Exception
     /**
      * Sets the purchase id.
      * 
-     * @param thePurchaseId the purchase id to set
+     * @param thePurchaseId
+     *            the purchase id to set
      */
     public void setPurchaseId( Integer thePurchaseId )
     {

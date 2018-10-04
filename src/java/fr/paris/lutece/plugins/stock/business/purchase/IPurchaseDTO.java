@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,11 +33,9 @@
  */
 package fr.paris.lutece.plugins.stock.business.purchase;
 
-
-
 /**
- * Interface for purchase DTO.
- * Must implemented by objects used for purchase session management
+ * Interface for purchase DTO. Must implemented by objects used for purchase session management
+ * 
  * @author abataille
  */
 public interface IPurchaseDTO
@@ -49,32 +47,32 @@ public interface IPurchaseDTO
      * @return the userName
      */
     String getUserName( );
-    
+
     /**
      * Gets the offer id.
      * 
      * @return the offerId
      */
     Integer getOfferId( );
-    
+
     /**
      * Gets the quantity.
      * 
      * @return the quantity
      */
     Integer getQuantity( );
-    
+
     /**
      * Get the date.
      * 
      * @return the date
      */
-    String getDate();
-    
+    String getDate( );
+
     /**
      * Get the hour.
      * 
      * @return the hour.
      */
-    String getHeure();
+    String getHeure( );
 }

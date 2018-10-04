@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business;
 
-
 import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
 import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
 import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum;
@@ -46,11 +45,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * Abstract class extended by all stock entities.
  * 
- * @param <E> the concrete entity type
+ * @param <E>
+ *            the concrete entity type
  */
 public abstract class StockEntityBean<E> implements Serializable, EntityBean
 {

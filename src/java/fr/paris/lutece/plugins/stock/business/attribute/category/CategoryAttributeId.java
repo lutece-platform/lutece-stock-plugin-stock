@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,26 +74,44 @@ public class CategoryAttributeId extends AbstractAttributeId
     public boolean equals( Object obj )
     {
         if ( this == obj )
+        {
             return true;
+        }
+
         if ( obj == null )
+        {
             return false;
+        }
+
         if ( getClass( ) != obj.getClass( ) )
+        {
             return false;
+        }
         CategoryAttributeId other = (CategoryAttributeId) obj;
         if ( _key == null )
         {
             if ( other.getKey( ) != null )
+            {
                 return false;
+            }
         }
-        else if ( !_key.equals( other.getKey( ) ) )
-            return false;
+        else
+            if ( !_key.equals( other.getKey( ) ) )
+            {
+                return false;
+            }
         if ( _owner == null )
         {
             if ( other.getOwner( ) != null )
+            {
                 return false;
+            }
         }
-        else if ( !_owner.getId( ).equals( other.getOwner( ).getId( ) ) )
-            return false;
+        else
+            if ( !_owner.getId( ).equals( other.getOwner( ).getId( ) ) )
+            {
+                return false;
+            }
         return true;
     }
 
@@ -106,7 +124,8 @@ public class CategoryAttributeId extends AbstractAttributeId
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( Category owner )
     {

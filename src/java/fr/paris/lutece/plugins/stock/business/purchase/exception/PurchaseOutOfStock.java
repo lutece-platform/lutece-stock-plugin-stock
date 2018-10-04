@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,8 +53,10 @@ public class PurchaseOutOfStock extends PurchaseException
     /**
      * Instantiates a new purchase out of stock.
      * 
-     * @param purchaseId the purchase id
-     * @param msg the msg
+     * @param purchaseId
+     *            the purchase id
+     * @param msg
+     *            the msg
      */
     public PurchaseOutOfStock( Integer purchaseId, String msg )
     {
@@ -65,10 +67,14 @@ public class PurchaseOutOfStock extends PurchaseException
     /**
      * Instantiates a new purchase out of stock.
      * 
-     * @param purchaseId the purchase id
-     * @param quantityRequested the quantity requested
-     * @param quantityAvailable the quantity available
-     * @param msg the msg
+     * @param purchaseId
+     *            the purchase id
+     * @param quantityRequested
+     *            the quantity requested
+     * @param quantityAvailable
+     *            the quantity available
+     * @param msg
+     *            the msg
      */
     public PurchaseOutOfStock( Integer purchaseId, Integer quantityRequested, Integer quantityAvailable, String msg )
     {
@@ -77,7 +83,6 @@ public class PurchaseOutOfStock extends PurchaseException
         this.setQuantityRequested( quantityRequested );
         this.setQuantityAvailable( quantityAvailable );
     }
-
 
     /**
      * Gets the purchase id.
@@ -92,7 +97,8 @@ public class PurchaseOutOfStock extends PurchaseException
     /**
      * Sets the purchase id.
      * 
-     * @param purchaseId the purchaseId to set
+     * @param purchaseId
+     *            the purchaseId to set
      */
     public void setPurchaseId( Integer purchaseId )
     {
@@ -112,7 +118,8 @@ public class PurchaseOutOfStock extends PurchaseException
     /**
      * Sets the quantity requested.
      * 
-     * @param quantityRequested the quantityRequested to set
+     * @param quantityRequested
+     *            the quantityRequested to set
      */
     public void setQuantityRequested( Integer quantityRequested )
     {
@@ -132,7 +139,8 @@ public class PurchaseOutOfStock extends PurchaseException
     /**
      * Sets the quantity available.
      * 
-     * @param quantityAvailable the quantityAvailable to set
+     * @param quantityAvailable
+     *            the quantityAvailable to set
      */
     public void setQuantityAvailable( Integer quantityAvailable )
     {

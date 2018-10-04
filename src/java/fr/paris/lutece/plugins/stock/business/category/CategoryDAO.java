@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.category;
 
-
 import fr.paris.lutece.plugins.stock.commons.ResultList;
 import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
 import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
@@ -55,7 +54,6 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides Data Access methods for Person objects
  */
@@ -65,22 +63,22 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
     /**
      *
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return StockPlugin.PLUGIN_NAME;
     }
 
     /**
-    *
-    *{@inheritDoc}
-    */
-    public List<Category> selectAllFirstLevelWithChildrenWithProduct(  )
+     *
+     * {@inheritDoc}
+     */
+    public List<Category> selectAllFirstLevelWithChildrenWithProduct( )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -93,17 +91,17 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         TypedQuery<Category> query = em.createQuery( cq );
 
-        return query.getResultList(  );
+        return query.getResultList( );
     }
 
     /**
-    *
-    *{@inheritDoc}
-    */
+     *
+     * {@inheritDoc}
+     */
     public List<Category> selectAllChildrenWithChildrenWithProduct( Integer idCategory )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -116,17 +114,17 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         TypedQuery<Category> query = em.createQuery( cq );
 
-        return query.getResultList(  );
+        return query.getResultList( );
     }
 
     /**
-    *
-    *{@inheritDoc}
-    */
+     *
+     * {@inheritDoc}
+     */
     public Category findByIdWithChildren( Integer idCategory )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -140,22 +138,22 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         try
         {
-            return query.getSingleResult(  );
+            return query.getSingleResult( );
         }
-        catch ( NoResultException e )
+        catch( NoResultException e )
         {
             return null;
         }
     }
 
     /**
-    *
-    *{@inheritDoc}
-    */
+     *
+     * {@inheritDoc}
+     */
     public Category findByIdWithProduct( Integer idCategory )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -169,28 +167,28 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         try
         {
-            return query.getSingleResult(  );
+            return query.getSingleResult( );
         }
-        catch ( NoResultException e )
+        catch( NoResultException e )
         {
             return null;
         }
     }
 
     /**
-    *
-    *{@inheritDoc}
-    */
+     *
+     * {@inheritDoc}
+     */
     public Category findByIdWithParent( Integer idCategory )
     {
         Category category = findById( idCategory );
 
-        //in order to load the parent
-        Category parent = category.getParent(  );
+        // in order to load the parent
+        Category parent = category.getParent( );
 
         if ( parent != null )
         {
-            parent.getChildrenList(  ).size(  );
+            parent.getChildrenList( ).size( );
         }
 
         return category;
@@ -201,8 +199,8 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
      */
     public ResultList<Category> findByFilter( CategoryFilter filter, PaginationProperties paginationProperties )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -216,13 +214,15 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
     /**
      * Find category with children fetched by filter
-     * @param filter the filter
+     * 
+     * @param filter
+     *            the filter
      * @return the category list
      */
     public List<Category> findByFilterWithChildren( CategoryFilter filter )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
@@ -236,45 +236,46 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         TypedQuery<Category> query = em.createQuery( cq );
 
-        List<Category> listCategory = query.getResultList(  );
+        List<Category> listCategory = query.getResultList( );
 
         return listCategory;
     }
 
     /**
      * Build the criteria query from the filter
-     * @param filter the filter
-     * @param root the category root
-     * @param query the criteria query
-     * @param builder the criteria builder
+     * 
+     * @param filter
+     *            the filter
+     * @param root
+     *            the category root
+     * @param query
+     *            the criteria query
+     * @param builder
+     *            the criteria builder
      */
-    private void buildCriteriaQuery( CategoryFilter filter, Root<Category> root, CriteriaQuery<Category> query,
-        CriteriaBuilder builder )
+    private void buildCriteriaQuery( CategoryFilter filter, Root<Category> root, CriteriaQuery<Category> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>(  );
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
 
-        if ( StringUtils.isNotBlank( filter.getName(  ) ) )
+        if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
-            listPredicates.add( builder.like( root.get( Category_.name ),
-                    StockJPAUtils.buildCriteriaLikeString( filter.getName(  ) ) ) );
+            listPredicates.add( builder.like( root.get( Category_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
         }
 
-        if ( filter.getIdCategory(  ) != null )
+        if ( filter.getIdCategory( ) != null )
         {
             listPredicates.add( builder.equal( root.get( Category_.id ), filter.getIdCategory( ) ) );
         }
 
-
-        if ( filter.getParentCategory(  ) != null )
+        if ( filter.getParentCategory( ) != null )
         {
-            listPredicates.add( builder.equal( root.get( Category_.parent ).get( Category_.id ),
-                    filter.getParentCategory(  ) ) );
+            listPredicates.add( builder.equal( root.get( Category_.parent ).get( Category_.id ), filter.getParentCategory( ) ) );
         }
 
-        if ( filter.getProductNull(  ) != null )
+        if ( filter.getProductNull( ) != null )
         {
-            if ( filter.getProductNull(  ) )
+            if ( filter.getProductNull( ) )
             {
                 listPredicates.add( builder.isEmpty( root.get( Category_.productSet ) ) );
             }
@@ -284,42 +285,46 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
             }
         }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            query.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            query.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
     }
 
     /**
      * Add "order by" to the query
-     * @param filter the fitler
-     * @param root the category root
-     * @param query the query
-     * @param builder the criteria builder
+     * 
+     * @param filter
+     *            the fitler
+     * @param root
+     *            the category root
+     * @param query
+     *            the query
+     * @param builder
+     *            the criteria builder
      */
-    private void buildSortQuery( CategoryFilter filter, Root<Category> root, CriteriaQuery<Category> query,
-        CriteriaBuilder builder )
+    private void buildSortQuery( CategoryFilter filter, Root<Category> root, CriteriaQuery<Category> query, CriteriaBuilder builder )
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
             List<Order> orderList = new ArrayList<Order>( );
 
-            if ( filter.isOrderAsc(  ) )
+            if ( filter.isOrderAsc( ) )
             {
                 // get asc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		orderList.add( builder.asc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.asc( root.get( order ) ) );
+                }
             }
             else
             {
                 // get desc order
-            	for ( String order : filter.getOrders( ) )
-            	{
-            		orderList.add( builder.desc( root.get( order ) ) );
-            	}
+                for ( String order : filter.getOrders( ) )
+                {
+                    orderList.add( builder.desc( root.get( order ) ) );
+                }
             }
 
             query.orderBy( orderList );
@@ -328,7 +333,9 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
     /**
      * Find category list by filter
-     * @param filter the filter
+     * 
+     * @param filter
+     *            the filter
      * @return the category list
      */
     public List<Category> findByFilter( CategoryFilter filter )
@@ -354,47 +361,49 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
      */
     public List<Category> getAllByName( String name )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
         Root<Category> root = cq.from( Category.class );
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>(  );
+        List<Predicate> listPredicates = new ArrayList<Predicate>( );
 
         if ( StringUtils.isNotBlank( name ) )
         {
             listPredicates.add( cb.equal( root.get( Category_.name ), name ) );
         }
 
-        if ( !listPredicates.isEmpty(  ) )
+        if ( !listPredicates.isEmpty( ) )
         {
             // add existing predicates to Where clause
-            cq.where( listPredicates.toArray( new Predicate[listPredicates.size( )] ) );
+            cq.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
-        //buildSortQuery( filter, root, cq, cb );
+        // buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
-        
+
         TypedQuery<Category> query = em.createQuery( cq );
-        
+
         return query.getResultList( );
     }
-    
+
     /**
      * Find all category
-     * @param orderList the order list
+     * 
+     * @param orderList
+     *            the order list
      * @return list of category
      */
     public ResultList<Category> findAll( List<String> orderList )
     {
-        EntityManager em = getEM(  );
-        CriteriaBuilder cb = em.getCriteriaBuilder(  );
+        EntityManager em = getEM( );
+        CriteriaBuilder cb = em.getCriteriaBuilder( );
 
         CriteriaQuery<Category> cq = cb.createQuery( Category.class );
 
         Root<Category> root = cq.from( Category.class );
-        
+
         CategoryFilter filter = new CategoryFilter( );
         filter.setOrderAsc( true );
         filter.setOrders( orderList );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,8 +32,6 @@
  * License 1.0
  */
 package fr.paris.lutece.plugins.stock.utils.constants;
-
-
 
 /**
  * This class provides the constants of this plugin
@@ -68,11 +66,10 @@ public final class StockConstants
 
     public static final String HTML_SPACE = "&nbsp;";
 
-
     /**
      * Private constructor
      */
-    private StockConstants(  )
+    private StockConstants( )
     {
     }
 }

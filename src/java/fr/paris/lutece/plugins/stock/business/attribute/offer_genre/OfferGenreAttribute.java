@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -14,7 +14,7 @@
  *     provided with the distribution.
  *
  *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
- *     contributors may be used to endorse or promote offer_genres derived from
+ *     contributors may be used to endorse or promote products derived from
  *     this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
@@ -47,7 +47,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 /**
  *
  * OfferGenre
@@ -65,13 +64,16 @@ public class OfferGenreAttribute extends AbstractAttribute<OfferGenre> implement
     private static final long serialVersionUID = 1738131586838866057L;
     private OfferGenre _owner;
 
-
     /**
      * 
      * Creates a new OfferGenreAttribute.java object.
-     * @param key key
-     * @param value value
-     * @param offerGenre owner
+     * 
+     * @param key
+     *            key
+     * @param value
+     *            value
+     * @param offerGenre
+     *            owner
      */
     public OfferGenreAttribute( String key, String value, OfferGenre offerGenre )
     {
@@ -100,7 +102,8 @@ public class OfferGenreAttribute extends AbstractAttribute<OfferGenre> implement
     }
 
     /**
-     * @param owner the owner to set
+     * @param owner
+     *            the owner to set
      */
     public void setOwner( OfferGenre owner )
     {

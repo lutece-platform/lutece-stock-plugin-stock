@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,15 +41,15 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-
 /**
  * 
  * Category
- * @param <E> type of linked entity
+ * 
+ * @param <E>
+ *            type of linked entity
  */
 @MappedSuperclass
-public abstract class AbstractAttribute<E extends StockEntityBean<E>>
-    implements Serializable
+public abstract class AbstractAttribute<E extends StockEntityBean<E>> implements Serializable
 {
     /**  
      *
@@ -58,23 +58,19 @@ public abstract class AbstractAttribute<E extends StockEntityBean<E>>
     protected String _key;
     protected String _value;
 
-
     /**
      * Constructor
      */
-    public AbstractAttribute(  )
+    public AbstractAttribute( )
     {
-        super(  );
+        super( );
     }
 
-
-
-        /**
+    /**
      * @return the owner
      */
     @Transient
     public abstract E getOwner( );
-
 
     /**
      * @return the key
@@ -86,7 +82,8 @@ public abstract class AbstractAttribute<E extends StockEntityBean<E>>
     }
 
     /**
-     * @param key the key to set
+     * @param key
+     *            the key to set
      */
     public void setKey( String key )
     {
@@ -103,12 +100,12 @@ public abstract class AbstractAttribute<E extends StockEntityBean<E>>
     }
 
     /**
-     * @param value the value to set
+     * @param value
+     *            the value to set
      */
     public void setValue( String value )
     {
         this._value = value;
     }
-
 
 }

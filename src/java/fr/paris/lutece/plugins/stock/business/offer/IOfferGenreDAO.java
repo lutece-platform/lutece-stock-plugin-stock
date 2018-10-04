@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,28 +38,32 @@ import fr.paris.lutece.util.jpa.IGenericDAO;
 
 import java.util.List;
 
-
 /**
-* IProviderDAO Interface
-*/
+ * IProviderDAO Interface
+ */
 public interface IOfferGenreDAO extends IGenericDAO<Integer, OfferGenre>
 {
     /**
      * Find the offer genre by its id. If an offer genre is found, its offers will be loaded
-     * @param nIdOfferGenre the id of the wanted offer genre
+     * 
+     * @param nIdOfferGenre
+     *            the id of the wanted offer genre
      * @return the {@link OfferGenre} object with the same identifier as the parameter
      */
     OfferGenre findWithOffersLinked( int nIdOfferGenre );
 
     /**
      * Build a {@link ReferenceList} with all the offer genre
+     * 
      * @return the {@link ReferenceList} of all the offer genre
      */
-    ReferenceList findAllReferenceList(  );
+    ReferenceList findAllReferenceList( );
 
     /**
      * Find offers genre by their name
-     * @param strOfferName the name of the offer genre
+     * 
+     * @param strOfferName
+     *            the name of the offer genre
      * @return the list of all offer genre with the same name as the parameter
      */
     List<OfferGenre> findByName( String strOfferName );

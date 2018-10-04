@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2018, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,6 @@ import javax.persistence.TableGenerator;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-
 /**
  * Category.
  */
@@ -113,9 +112,9 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Constructor.
      */
-    public Category(  )
+    public Category( )
     {
-        super(  );
+        super( );
         this._attributeDateList = new HashSet<CategoryAttributeDate>( );
         this._attributeList = new HashSet<CategoryAttribute>( );
         this._attributeNumList = new HashSet<CategoryAttributeNum>( );
@@ -124,16 +123,17 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Build a new category from a category object.
      * 
-     * @param category the category
+     * @param category
+     *            the category
      */
     public Category( Category category )
     {
-        _id = category.getId(  );
+        _id = category.getId( );
         _strDescription = category.getDescription( );
-        _strName = category.getName(  );
-        _childrenList = category.getChildrenList(  );
-        _productSet = category.getProductSet(  );
-        _parentCategory = category.getParent(  );
+        _strName = category.getName( );
+        _childrenList = category.getChildrenList( );
+        _productSet = category.getProductSet( );
+        _parentCategory = category.getParent( );
     }
 
     /**
@@ -153,7 +153,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the category id.
      * 
-     * @param idCategory the category id
+     * @param idCategory
+     *            the category id
      */
     public void setId( Integer idCategory )
     {
@@ -174,13 +175,13 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the category description.
      * 
-     * @param description the category description
+     * @param description
+     *            the category description
      */
     public void setDescription( String description )
     {
         _strDescription = description;
     }
-
 
     /**
      * Return the category name.
@@ -188,7 +189,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @return the name
      */
     @Column( name = "name" )
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
@@ -196,7 +197,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the category name.
      * 
-     * @param name the category name
+     * @param name
+     *            the category name
      */
     public void setName( String name )
     {
@@ -217,7 +219,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the children list.
      * 
-     * @param childrenList the children list
+     * @param childrenList
+     *            the children list
      */
     public void setChildrenList( Set<Category> childrenList )
     {
@@ -230,7 +233,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @return the product list
      */
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "category" )
-    public List<Product> getProductSet(  )
+    public List<Product> getProductSet( )
     {
         return _productSet;
     }
@@ -238,7 +241,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the product list.
      * 
-     * @param productSet the product list
+     * @param productSet
+     *            the product list
      */
     public void setProductSet( List<Product> productSet )
     {
@@ -251,8 +255,9 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @return the parent
      */
     @ManyToOne( optional = true, fetch = FetchType.LAZY )
-    @JoinColumn( name = "parent_id" ) //, nullable = false, updatable = false, insertable = false)
-    public Category getParent(  )
+    @JoinColumn( name = "parent_id" )
+    // , nullable = false, updatable = false, insertable = false)
+    public Category getParent( )
     {
         return _parentCategory;
     }
@@ -260,7 +265,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the Category parent.
      * 
-     * @param parentCategory the parent
+     * @param parentCategory
+     *            the parent
      */
     public void setParent( Category parentCategory )
     {
@@ -274,7 +280,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      */
     @ManyToOne( optional = true, fetch = FetchType.LAZY )
     @JoinColumn( name = "provider_id" )
-    public Provider getProvider(  )
+    public Provider getProvider( )
     {
         return _provider;
     }
@@ -282,21 +288,22 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Set the provider.
      * 
-     * @param provider the provider
+     * @param provider
+     *            the provider
      */
     public void setProvider( Provider provider )
     {
         _provider = provider;
     }
 
-
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttribute> getAttributeList( )
     {
         return _attributeList;
@@ -305,7 +312,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Sets the attribute list.
      * 
-     * @param stringAttribute the new attribute list
+     * @param stringAttribute
+     *            the new attribute list
      */
     public void setAttributeList( Set<CategoryAttribute> stringAttribute )
     {
@@ -315,11 +323,11 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList
-     * ()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList ()
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeDate> getAttributeDateList( )
     {
         return _attributeDateList;
@@ -328,7 +336,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Sets the attribute date list.
      * 
-     * @param dateAttribute the new attribute date list
+     * @param dateAttribute
+     *            the new attribute date list
      */
     public void setAttributeDateList( Set<CategoryAttributeDate> dateAttribute )
     {
@@ -338,11 +347,11 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList
-     * ()
+     * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList ()
      */
-    @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( cascade = {
+        CascadeType.ALL
+    }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeNum> getAttributeNumList( )
     {
         return _attributeNumList;
@@ -351,7 +360,8 @@ public class Category extends StockEntityBean<Category> implements Serializable
     /**
      * Sets the attribute num list.
      * 
-     * @param numAttribute the new attribute num list
+     * @param numAttribute
+     *            the new attribute num list
      */
     public void setAttributeNumList( Set<CategoryAttributeNum> numAttribute )
     {
