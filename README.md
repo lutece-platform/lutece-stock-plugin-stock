@@ -1,7 +1,7 @@
+![](http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=stock-plugin-stock-deploy)
+# Plugin Stock
 
-#Plugin Stock
-
-##Introduction
+## Introduction
 This plugin is a foundation for developing inventory management applications. It manages objects such as products (having price, belonging to different categories, ...),offers and orders associated with users.
 
 [Maven documentation and reports](http://dev.lutece.paris.fr/plugins/plugin-stock/)
