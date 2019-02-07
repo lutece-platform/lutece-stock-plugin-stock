@@ -66,9 +66,9 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 {
 
     /** The Constant JPQL_GET_QUANTITY. */
-    private static final String JPQL_IS_FULL = "SELECT CASE WHEN (SUM(p.quantity) > po.quantity) "
-            + "THEN 0 WHEN (SUM(p.quantity) = po.quantity) THEN 0 ELSE 1 END FROM Purchase p, Offer po "
-            + "WHERE p.offer.id IN (SELECT o.id FROM Offer o WHERE o.product.id = :productId) " + "AND p.offer.id = po.id GROUP BY p.offer.id";
+    private static final String JPQL_IS_FULL = "SELECT CASE WHEN (SUM(o.quantity) = 0) "
+            + "THEN 1 ELSE 0 END FROM Offer o "
+            + "WHERE o.product.id = :productId";
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
@@ -355,11 +355,11 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         {
             if ( i == 1 )
             {
-                return Boolean.FALSE;
+                return Boolean.TRUE;
             }
         }
 
-        return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     /**
