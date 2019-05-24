@@ -201,6 +201,7 @@ CREATE TABLE IF NOT EXISTS stock_product_image (
   id_product int(11) NOT NULL,
   tb_image blob,
   image mediumblob,
+  real_image mediumblob,
   PRIMARY KEY (id_product)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

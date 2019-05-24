@@ -51,7 +51,7 @@ public interface IProductImageDAO
      * @param fisImage
      *            the fis image
      */
-    void saveImage( Integer idProduct, File fisTbImage, File fisImage );
+    void saveImage( Integer idProduct, File fisTbImage, File fisImage, File realImage );
 
     /**
      * Gets the image.
@@ -70,6 +70,15 @@ public interface IProductImageDAO
      * @return the tb image
      */
     byte [ ] getTbImage( Integer idProduct );
+
+    /**
+     * Gets the real image.
+     *
+     * @param idProduct
+     *            the id product
+     * @return the real image
+     */
+    byte [ ] getRealImage( Integer idProduct );
 
     /**
      * Removes the image in database.

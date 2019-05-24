@@ -64,18 +64,19 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
      * @see fr.paris.lutece.plugins.stock.business.product.IProductImageDAO#saveImage(java.lang.Integer, java.io.FileInputStream, java.io.FileInputStream)
      */
     @Override
-    public void saveImage( Integer idProduct, File fisTbImage, File fisImage )
+    public void saveImage( Integer idProduct, File fisTbImage, File fisImage, File realImage )
     {
         // Remove existing (or not) image for this product
         remove( idProduct );
 
-        Query query = this.getEM( ).createNativeQuery( "INSERT INTO stock_product_image(id_product, tb_image, image) VALUES (?, ?, ?)" );
+        Query query = this.getEM( ).createNativeQuery( "INSERT INTO stock_product_image(id_product, tb_image, image, real_image) VALUES (?, ?, ?, ?)" );
         query.setParameter( 1, idProduct );
 
         try
         {
             query.setParameter( 2, FileUtils.readFileToByteArray( fisTbImage ) );
             query.setParameter( 3, FileUtils.readFileToByteArray( fisImage ) );
+            query.setParameter( 4, FileUtils.readFileToByteArray( realImage ) );
         }
         catch( IOException e )
         {
@@ -101,6 +102,13 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
     public byte [ ] getTbImage( Integer idProduct )
     {
         Query query = this.getEM( ).createNativeQuery( "SELECT tb_image FROM stock_product_image WHERE id_product = ?" );
+        query.setParameter( 1, idProduct );
+        return (byte [ ]) query.getSingleResult( );
+    }
+
+    @Override
+    public byte[] getRealImage(Integer idProduct) {
+        Query query = this.getEM( ).createNativeQuery( "SELECT real_image FROM stock_product_image WHERE id_product = ?" );
         query.setParameter( 1, idProduct );
         return (byte [ ]) query.getSingleResult( );
     }

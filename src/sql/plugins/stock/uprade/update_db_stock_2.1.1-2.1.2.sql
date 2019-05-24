@@ -14,3 +14,5 @@ SET max_tickets = CASE
     WHEN offer_genre_id = 3 THEN 4
 END
 WHERE max_tickets = 0;
+
+ALTER TABLE stock_product_image ADD COLUMN real_image mediumblob;
