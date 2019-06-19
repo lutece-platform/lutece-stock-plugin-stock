@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.stock.service;
 
 import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
 import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
 import java.util.List;
