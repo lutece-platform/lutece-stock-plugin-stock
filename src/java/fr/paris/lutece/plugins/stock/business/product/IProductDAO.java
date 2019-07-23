@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.stock.commons.ResultList;
 import fr.paris.lutece.plugins.stock.commons.dao.IStockDAO;
 import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -108,4 +109,6 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
      * @return true if product is, false otherwise
      */
     Boolean isType( Integer productId, Integer genreId );
+
+    Boolean isTypeOffer(Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey);
 }

@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.stock.service;
 
 import fr.paris.lutece.plugins.stock.business.product.Product;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
@@ -73,4 +74,6 @@ public interface IProductService
      * @return true if product is, false otherwise
      */
     Boolean isType( Integer productId, Integer genreId );
+
+    Boolean isTypeOffer (Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey);
 }

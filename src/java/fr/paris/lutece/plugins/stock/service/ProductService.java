@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.stock.business.product.Product;
 import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,5 +87,9 @@ public class ProductService extends AbstractService implements IProductService
     public Boolean isType( Integer productId, Integer genreId )
     {
         return _daoProduct.isType( productId, genreId );
+    }
+
+    public Boolean isTypeOffer (Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey) {
+        return _daoProduct.isTypeOffer( productId, genreId, keyDate, now, annuleKey );
     }
 }

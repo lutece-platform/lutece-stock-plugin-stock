@@ -40,6 +40,7 @@ import fr.paris.lutece.plugins.stock.service.StockPlugin;
 import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,10 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
             + "WHERE o.product.id = :productId";
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
+
+    private static final String JPQL_IS_TYPE_OFFER ="SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o, OfferAttributeDate d  "
+            + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId AND o.id = d.owner.id AND d.key = :keyDate AND d.value >= :now AND o.statut <> :annuleKey";
+
 
     /**
      * 
@@ -375,6 +380,19 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         Query query = em.createQuery( JPQL_IS_TYPE );
         query.setParameter( "productId", productId );
         query.setParameter( "genreId", genreId );
+
+        return (Boolean) query.getSingleResult( );
+    }
+
+    public Boolean isTypeOffer(Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey)
+    {
+        EntityManager em = getEM( );
+        Query query = em.createQuery( JPQL_IS_TYPE_OFFER );
+        query.setParameter( "productId", productId );
+        query.setParameter( "genreId", genreId );
+        query.setParameter( "keyDate", keyDate );
+        query.setParameter( "now", now );
+        query.setParameter( "annuleKey", annuleKey );
 
         return (Boolean) query.getSingleResult( );
     }
