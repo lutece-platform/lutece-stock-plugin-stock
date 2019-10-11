@@ -67,9 +67,8 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 {
 
     /** The Constant JPQL_GET_QUANTITY. */
-    private static final String JPQL_IS_FULL = "SELECT CASE WHEN (SUM(o.quantity) = 0) "
-            + "THEN 1 ELSE 0 END FROM Offer o "
-            + "WHERE o.product.id = :productId";
+    private static final String JPQL_IS_FULL = "SELECT o.quantity FROM Offer o, OfferAttributeDate d "
+            + "WHERE o.product.id = :productId AND o.id = d.owner.id AND o.statut <> :annuleKey AND o.statut <> :verrouilleKey AND d.key = :keyDate AND d.value >= :now";
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
@@ -350,18 +349,31 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
      */
     public Boolean isFull( Integer productId )
     {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
         EntityManager em = getEM( );
         Query query = em.createQuery( JPQL_IS_FULL );
         query.setParameter( "productId", productId );
+        query.setParameter( "annuleKey", "annule" );
+        query.setParameter( "verrouilleKey", "verrouille" );
+        query.setParameter( "keyDate", "date" );
+        query.setParameter( "now", now );
 
         List<Integer> result = query.getResultList( );
 
-        for ( Integer i : result )
-        {
-            if ( i == 1 )
+        int sum = 0;
+
+        if (result.size()==0){
+            return Boolean.TRUE;
+        }
+        else {
+            for ( Integer i : result )
             {
-                return Boolean.TRUE;
+                sum=+i;
             }
+        }
+
+        if(sum<=0) {
+            return Boolean.TRUE;
         }
 
         return Boolean.FALSE;
