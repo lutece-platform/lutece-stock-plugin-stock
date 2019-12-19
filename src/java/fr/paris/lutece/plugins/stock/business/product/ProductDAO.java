@@ -46,6 +46,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -68,7 +69,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 
     /** The Constant JPQL_GET_QUANTITY. */
     private static final String JPQL_IS_FULL = "SELECT o.quantity FROM Offer o, OfferAttributeDate d "
-            + "WHERE o.product.id = :productId AND o.id = d.owner.id AND o.statut <> :annuleKey AND o.statut <> :verrouilleKey AND d.key = :keyDate AND d.value >= :now";
+            + "WHERE o.product.id = :productId AND o.id = d.owner.id AND o.statut <> :annuleKey AND o.statut <> :verrouilleKey AND d.key = :keyDate AND d.value >= current_date()";
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
@@ -349,34 +350,25 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
      */
     public Boolean isFull( Integer productId )
     {
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        EntityManager em = getEM( );
-        Query query = em.createQuery( JPQL_IS_FULL );
-        query.setParameter( "productId", productId );
-        query.setParameter( "annuleKey", "annule" );
-        query.setParameter( "verrouilleKey", "verrouille" );
-        query.setParameter( "keyDate", "date" );
-        query.setParameter( "now", now );
 
-        List<Integer> result = query.getResultList( );
+        StringBuffer requeteSQL = new StringBuffer( );
 
-        int sum = 0;
+        requeteSQL.append("SELECT o.id_offer FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2");
+        requeteSQL.append(" WHERE o.product_id= "+productId+" AND o.quantity>0");
+        requeteSQL.append(" AND o.id_offer=d.owner_id AND o.id_offer=d2.owner_id");
+        requeteSQL.append(" AND o.statut<>'annule' AND o.statut<>'verrouille'");
+        requeteSQL.append(" AND d.attribute_key ='date' AND d2.attribute_key ='hour'");
+        requeteSQL.append(" AND TIMESTAMP(CONCAT( DATE(d.attribute_value),' ', time(d2.attribute_value)))>=CURRENT_TIMESTAMP();");
 
-        if (result.size()==0){
+        Query query = getEM( ).createNativeQuery( requeteSQL.toString( ) );
+        List<Object> listeCount = query.getResultList( );
+
+        if (listeCount.size()==0) {
             return Boolean.TRUE;
         }
         else {
-            for ( Integer i : result )
-            {
-                sum=+i;
-            }
+            return Boolean.FALSE;
         }
-
-        if(sum<=0) {
-            return Boolean.TRUE;
-        }
-
-        return Boolean.FALSE;
     }
 
     /**
