@@ -39,6 +39,7 @@ import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
 import fr.paris.lutece.plugins.stock.service.StockPlugin;
 import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -353,22 +354,26 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 
         StringBuffer requeteSQL = new StringBuffer( );
 
-        requeteSQL.append("SELECT o.id_offer FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2");
-        requeteSQL.append(" WHERE o.product_id= "+productId+" AND o.quantity>0");
+        requeteSQL.append("SELECT sum(o.quantity) FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2");
+        requeteSQL.append(" WHERE o.product_id= "+productId);
         requeteSQL.append(" AND o.id_offer=d.owner_id AND o.id_offer=d2.owner_id");
         requeteSQL.append(" AND o.statut<>'annule' AND o.statut<>'verrouille'");
         requeteSQL.append(" AND d.attribute_key ='date' AND d2.attribute_key ='hour'");
         requeteSQL.append(" AND TIMESTAMP(CONCAT( DATE(d.attribute_value),' ', time(d2.attribute_value)))>=CURRENT_TIMESTAMP();");
 
         Query query = getEM( ).createNativeQuery( requeteSQL.toString( ) );
-        List<Object> listeCount = query.getResultList( );
+        List<BigDecimal> listeCount = query.getResultList( );
 
-        if (listeCount.size()==0) {
-            return Boolean.TRUE;
+        boolean full = false;
+
+        if (listeCount.size()>0) {
+            if(listeCount.get(0)!=null){
+                if (listeCount.get(0).intValue()== 0){
+                    full = Boolean.TRUE;
+                }
+            }
         }
-        else {
-            return Boolean.FALSE;
-        }
+        return full;
     }
 
     /**
