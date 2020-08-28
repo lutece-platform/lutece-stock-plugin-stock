@@ -45,8 +45,6 @@ public class PurchaseUnavailable extends PurchaseException
      */
     private static final long serialVersionUID = -52377360163133736L;
 
-    private Integer _purchaseId;
-
     /**
      * Instantiates a new purchase unavailable.
      * 
@@ -58,24 +56,5 @@ public class PurchaseUnavailable extends PurchaseException
     public PurchaseUnavailable( Integer purchaseId, String msg )
     {
         super( purchaseId, msg );
-        this._purchaseId = purchaseId;
     }
-
-    /**
-     * @return the purchaseId
-     */
-    public Integer getPurchaseId( )
-    {
-        return _purchaseId;
-    }
-
-    /**
-     * @param purchaseId
-     *            the purchaseId to set
-     */
-    public void setPurchaseId( Integer purchaseId )
-    {
-        this._purchaseId = purchaseId;
-    }
-
 }

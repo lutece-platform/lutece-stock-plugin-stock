@@ -41,8 +41,6 @@ public class PurchaseOutOfStock extends PurchaseException
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -52377360163133736L;
-    /** The purchase id. */
-    private Integer _purchaseId;
 
     /** The quantity requested. */
     private Integer _quantityRequested;
@@ -61,7 +59,6 @@ public class PurchaseOutOfStock extends PurchaseException
     public PurchaseOutOfStock( Integer purchaseId, String msg )
     {
         super( purchaseId, msg );
-        this._purchaseId = purchaseId;
     }
 
     /**
@@ -79,30 +76,8 @@ public class PurchaseOutOfStock extends PurchaseException
     public PurchaseOutOfStock( Integer purchaseId, Integer quantityRequested, Integer quantityAvailable, String msg )
     {
         super( purchaseId, msg );
-        this._purchaseId = purchaseId;
         this.setQuantityRequested( quantityRequested );
         this.setQuantityAvailable( quantityAvailable );
-    }
-
-    /**
-     * Gets the purchase id.
-     * 
-     * @return the purchaseId
-     */
-    public Integer getPurchaseId( )
-    {
-        return _purchaseId;
-    }
-
-    /**
-     * Sets the purchase id.
-     * 
-     * @param purchaseId
-     *            the purchaseId to set
-     */
-    public void setPurchaseId( Integer purchaseId )
-    {
-        this._purchaseId = purchaseId;
     }
 
     /**
@@ -146,5 +121,4 @@ public class PurchaseOutOfStock extends PurchaseException
     {
         this._quantityAvailable = quantityAvailable;
     }
-
 }

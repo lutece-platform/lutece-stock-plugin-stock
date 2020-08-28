@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.stock.business.category;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.BooleanUtils;
+
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
 /**
