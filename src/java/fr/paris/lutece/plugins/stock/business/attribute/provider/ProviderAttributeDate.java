@@ -33,10 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.provider;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
-import fr.paris.lutece.plugins.stock.business.provider.Provider;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -48,6 +44,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
+import fr.paris.lutece.plugins.stock.business.provider.Provider;
+
 /**
  *
  * Category
@@ -56,11 +55,8 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_provider_attribute_date" )
 @IdClass( value = ProviderAttributeId.class )
-public class ProviderAttributeDate extends AbstractAttributeDate<Provider> implements Serializable
+public class ProviderAttributeDate extends AbstractAttributeDate<Provider>
 {
-    /**  
-     *
-     */
     private static final long serialVersionUID = -4613744479505847791L;
 
     private Provider _owner;
@@ -116,6 +112,7 @@ public class ProviderAttributeDate extends AbstractAttributeDate<Provider> imple
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;

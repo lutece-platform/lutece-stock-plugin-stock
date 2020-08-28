@@ -64,33 +64,21 @@ import org.apache.log4j.Logger;
 public class PurchaseSessionManager implements IPurchaseSessionManager
 {
     public static final Logger LOG = Logger.getLogger( PurchaseSessionManager.class );
-    private static final SimpleDateFormat format = new SimpleDateFormat( "dd/MM/yyyy HH:mm" );
+    private final SimpleDateFormat _format = new SimpleDateFormat( "dd/MM/yyyy HH:mm" );
 
     @Inject
     @Named( "stock.offerService" )
     private IOfferService _offerService;
 
-    // private static PurchaseSession instance; SINGLETON SPRING
-
-    // private PurchaseSession(){
-    // }
-
-    // public static PurchaseSession getInstance(){
-    // if(instance == null){
-    // instance = new PurchaseSession( );
-    // }
-    // return instance;
-    // }
-
     /**
      * Purchase idle quantity by offer
      */
-    private Map<Integer, Integer> _idleQuantity = new HashMap<Integer, Integer>( );
+    private Map<Integer, Integer> _idleQuantity = new HashMap<>( );
 
     /**
      * Store active purchases by session id
      */
-    private Map<String, List<IPurchaseDTO>> _activePurchaseBySession = new HashMap<String, List<IPurchaseDTO>>( );
+    private Map<String, List<IPurchaseDTO>> _activePurchaseBySession = new HashMap<>( );
 
     /*
      * (non-Javadoc)
@@ -339,7 +327,7 @@ public class PurchaseSessionManager implements IPurchaseSessionManager
         {
             try
             {
-                Date datePurchase = format.parse( dateCreate + " " + hourCreate );
+                Date datePurchase = _format.parse( dateCreate + " " + hourCreate );
                 Date currentDate = DateUtils.getCurrentDate( );
                 GregorianCalendar calendarPurchase = new GregorianCalendar( );
                 calendarPurchase.setTime( datePurchase );

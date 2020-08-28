@@ -33,15 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.offer;
 
-import fr.paris.lutece.plugins.stock.business.StockEntityBean;
-import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttribute;
-import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttributeDate;
-import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttributeNum;
-import fr.paris.lutece.plugins.stock.business.category.Category;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
-
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,13 +49,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-// TODO: Auto-generated Javadoc
+import fr.paris.lutece.plugins.stock.business.StockEntityBean;
+import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttribute;
+import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttributeDate;
+import fr.paris.lutece.plugins.stock.business.attribute.offer.OfferAttributeNum;
+import fr.paris.lutece.plugins.stock.business.category.Category;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
+
 /**
  * Offer.
  */
 @Entity
 @Table( name = "stock_offer" )
-public class Offer extends StockEntityBean<Offer> implements Serializable
+public class Offer extends StockEntityBean<Offer>
 {
 
     /** The Constant serialVersionUID. */
@@ -112,9 +110,6 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /** The _attribute num list. */
     private Set<OfferAttributeNum> _attributeNumList;
 
-    /*
-     * @Transient private Provider _partner;
-     */
     /**
      * 
      * Creates a new Offer.java object.
@@ -124,9 +119,9 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
         super( );
         this._product = new Product( );
         this._type = new OfferGenre( );
-        this._attributeDateList = new HashSet<OfferAttributeDate>( );
-        this._attributeList = new HashSet<OfferAttribute>( );
-        this._attributeNumList = new HashSet<OfferAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
     }
 
     /**
@@ -313,12 +308,12 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
     /**
      * Set the maximum number of tickets.
      * 
-     * @param maxTickets
+     * @param nMaxTickets
      *            the maximum number of tickets
      */
-    public void setMaxTickets( Integer _nMaxTickets )
+    public void setMaxTickets( Integer nMaxTickets )
     {
-        this._nMaxTickets = _nMaxTickets;
+        this._nMaxTickets = nMaxTickets;
     }
 
     /**

@@ -33,15 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.category;
 
-import fr.paris.lutece.plugins.stock.business.StockEntityBean;
-import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttribute;
-import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttributeDate;
-import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttributeNum;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.provider.Provider;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
-
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,12 +52,20 @@ import javax.persistence.TableGenerator;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import fr.paris.lutece.plugins.stock.business.StockEntityBean;
+import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttribute;
+import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttributeDate;
+import fr.paris.lutece.plugins.stock.business.attribute.category.CategoryAttributeNum;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.provider.Provider;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
+
 /**
  * Category.
  */
 @Entity
 @Table( name = "stock_category" )
-public class Category extends StockEntityBean<Category> implements Serializable
+public class Category extends StockEntityBean<Category>
 {
 
     /** The Constant serialVersionUID. */
@@ -115,9 +114,9 @@ public class Category extends StockEntityBean<Category> implements Serializable
     public Category( )
     {
         super( );
-        this._attributeDateList = new HashSet<CategoryAttributeDate>( );
-        this._attributeList = new HashSet<CategoryAttribute>( );
-        this._attributeNumList = new HashSet<CategoryAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
     }
 
     /**

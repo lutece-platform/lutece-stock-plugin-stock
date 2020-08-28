@@ -50,11 +50,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractAttributeDate<E extends StockEntityBean<?>> implements Serializable
 {
-    /**  
-     *
-     */
     private static final long serialVersionUID = -4613744479505847781L;
-    // private Integer id;
     protected String _key;
     protected Timestamp _value;
 
@@ -65,28 +61,6 @@ public abstract class AbstractAttributeDate<E extends StockEntityBean<?>> implem
     {
         super( );
     }
-
-    // /**
-    // * @return the id
-    // */
-    // @TableGenerator( table = StockJPAUtils.SEQUENCE_TABLE_NAME, name =
-    // JPA_SEQUENCE_NAME, pkColumnValue = "id", allocationSize = 1 )
-    // @Id
-    // @GeneratedValue( strategy = GenerationType.TABLE, generator =
-    // JPA_SEQUENCE_NAME )
-    // @Column( name = "id" )
-    // public Integer getId( )
-    // {
-    // return id;
-    // }
-    //
-    // /**
-    // * @param id the id to set
-    // */
-    // public void setId( Integer id )
-    // {
-    // this.id = id;
-    // }
 
     /**
      * @return the key

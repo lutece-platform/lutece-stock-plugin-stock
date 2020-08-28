@@ -33,17 +33,17 @@
  */
 package fr.paris.lutece.plugins.stock.business;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum;
-import fr.paris.lutece.plugins.stock.utils.EntityBean;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum;
+import fr.paris.lutece.plugins.stock.utils.EntityBean;
 
 /**
  * Abstract class extended by all stock entities.
@@ -59,13 +59,13 @@ public abstract class StockEntityBean<E> implements Serializable, EntityBean
 
     // Lazy initialization
     /** The attribute map. */
-    private Map<String, String> attributeMap = null;
+    private Map<String, String> _attributeMap = null;
 
     /** The attribute date map. */
-    private Map<String, Timestamp> attributeDateMap = null;
+    private Map<String, Timestamp> _attributeDateMap = null;
 
     /** The attribute num map. */
-    private Map<String, BigDecimal> attributeNumMap = null;
+    private Map<String, BigDecimal> _attributeNumMap = null;
 
     /**
      * Gets the attribute list.
@@ -95,15 +95,15 @@ public abstract class StockEntityBean<E> implements Serializable, EntityBean
      */
     public Map<String, String> getAttributeMap( )
     {
-        if ( attributeMap == null )
+        if ( _attributeMap == null )
         {
-            attributeMap = new HashMap<String, String>( );
+            _attributeMap = new HashMap<>( );
             for ( AbstractAttribute attribute : getAttributeList( ) )
             {
-                attributeMap.put( attribute.getKey( ), attribute.getValue( ) );
+                _attributeMap.put( attribute.getKey( ), attribute.getValue( ) );
             }
         }
-        return attributeMap;
+        return _attributeMap;
     }
 
     /**
@@ -113,15 +113,15 @@ public abstract class StockEntityBean<E> implements Serializable, EntityBean
      */
     public Map<String, BigDecimal> getAttributeNumMap( )
     {
-        if ( attributeNumMap == null )
+        if ( _attributeNumMap == null )
         {
-            attributeNumMap = new HashMap<String, BigDecimal>( );
+            _attributeNumMap = new HashMap<>( );
             for ( AbstractAttributeNum attribute : getAttributeNumList( ) )
             {
-                attributeNumMap.put( attribute.getKey( ), attribute.getValue( ) );
+                _attributeNumMap.put( attribute.getKey( ), attribute.getValue( ) );
             }
         }
-        return attributeNumMap;
+        return _attributeNumMap;
     }
 
     /**
@@ -131,14 +131,14 @@ public abstract class StockEntityBean<E> implements Serializable, EntityBean
      */
     public Map<String, Timestamp> getAttributeDateMap( )
     {
-        if ( attributeDateMap == null )
+        if ( _attributeDateMap == null )
         {
-            attributeDateMap = new HashMap<String, Timestamp>( );
+            _attributeDateMap = new HashMap<>( );
             for ( AbstractAttributeDate attribute : getAttributeDateList( ) )
             {
-                attributeDateMap.put( attribute.getKey( ), attribute.getValue( ) );
+                _attributeDateMap.put( attribute.getKey( ), attribute.getValue( ) );
             }
         }
-        return attributeDateMap;
+        return _attributeDateMap;
     }
 }

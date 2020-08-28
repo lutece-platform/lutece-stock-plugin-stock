@@ -59,7 +59,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-// TODO: Auto-generated Javadoc
 /**
  * Product.
  */
@@ -113,9 +112,9 @@ public class Product extends StockEntityBean<Product>
     public Product( )
     {
         super( );
-        this._attributeDateList = new HashSet<ProductAttributeDate>( );
-        this._attributeList = new HashSet<ProductAttribute>( );
-        this._attributeNumList = new HashSet<ProductAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
         this._provider = new Provider( );
         this._category = new Category( );
     }

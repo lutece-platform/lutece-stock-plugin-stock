@@ -92,9 +92,9 @@ public class Purchase extends StockEntityBean<Purchase>
     {
         super( );
         this._offer = new Offer( );
-        this._attributeDateList = new HashSet<PurchaseAttributeDate>( );
-        this._attributeList = new HashSet<PurchaseAttribute>( );
-        this._attributeNumList = new HashSet<PurchaseAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
     }
 
     /**

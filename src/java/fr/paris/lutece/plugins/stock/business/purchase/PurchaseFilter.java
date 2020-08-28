@@ -79,7 +79,7 @@ public class PurchaseFilter implements BeanFilter
 
     // order
     /** The _orders. */
-    private List<String> _orders = new ArrayList<String>( );
+    private List<String> _orders = new ArrayList<>( );
 
     /** The _order asc. */
     private boolean _orderAsc;

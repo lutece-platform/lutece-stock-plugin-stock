@@ -33,18 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.purchase;
 
-import fr.paris.lutece.plugins.stock.business.offer.Offer;
-import fr.paris.lutece.plugins.stock.business.offer.OfferGenre;
-import fr.paris.lutece.plugins.stock.business.offer.OfferGenre_;
-import fr.paris.lutece.plugins.stock.business.offer.Offer_;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.Product_;
-import fr.paris.lutece.plugins.stock.commons.ResultList;
-import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
-import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
-import fr.paris.lutece.plugins.stock.service.StockPlugin;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,17 +47,26 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+
+import fr.paris.lutece.plugins.stock.business.offer.Offer;
+import fr.paris.lutece.plugins.stock.business.offer.OfferGenre;
+import fr.paris.lutece.plugins.stock.business.offer.OfferGenre_;
+import fr.paris.lutece.plugins.stock.business.offer.Offer_;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.Product_;
+import fr.paris.lutece.plugins.stock.commons.ResultList;
+import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
+import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
+import fr.paris.lutece.plugins.stock.service.StockPlugin;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 /**
  * This class provides Data Access methods for {@link Purchase} objects.
  * 
- * @param <K>
- *            the key type
- * @param <E>
- *            the entity type
  */
-public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase> implements IPurchaseDAO
+public class PurchaseDAO extends AbstractStockDAO<Integer, Purchase> implements IPurchaseDAO
 {
 
     /*
@@ -122,7 +119,7 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase> imple
     protected void buildCriteriaQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         Join<Purchase, Offer> offer = root.join( Purchase_.offer, JoinType.INNER );
         Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
@@ -169,57 +166,58 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase> imple
      */
     protected void buildSortQuery( PurchaseFilter filter, Root<Purchase> root, CriteriaQuery<Purchase> query, CriteriaBuilder builder )
     {
-        if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
+        if ( CollectionUtils.isEmpty( filter.getOrders( ) ) )
         {
-            List<Order> orderList = new ArrayList<Order>( );
-
-            Join<Purchase, Offer> offer = root.join( Purchase_.offer, JoinType.INNER );
-            Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
-            Join<Offer, OfferGenre> type = offer.join( Offer_.type, JoinType.INNER );
-
-            if ( filter.isOrderAsc( ) )
-            {
-                // get asc order
-                for ( String order : filter.getOrders( ) )
-                {
-                    if ( order.equals( "offer.product.name" ) )
-                    {
-                        orderList.add( builder.asc( product.get( "name" ) ) );
-                    }
-                    else
-                        if ( order.equals( "offer.type.name" ) )
-                        {
-                            orderList.add( builder.asc( type.get( "name" ) ) );
-                        }
-                        else
-                        {
-                            orderList.add( builder.asc( root.get( order ) ) );
-                        }
-                }
-            }
-            else
-            {
-                // get desc order
-                for ( String order : filter.getOrders( ) )
-                {
-                    if ( order.equals( "offer.product.name" ) )
-                    {
-                        orderList.add( builder.desc( product.get( "name" ) ) );
-                    }
-                    else
-                        if ( order.equals( "offer.type.name" ) )
-                        {
-                            orderList.add( builder.desc( type.get( "name" ) ) );
-                        }
-                        else
-                        {
-                            orderList.add( builder.desc( root.get( order ) ) );
-                        }
-                }
-            }
-
-            query.orderBy( orderList );
+            return ;
         }
+        List<Order> orderList = new ArrayList<>( );
+
+        Join<Purchase, Offer> offer = root.join( Purchase_.offer, JoinType.INNER );
+        Join<Offer, Product> product = offer.join( Offer_.product, JoinType.INNER );
+        Join<Offer, OfferGenre> type = offer.join( Offer_.type, JoinType.INNER );
+
+        if ( filter.isOrderAsc( ) )
+        {
+            // get asc order
+            for ( String order : filter.getOrders( ) )
+            {
+                if ( order.equals( "offer.product.name" ) )
+                {
+                    orderList.add( builder.asc( product.get( "name" ) ) );
+                }
+                else
+                    if ( order.equals( "offer.type.name" ) )
+                    {
+                        orderList.add( builder.asc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.asc( root.get( order ) ) );
+                    }
+            }
+        }
+        else
+        {
+            // get desc order
+            for ( String order : filter.getOrders( ) )
+            {
+                if ( order.equals( "offer.product.name" ) )
+                {
+                    orderList.add( builder.desc( product.get( "name" ) ) );
+                }
+                else
+                    if ( order.equals( "offer.type.name" ) )
+                    {
+                        orderList.add( builder.desc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.desc( root.get( order ) ) );
+                    }
+            }
+        }
+
+        query.orderBy( orderList );
     }
 
     /**
@@ -261,7 +259,7 @@ public class PurchaseDAO<K, E> extends AbstractStockDAO<Integer, Purchase> imple
     public Integer getCountPurchaseByBeginDateAndLastDate( String strDateDebut, String strDateFin )
     {
         Integer result = 0;
-        StringBuffer requeteSQL = new StringBuffer( );
+        StringBuilder requeteSQL = new StringBuilder( );
 
         requeteSQL.append( "SELECT count( distinct purchase_date.owner_id)  " );
         requeteSQL.append( " FROM stock_purchase_attribute_date AS purchase_date" );

@@ -33,12 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.product;
 
-import fr.paris.lutece.plugins.stock.commons.ResultList;
-import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
-import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
-import fr.paris.lutece.plugins.stock.service.StockPlugin;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -47,7 +41,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -55,22 +48,22 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+
+import fr.paris.lutece.plugins.stock.commons.ResultList;
+import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
+import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
+import fr.paris.lutece.plugins.stock.service.StockPlugin;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 /**
  * This class provides Data Access methods for {@link Product} objects.
- * 
- * @param <K>
- *            the key type
- * @param <E>
- *            the element type
  */
-public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> implements IProductDAO
+public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IProductDAO
 {
 
     /** The Constant JPQL_GET_QUANTITY. */
-    private static final String JPQL_IS_FULL = "SELECT o.quantity FROM Offer o, OfferAttributeDate d "
-            + "WHERE o.product.id = :productId AND o.id = d.owner.id AND o.statut <> :annuleKey AND o.statut <> :verrouilleKey AND d.key = :keyDate AND d.value >= current_date()";
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
@@ -130,8 +123,6 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         CriteriaQuery<Product> cq = cb.createQuery( Product.class );
 
         Root<Product> root = cq.from( Product.class );
-        // root.fetch( Product_.category, JoinType.LEFT );
-        // root.fetch( Product_.provider, JoinType.LEFT );
         buildCriteriaQuery( filter, root, cq, cb );
         buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
@@ -153,7 +144,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     protected List<Predicate> buildPredicates( ProductFilter filter, Root<Product> root, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( filter.getIdProduct( ) != null )
         {
@@ -178,7 +169,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     protected void buildCriteriaQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
@@ -218,7 +209,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
-            List<Order> orderList = new ArrayList<Order>( );
+            List<Order> orderList = new ArrayList<>( );
 
             if ( filter.isOrderAsc( ) )
             {
@@ -258,7 +249,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 
         Root<Product> root = cq.from( Product.class );
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( StringUtils.isNotBlank( name ) )
         {
@@ -270,7 +261,6 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
             // add existing predicates to Where clause
             cq.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
-        // buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
 
         TypedQuery<Product> query = em.createQuery( cq );
@@ -284,7 +274,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     public Integer getCountProductALAfficheByDate( String strDate )
     {
         Integer result = 0;
-        StringBuffer requeteSQL = new StringBuffer( );
+        StringBuilder requeteSQL = new StringBuilder( );
 
         requeteSQL.append( "SELECT count( distinct product_date_begin.owner_id)  " );
         requeteSQL.append( " FROM stock_product_attribute_date AS product_date_begin" );
@@ -319,7 +309,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     public Integer getCountProductAVenirByDate( String strDate )
     {
         Integer nResult = 0;
-        StringBuffer requeteSQL = new StringBuffer( );
+        StringBuilder requeteSQL = new StringBuilder( );
 
         requeteSQL.append( "SELECT count( distinct product_date_begin.owner_id)  " );
         requeteSQL.append( " FROM stock_product_attribute_date AS product_date_begin" );
@@ -352,7 +342,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     public Boolean isFull( Integer productId )
     {
 
-        StringBuffer requeteSQL = new StringBuffer( );
+        StringBuilder requeteSQL = new StringBuilder( );
 
         requeteSQL.append( "SELECT sum(o.quantity) FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2" );
         requeteSQL.append( " WHERE o.product_id= " + productId );
@@ -364,19 +354,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         Query query = getEM( ).createNativeQuery( requeteSQL.toString( ) );
         List<BigDecimal> listeCount = query.getResultList( );
 
-        boolean full = false;
-
-        if ( listeCount.size( ) > 0 )
-        {
-            if ( listeCount.get( 0 ) != null )
-            {
-                if ( listeCount.get( 0 ).intValue( ) == 0 )
-                {
-                    full = Boolean.TRUE;
-                }
-            }
-        }
-        return full;
+        return CollectionUtils.isNotEmpty( listeCount ) && listeCount.get( 0 ) != null && listeCount.get( 0 ).intValue( ) == 0;
     }
 
     /**

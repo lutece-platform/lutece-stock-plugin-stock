@@ -54,7 +54,7 @@ public class ProviderFilter implements BeanFilter
     private boolean _bProducts;
 
     // order
-    private List<String> _orders = new ArrayList<String>( );
+    private List<String> _orders = new ArrayList<>( );
     private boolean _orderAsc;
 
     /**

@@ -236,9 +236,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         TypedQuery<Category> query = em.createQuery( cq );
 
-        List<Category> listCategory = query.getResultList( );
-
-        return listCategory;
+        return query.getResultList( );
     }
 
     /**
@@ -256,7 +254,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
     private void buildCriteriaQuery( CategoryFilter filter, Root<Category> root, CriteriaQuery<Category> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
@@ -275,7 +273,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         if ( filter.getProductNull( ) != null )
         {
-            if ( filter.getProductNull( ) )
+            if ( Boolean.TRUE.equals( filter.getProductNull( ) ) )
             {
                 listPredicates.add( builder.isEmpty( root.get( Category_.productSet ) ) );
             }
@@ -308,7 +306,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
-            List<Order> orderList = new ArrayList<Order>( );
+            List<Order> orderList = new ArrayList<>( );
 
             if ( filter.isOrderAsc( ) )
             {
@@ -368,7 +366,7 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
 
         Root<Category> root = cq.from( Category.class );
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( StringUtils.isNotBlank( name ) )
         {
@@ -380,7 +378,6 @@ public final class CategoryDAO extends AbstractStockDAO<Integer, Category> imple
             // add existing predicates to Where clause
             cq.where( listPredicates.toArray( new Predicate [ listPredicates.size( )] ) );
         }
-        // buildSortQuery( filter, root, cq, cb );
         cq.distinct( true );
 
         TypedQuery<Category> query = em.createQuery( cq );

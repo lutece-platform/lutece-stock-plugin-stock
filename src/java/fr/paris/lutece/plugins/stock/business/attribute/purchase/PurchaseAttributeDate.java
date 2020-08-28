@@ -33,10 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.purchase;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
-import fr.paris.lutece.plugins.stock.business.purchase.Purchase;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -48,6 +44,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
+import fr.paris.lutece.plugins.stock.business.purchase.Purchase;
+
 /**
  *
  * Category
@@ -56,11 +55,8 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_purchase_attribute_date" )
 @IdClass( value = PurchaseAttributeId.class )
-public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase> implements Serializable
+public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase>
 {
-    /**  
-     *
-     */
     private static final long serialVersionUID = 1156990765045333239L;
 
     Purchase _owner;
@@ -116,26 +112,10 @@ public class PurchaseAttributeDate extends AbstractAttributeDate<Purchase> imple
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;
     }
-    // /**
-    // * @return the purchase
-    // */
-    // @ManyToOne( optional = false, fetch = FetchType.LAZY )
-    // @JoinColumn( name = "id_purchase" )
-    // public Purchase getPurchase( )
-    // {
-    // return purchase;
-    // }
-    //
-    // /**
-    // * @param purchase the purchase to set
-    // */
-    // public void setPurchase( Purchase purchase )
-    // {
-    // this.purchase = purchase;
-    // }
 
 }

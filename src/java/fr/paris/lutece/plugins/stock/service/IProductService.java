@@ -33,13 +33,12 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import fr.paris.lutece.plugins.stock.business.product.Product;
-
 import java.sql.Timestamp;
 import java.util.List;
 
-import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import org.springframework.transaction.annotation.Transactional;
+
+import fr.paris.lutece.plugins.stock.business.product.Product;
 
 /**
  * 

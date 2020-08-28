@@ -33,11 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.offer;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
-import fr.paris.lutece.plugins.stock.business.offer.Offer;
-
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,6 +42,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
+import fr.paris.lutece.plugins.stock.business.offer.Offer;
+
 /**
  *
  * Category
@@ -55,7 +53,7 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_offer_attribute" )
 @IdClass( value = OfferAttributeId.class )
-public class OfferAttribute extends AbstractAttribute<Offer> implements Serializable
+public class OfferAttribute extends AbstractAttribute<Offer>
 {
 
     /**  
@@ -115,6 +113,7 @@ public class OfferAttribute extends AbstractAttribute<Offer> implements Serializ
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;

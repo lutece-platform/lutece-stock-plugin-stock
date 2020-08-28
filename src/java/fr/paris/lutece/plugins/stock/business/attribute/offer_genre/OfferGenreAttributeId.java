@@ -51,7 +51,7 @@ public class OfferGenreAttributeId extends AbstractAttributeId
 
     private OfferGenre _owner;
 
-    /*
+    /**
      * (non-Javadoc)
      * 
      * @see java.lang.Object#hashCode()
@@ -75,28 +75,46 @@ public class OfferGenreAttributeId extends AbstractAttributeId
     public boolean equals( Object obj )
     {
         if ( this == obj )
+        {
             return true;
+        }
         if ( obj == null )
+        {
             return false;
+        }
         if ( getClass( ) != obj.getClass( ) )
+        {
             return false;
+        }
         OfferGenreAttributeId other = (OfferGenreAttributeId) obj;
         if ( _key == null )
         {
             if ( other.getKey( ) != null )
+            {
                 return false;
+            }
         }
         else
+        {
             if ( !_key.equals( other.getKey( ) ) )
+            {
                 return false;
+            }
+        }
         if ( _owner == null )
         {
             if ( other.getOwner( ) != null )
+            {
                 return false;
+            }
         }
         else
+        {
             if ( !_owner.getId( ).equals( other.getOwner( ).getId( ) ) )
+            {
                 return false;
+            }
+        }
         return true;
     }
 

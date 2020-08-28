@@ -33,14 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.offer;
 
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.Product_;
-import fr.paris.lutece.plugins.stock.commons.ResultList;
-import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
-import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
-import fr.paris.lutece.plugins.stock.service.StockPlugin;
-import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,17 +46,21 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.Product_;
+import fr.paris.lutece.plugins.stock.commons.ResultList;
+import fr.paris.lutece.plugins.stock.commons.dao.AbstractStockDAO;
+import fr.paris.lutece.plugins.stock.commons.dao.PaginationProperties;
+import fr.paris.lutece.plugins.stock.service.StockPlugin;
+import fr.paris.lutece.plugins.stock.utils.jpa.StockJPAUtils;
 
 /**
  * This class provides Data Access methods for {@link Offer} objects.
- * 
- * @param <K>
- *            the key type
- * @param <E>
- *            the entity type
  */
-public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements IOfferDAO
+public class OfferDAO extends AbstractStockDAO<Integer, Offer> implements IOfferDAO
 {
 
     /** The Constant JPQL_GET_QUANTITY. */
@@ -120,7 +116,7 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
     protected void buildCriteriaQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         Join<Offer, Product> product = root.join( Offer_.product, JoinType.INNER );
         Join<Offer, OfferGenre> type = root.join( Offer_.type, JoinType.INNER );
@@ -165,55 +161,57 @@ public class OfferDAO<K, E> extends AbstractStockDAO<Integer, Offer> implements 
      */
     protected void buildSortQuery( OfferFilter filter, Root<Offer> root, CriteriaQuery<Offer> query, CriteriaBuilder builder )
     {
-        if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
+        if ( CollectionUtils.isEmpty( filter.getOrders( ) ) )
         {
-            List<Order> orderList = new ArrayList<Order>( );
-            Join<Offer, Product> product = root.join( Offer_.product, JoinType.INNER );
-            Join<Offer, OfferGenre> type = root.join( Offer_.type, JoinType.INNER );
-
-            if ( filter.isOrderAsc( ) )
-            {
-                // get asc order
-                for ( String order : filter.getOrders( ) )
-                {
-                    if ( order.equals( "product.name" ) )
-                    {
-                        orderList.add( builder.asc( product.get( "name" ) ) );
-                    }
-                    else
-                        if ( order.equals( "type.name" ) )
-                        {
-                            orderList.add( builder.asc( type.get( "name" ) ) );
-                        }
-                        else
-                        {
-                            orderList.add( builder.asc( root.get( order ) ) );
-                        }
-                }
-            }
-            else
-            {
-                // get desc order
-                for ( String order : filter.getOrders( ) )
-                {
-                    if ( order.equals( "product.name" ) )
-                    {
-                        orderList.add( builder.desc( product.get( "name" ) ) );
-                    }
-                    else
-                        if ( order.equals( "type.name" ) )
-                        {
-                            orderList.add( builder.desc( type.get( "name" ) ) );
-                        }
-                        else
-                        {
-                            orderList.add( builder.desc( root.get( order ) ) );
-                        }
-                }
-            }
-
-            query.orderBy( orderList );
+            return;
         }
+           
+        List<Order> orderList = new ArrayList<>( );
+        Join<Offer, Product> product = root.join( Offer_.product, JoinType.INNER );
+        Join<Offer, OfferGenre> type = root.join( Offer_.type, JoinType.INNER );
+
+        if ( filter.isOrderAsc( ) )
+        {
+            // get asc order
+            for ( String order : filter.getOrders( ) )
+            {
+                if ( order.equals( "product.name" ) )
+                {
+                    orderList.add( builder.asc( product.get( "name" ) ) );
+                }
+                else
+                    if ( order.equals( "type.name" ) )
+                    {
+                        orderList.add( builder.asc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.asc( root.get( order ) ) );
+                    }
+            }
+        }
+        else
+        {
+            // get desc order
+            for ( String order : filter.getOrders( ) )
+            {
+                if ( order.equals( "product.name" ) )
+                {
+                    orderList.add( builder.desc( product.get( "name" ) ) );
+                }
+                else
+                    if ( order.equals( "type.name" ) )
+                    {
+                        orderList.add( builder.desc( type.get( "name" ) ) );
+                    }
+                    else
+                    {
+                        orderList.add( builder.desc( root.get( order ) ) );
+                    }
+            }
+        }
+
+        query.orderBy( orderList );
     }
 
     /*

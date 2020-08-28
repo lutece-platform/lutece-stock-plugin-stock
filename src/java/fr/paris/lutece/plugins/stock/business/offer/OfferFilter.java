@@ -38,7 +38,6 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.stock.business.BeanFilter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OfferFilter.
  */
@@ -67,7 +66,7 @@ public class OfferFilter implements BeanFilter
 
     // order
     /** The _orders. */
-    private List<String> _orders = new ArrayList<String>( );
+    private List<String> _orders = new ArrayList<>( );
 
     /** The _order asc. */
     private boolean _orderAsc;

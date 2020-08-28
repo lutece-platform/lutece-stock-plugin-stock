@@ -33,8 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute;
 
-import fr.paris.lutece.plugins.stock.business.StockEntityBean;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -42,6 +40,8 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.MappedSuperclass;
+
+import fr.paris.lutece.plugins.stock.business.StockEntityBean;
 
 /**
  * 
@@ -54,14 +54,7 @@ import javax.persistence.MappedSuperclass;
 @IdClass( value = AbstractAttributeId.class )
 public abstract class AbstractAttributeNum<E extends StockEntityBean<?>> implements Serializable
 {
-    /**  
-     *
-     */
     private static final long serialVersionUID = 3145178572137613258L;
-    /**  
-     *
-     */
-    // private Integer id;
     protected String _key;
     protected BigDecimal _value;
 
@@ -72,28 +65,6 @@ public abstract class AbstractAttributeNum<E extends StockEntityBean<?>> impleme
     {
         super( );
     }
-
-    // /**
-    // * @return the id
-    // */
-    // @TableGenerator( table = StockJPAUtils.SEQUENCE_TABLE_NAME, name =
-    // JPA_SEQUENCE_NAME, pkColumnValue = "id", allocationSize = 1 )
-    // @Id
-    // @GeneratedValue( strategy = GenerationType.TABLE, generator =
-    // JPA_SEQUENCE_NAME )
-    // @Column( name = "id" )
-    // public Integer getId( )
-    // {
-    // return id;
-    // }
-    //
-    // /**
-    // * @param id the id to set
-    // */
-    // public void setId( Integer id )
-    // {
-    // this.id = id;
-    // }
 
     /**
      * @return the key

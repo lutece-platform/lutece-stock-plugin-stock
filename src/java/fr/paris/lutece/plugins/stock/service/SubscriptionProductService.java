@@ -46,6 +46,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +72,7 @@ public class SubscriptionProductService extends AbstractService implements ISubs
     {
         SubscriptionFilter filter = new SubscriptionFilter( strUserEmail, StockSubscriptionProviderService.STOCK_PROVIDER_NAME,
                 StockSubscriptionProviderService.STOCK_SUBSCRIPTION_KEY, strIdProduct );
-        return SubscriptionService.getInstance( ).findByFilter( filter ).size( ) > 0;
+        return CollectionUtils.isNotEmpty( SubscriptionService.getInstance( ).findByFilter( filter ) );
     }
 
     /**
@@ -86,7 +87,7 @@ public class SubscriptionProductService extends AbstractService implements ISubs
         filter.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
         List<Subscription> listSubscriptions = SubscriptionService.getInstance( ).findByFilter( filter );
 
-        List<Product> listProducts = new ArrayList<Product>( listSubscriptions.size( ) );
+        List<Product> listProducts = new ArrayList<>( listSubscriptions.size( ) );
         for ( Subscription subscription : listSubscriptions )
         {
             Product product = _daoProduct.findById( Integer.parseInt( subscription.getIdSubscribedResource( ) ) );
@@ -156,7 +157,7 @@ public class SubscriptionProductService extends AbstractService implements ISubs
         filter.setSubscriptionProvider( StockSubscriptionProviderService.STOCK_PROVIDER_NAME );
 
         List<Subscription> listSubscriptions = SubscriptionService.getInstance( ).findByFilter( filter );
-        List<String> listUserId = new ArrayList<String>( listSubscriptions.size( ) );
+        List<String> listUserId = new ArrayList<>( listSubscriptions.size( ) );
         for ( Subscription subscription : listSubscriptions )
         {
             listUserId.add( subscription.getUserId( ) );

@@ -94,9 +94,9 @@ public class OfferGenre extends StockEntityBean<OfferGenre>
     public OfferGenre( )
     {
         super( );
-        this._attributeDateList = new HashSet<OfferGenreAttributeDate>( );
-        this._attributeList = new HashSet<OfferGenreAttribute>( );
-        this._attributeNumList = new HashSet<OfferGenreAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
     }
 
     /**

@@ -54,7 +54,7 @@ public class ProductFilter implements BeanFilter
     private String _dateThe;
     private boolean _bOrderAsc;
     private Boolean _alaffiche;
-    private List<String> _strOrders = new ArrayList<String>( );
+    private List<String> _strOrders = new ArrayList<>( );
 
     /**
      * Return the category id

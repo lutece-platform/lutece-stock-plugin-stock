@@ -153,44 +153,31 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
     private void buildCriteriaQuery( ProviderFilter filter, Root<Provider> root, CriteriaQuery<Provider> query, CriteriaBuilder builder )
     {
         // predicates list
-        List<Predicate> listPredicates = new ArrayList<Predicate>( );
+        List<Predicate> listPredicates = new ArrayList<>( );
 
         if ( StringUtils.isNotBlank( filter.getName( ) ) )
         {
             listPredicates.add( builder.like( root.get( Provider_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
-
-            // listPredicates.add( cb.like( root.<String>get( Provider.ATTRIBUTE_NAME), StockJPAUtils.buildCriteriaLikeString( filter.getName() ) ) );
         }
 
         if ( StringUtils.isNotBlank( filter.getAddress( ) ) )
         {
             listPredicates.add( builder.like( root.get( Provider_.address ), StockJPAUtils.buildCriteriaLikeString( filter.getAddress( ) ) ) );
-
-            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_ADDRESS), StockJPAUtils.buildCriteriaLikeString( filter.getAddress() ) )
-            // );
         }
 
         if ( StringUtils.isNotBlank( filter.getContactName( ) ) )
         {
             listPredicates.add( builder.like( root.get( Provider_.contactName ), StockJPAUtils.buildCriteriaLikeString( filter.getContactName( ) ) ) );
-
-            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_CONTACT_NAME), StockJPAUtils.buildCriteriaLikeString(
-            // filter.getContactName() ) ) );
         }
 
         if ( StringUtils.isNotBlank( filter.getMail( ) ) )
         {
             listPredicates.add( builder.like( root.get( Provider_.mail ), StockJPAUtils.buildCriteriaLikeString( filter.getMail( ) ) ) );
-
-            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_MAIL), StockJPAUtils.buildCriteriaLikeString( filter.getMail() ) ) );
         }
 
         if ( StringUtils.isNotBlank( filter.getPhoneNumber( ) ) )
         {
             listPredicates.add( builder.like( root.get( Provider_.phoneNumber ), StockJPAUtils.buildCriteriaLikeString( filter.getPhoneNumber( ) ) ) );
-
-            // listPredicates.add( builder.like( root.<String>get( Provider.ATTRIBUTE_PHONE_NUMBER), StockJPAUtils.buildCriteriaLikeString(
-            // filter.getPhoneNumber() ) ) );
         }
 
         if ( filter.isProducts( ) )
@@ -221,7 +208,7 @@ public final class ProviderDAO extends AbstractStockDAO<Integer, Provider> imple
     {
         if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
         {
-            List<Order> orderList = new ArrayList<Order>( );
+            List<Order> orderList = new ArrayList<>( );
 
             if ( filter.isOrderAsc( ) )
             {

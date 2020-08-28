@@ -33,16 +33,15 @@
  */
 package fr.paris.lutece.plugins.stock.service;
 
-import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
-import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
-
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
 /**
  * 

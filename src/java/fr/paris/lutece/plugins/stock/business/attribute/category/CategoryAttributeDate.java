@@ -33,10 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.category;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
-import fr.paris.lutece.plugins.stock.business.category.Category;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -48,6 +44,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeDate;
+import fr.paris.lutece.plugins.stock.business.category.Category;
+
 /**
  *
  * Category
@@ -56,7 +55,7 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_category_attribute_date" )
 @IdClass( value = CategoryAttributeId.class )
-public class CategoryAttributeDate extends AbstractAttributeDate<Category> implements Serializable
+public class CategoryAttributeDate extends AbstractAttributeDate<Category>
 {
     /**  
      *
@@ -90,24 +89,6 @@ public class CategoryAttributeDate extends AbstractAttributeDate<Category> imple
         super( );
     }
 
-    // /**
-    // * @return the category
-    // */
-    // @ManyToOne( optional = false, fetch = FetchType.LAZY )
-    // @JoinColumn( name = "id_category" )
-    // public Category getCategory( )
-    // {
-    // return category;
-    // }
-    //
-    // /**
-    // * @param category the category to set
-    // */
-    // public void setCategory( Category category )
-    // {
-    // this.category = category;
-    // }
-
     /**
      * @return the id
      */
@@ -133,6 +114,7 @@ public class CategoryAttributeDate extends AbstractAttributeDate<Category> imple
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;

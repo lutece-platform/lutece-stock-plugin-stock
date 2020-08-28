@@ -33,10 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.purchase;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum;
-import fr.paris.lutece.plugins.stock.business.purchase.Purchase;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -48,6 +44,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttributeNum;
+import fr.paris.lutece.plugins.stock.business.purchase.Purchase;
+
 /**
  *
  * Category
@@ -56,11 +55,8 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_purchase_attribute_num" )
 @IdClass( value = PurchaseAttributeId.class )
-public class PurchaseAttributeNum extends AbstractAttributeNum<Purchase> implements Serializable
+public class PurchaseAttributeNum extends AbstractAttributeNum<Purchase>
 {
-    /**  
-     *
-     */
     private static final long serialVersionUID = -2152281074558217469L;
 
     private Purchase _owner;
@@ -115,6 +111,7 @@ public class PurchaseAttributeNum extends AbstractAttributeNum<Purchase> impleme
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;

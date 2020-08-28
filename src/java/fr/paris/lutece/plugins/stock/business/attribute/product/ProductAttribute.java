@@ -33,11 +33,6 @@
  */
 package fr.paris.lutece.plugins.stock.business.attribute.product;
 
-import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
-import fr.paris.lutece.plugins.stock.business.product.Product;
-
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,6 +42,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.paris.lutece.plugins.stock.business.attribute.AbstractAttribute;
+import fr.paris.lutece.plugins.stock.business.product.Product;
+
 /**
  *
  * Category
@@ -55,12 +53,9 @@ import javax.persistence.Table;
 @Entity
 @Table( name = "stock_product_attribute" )
 @IdClass( value = ProductAttributeId.class )
-public class ProductAttribute extends AbstractAttribute<Product> implements Serializable
+public class ProductAttribute extends AbstractAttribute<Product>
 {
 
-    /**  
-     *
-     */
     private static final long serialVersionUID = 1738131586838866057L;
 
     private Product _owner;
@@ -115,6 +110,7 @@ public class ProductAttribute extends AbstractAttribute<Product> implements Seri
      */
     @Id
     @Column( name = "attribute_key" )
+    @Override
     public String getKey( )
     {
         return _key;

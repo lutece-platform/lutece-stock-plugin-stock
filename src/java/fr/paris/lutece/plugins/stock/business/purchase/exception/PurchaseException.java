@@ -42,7 +42,7 @@ public class PurchaseException extends Exception
     private static final long serialVersionUID = -52377360163133736L;
 
     /** The purchase id. */
-    private Integer _purchaseId;
+    protected final Integer _purchaseId;
 
     /**
      * Instantiates a new purchase exception.
@@ -67,16 +67,4 @@ public class PurchaseException extends Exception
     {
         return _purchaseId;
     }
-
-    /**
-     * Sets the purchase id.
-     * 
-     * @param thePurchaseId
-     *            the purchase id to set
-     */
-    public void setPurchaseId( Integer thePurchaseId )
-    {
-        this._purchaseId = thePurchaseId;
-    }
-
 }

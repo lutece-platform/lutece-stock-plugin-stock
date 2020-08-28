@@ -51,7 +51,7 @@ public class CategoryFilter implements BeanFilter
     private Integer _parentCategory;
     private Boolean _productNull;
     private boolean _bOrderAsc;
-    private List<String> _orders = new ArrayList<String>( );
+    private List<String> _orders = new ArrayList<>( );
 
     /**
      * Return true if the filter is set to product null

@@ -92,9 +92,9 @@ public class Provider extends StockEntityBean<Provider>
      */
     public Provider( )
     {
-        this._attributeDateList = new HashSet<ProviderAttributeDate>( );
-        this._attributeList = new HashSet<ProviderAttribute>( );
-        this._attributeNumList = new HashSet<ProviderAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
     }
 
     /**
@@ -105,9 +105,9 @@ public class Provider extends StockEntityBean<Provider>
      */
     public Provider( Provider provider )
     {
-        this._attributeDateList = new HashSet<ProviderAttributeDate>( );
-        this._attributeList = new HashSet<ProviderAttribute>( );
-        this._attributeNumList = new HashSet<ProviderAttributeNum>( );
+        this._attributeDateList = new HashSet<>( );
+        this._attributeList = new HashSet<>( );
+        this._attributeNumList = new HashSet<>( );
         copy( provider );
     }
 
