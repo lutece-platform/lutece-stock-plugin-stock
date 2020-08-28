@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -327,7 +327,7 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * @return dynamic attributes list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttribute> getAttributeList( )
     {
@@ -351,7 +351,7 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * @return dynamic attributes list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttributeDate> getAttributeDateList( )
     {
@@ -375,7 +375,7 @@ public class Offer extends StockEntityBean<Offer> implements Serializable
      * @return dynamic attributes list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<OfferAttributeNum> getAttributeNumList( )
     {

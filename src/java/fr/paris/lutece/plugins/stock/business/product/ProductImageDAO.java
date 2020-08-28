@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -107,7 +107,8 @@ public class ProductImageDAO extends AbstractStockDAO<Integer, Object> implement
     }
 
     @Override
-    public byte[] getRealImage(Integer idProduct) {
+    public byte [ ] getRealImage( Integer idProduct )
+    {
         Query query = this.getEM( ).createNativeQuery( "SELECT real_image FROM stock_product_image WHERE id_product = ?" );
         query.setParameter( 1, idProduct );
         return (byte [ ]) query.getSingleResult( );

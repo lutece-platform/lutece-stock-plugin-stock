@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -302,7 +302,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeList()
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttribute> getAttributeList( )
     {
@@ -326,7 +326,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeDateList ()
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeDate> getAttributeDateList( )
     {
@@ -350,7 +350,7 @@ public class Category extends StockEntityBean<Category> implements Serializable
      * @see fr.paris.lutece.plugins.stock.business.StockEntityBean#getAttributeNumList ()
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<CategoryAttributeNum> getAttributeNumList( )
     {

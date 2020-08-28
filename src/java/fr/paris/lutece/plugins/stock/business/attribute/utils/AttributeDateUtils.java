@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -130,8 +130,8 @@ public final class AttributeDateUtils
      */
     public static Predicate greaterThan( CriteriaBuilder builder, Join<?, ? extends AbstractAttributeDate<?>> join, String key, Timestamp value )
     {
-        return builder
-                .and( builder.equal( join.get( AbstractAttributeDate_.key ), key ), builder.greaterThan( join.get( AbstractAttributeDate_.value ), value ) );
+        return builder.and( builder.equal( join.get( AbstractAttributeDate_.key ), key ),
+                builder.greaterThan( join.get( AbstractAttributeDate_.value ), value ) );
     }
 
     /**

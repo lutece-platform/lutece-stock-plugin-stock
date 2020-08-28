@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,9 +74,9 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
     private static final String JPQL_IS_TYPE = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId";
 
-    private static final String JPQL_IS_TYPE_OFFER ="SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END " + "FROM Product p, Offer o, OfferAttributeDate d  "
+    private static final String JPQL_IS_TYPE_OFFER = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
+            + "FROM Product p, Offer o, OfferAttributeDate d  "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId AND o.id = d.owner.id AND d.key = :keyDate AND d.value >= :now AND o.statut <> :annuleKey";
-
 
     /**
      * 
@@ -354,21 +354,24 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
 
         StringBuffer requeteSQL = new StringBuffer( );
 
-        requeteSQL.append("SELECT sum(o.quantity) FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2");
-        requeteSQL.append(" WHERE o.product_id= "+productId);
-        requeteSQL.append(" AND o.id_offer=d.owner_id AND o.id_offer=d2.owner_id");
-        requeteSQL.append(" AND o.statut<>'annule' AND o.statut<>'verrouille'");
-        requeteSQL.append(" AND d.attribute_key ='date' AND d2.attribute_key ='hour'");
-        requeteSQL.append(" AND TIMESTAMP(CONCAT( DATE(d.attribute_value),' ', time(d2.attribute_value)))>=CURRENT_TIMESTAMP();");
+        requeteSQL.append( "SELECT sum(o.quantity) FROM stock_offer o,stock_offer_attribute_date d, stock_offer_attribute_date d2" );
+        requeteSQL.append( " WHERE o.product_id= " + productId );
+        requeteSQL.append( " AND o.id_offer=d.owner_id AND o.id_offer=d2.owner_id" );
+        requeteSQL.append( " AND o.statut<>'annule' AND o.statut<>'verrouille'" );
+        requeteSQL.append( " AND d.attribute_key ='date' AND d2.attribute_key ='hour'" );
+        requeteSQL.append( " AND TIMESTAMP(CONCAT( DATE(d.attribute_value),' ', time(d2.attribute_value)))>=CURRENT_TIMESTAMP();" );
 
         Query query = getEM( ).createNativeQuery( requeteSQL.toString( ) );
         List<BigDecimal> listeCount = query.getResultList( );
 
         boolean full = false;
 
-        if (listeCount.size()>0) {
-            if(listeCount.get(0)!=null){
-                if (listeCount.get(0).intValue()== 0){
+        if ( listeCount.size( ) > 0 )
+        {
+            if ( listeCount.get( 0 ) != null )
+            {
+                if ( listeCount.get( 0 ).intValue( ) == 0 )
+                {
                     full = Boolean.TRUE;
                 }
             }
@@ -393,7 +396,7 @@ public class ProductDAO<K, E> extends AbstractStockDAO<Integer, Product> impleme
         return (Boolean) query.getSingleResult( );
     }
 
-    public Boolean isTypeOffer(Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey)
+    public Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey )
     {
         EntityManager em = getEM( );
         Query query = em.createQuery( JPQL_IS_TYPE_OFFER );

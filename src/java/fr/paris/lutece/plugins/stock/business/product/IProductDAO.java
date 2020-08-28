@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -110,5 +110,5 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
      */
     Boolean isType( Integer productId, Integer genreId );
 
-    Boolean isTypeOffer(Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey);
+    Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey );
 }

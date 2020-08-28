@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -278,7 +278,7 @@ public class Product extends StockEntityBean<Product>
      * @return the product list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttribute> getAttributeList( )
     {
@@ -302,7 +302,7 @@ public class Product extends StockEntityBean<Product>
      * @return dynamic attributes list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttributeDate> getAttributeDateList( )
     {
@@ -326,7 +326,7 @@ public class Product extends StockEntityBean<Product>
      * @return dynamic attributes list
      */
     @OneToMany( cascade = {
-        CascadeType.ALL
+            CascadeType.ALL
     }, mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER )
     public Set<ProductAttributeNum> getAttributeNumList( )
     {
