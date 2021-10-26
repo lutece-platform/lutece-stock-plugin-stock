@@ -33,7 +33,7 @@
  */
 package fr.paris.lutece.plugins.stock.business.district;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import fr.paris.lutece.plugins.stock.service.StockPlugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
