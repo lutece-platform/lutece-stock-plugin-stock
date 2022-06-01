@@ -111,4 +111,6 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
     Boolean isType( Integer productId, Integer genreId );
 
     Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey );
+    
+    List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd );
 }

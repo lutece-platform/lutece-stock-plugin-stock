@@ -41,6 +41,7 @@ import javax.inject.Named;
 
 import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
 import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
 /**
@@ -91,5 +92,15 @@ public class ProductService extends AbstractService implements IProductService
     public Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey )
     {
         return _daoProduct.isTypeOffer( productId, genreId, keyDate, now, annuleKey );
+    }
+    
+    public List<Product> findByFilter( ProductFilter productFilter )
+    {
+        return _daoProduct.findByFilter( productFilter );
+    }
+    
+    public List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
+    {
+        return _daoProduct.getProductsForTaskTimed( keyDate, timestampStart, timestampEnd );
     }
 }

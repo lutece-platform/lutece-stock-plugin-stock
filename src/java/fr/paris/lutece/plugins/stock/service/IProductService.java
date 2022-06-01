@@ -39,6 +39,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 
 /**
  * 
@@ -75,4 +76,8 @@ public interface IProductService
     Boolean isType( Integer productId, Integer genreId );
 
     Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey );
+
+    List<Product> findByFilter( ProductFilter productFilter );
+    
+    List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd );
 }

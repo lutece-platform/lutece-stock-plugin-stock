@@ -70,6 +70,10 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
     private static final String JPQL_IS_TYPE_OFFER = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
             + "FROM Product p, Offer o, OfferAttributeDate d  "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId AND o.id = d.owner.id AND d.key = :keyDate AND d.value >= :now AND o.statut <> :annuleKey";
+    
+    private static final String JPQL_GET_PRODUCTS_TASK = "SELECT p.product.id "
+            + "FROM Product p, Offer o, OfferAttributeDate d  "
+            + "WHERE p.id= o.product.id AND o.id = d.owner.id AND d.key = :keyDate AND d.value < :timestampStart and AND d.value >= :timestampEnd ";
 
     /**
      * 
@@ -385,5 +389,16 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
         query.setParameter( "annuleKey", annuleKey );
 
         return (Boolean) query.getSingleResult( );
+    }
+    
+    public List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
+    {
+        EntityManager em = getEM( );
+        Query query = em.createQuery( JPQL_GET_PRODUCTS_TASK );
+        query.setParameter( "keyDate", keyDate );
+        query.setParameter( "timestampStart", timestampStart );
+        query.setParameter( "timestampEnd", timestampEnd );
+        
+        return (List<Integer>) query.getResultList( );
     }
 }
