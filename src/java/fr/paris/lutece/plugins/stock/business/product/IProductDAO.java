@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -111,4 +111,17 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
     Boolean isType( Integer productId, Integer genreId );
 
     Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey );
+
+    /**
+     * Returns products IDs between two timestamps
+     * 
+     * @param keyDate
+     *            the attribute key
+     * @param timestampStart
+     *            the start timestamp
+     * @param timestamsEnd
+     *            the end timestamp
+     * @return the products ids list
+     */
+    List<Integer> getProductsIdsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd );
 }
