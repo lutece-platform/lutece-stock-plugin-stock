@@ -70,13 +70,13 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
     private static final String JPQL_IS_TYPE_OFFER = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
             + "FROM Product p, Offer o, OfferAttributeDate d  "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId AND o.id = d.owner.id AND d.key = :keyDate AND d.value >= :now AND o.statut <> :annuleKey";
-    
-    private static final String JPQL_GET_PRODUCTS_TASK = "SELECT p.product.id "
+
+    private static final String JPQL_GET_PRODUCTS_TASK = "SELECT p.id "
             + "FROM Product p, Offer o, OfferAttributeDate d  "
-            + "WHERE p.id= o.product.id AND o.id = d.owner.id AND d.key = :keyDate AND d.value < :timestampStart and AND d.value >= :timestampEnd ";
+            + "WHERE p.id= o.product.id AND o.id = d.owner.id AND d.key = :keyDate AND d.value < :timestampStart AND d.value >= :timestampEnd ";
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     @Override
@@ -87,11 +87,12 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /**
      * Find product list by filter.
-     * 
+     *
      * @param filter
      *            the filter
      * @return the list of product
      */
+    @Override
     public List<Product> findByFilter( ProductFilter filter )
     {
         EntityManager em = getEM( );
@@ -112,13 +113,14 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /**
      * Finds by filter.
-     * 
+     *
      * @param filter
      *            the filter
      * @param paginationProperties
      *            the pagination properties
      * @return the product list
      */
+    @Override
     public ResultList<Product> findByFilter( ProductFilter filter, PaginationProperties paginationProperties )
     {
         EntityManager em = getEM( );
@@ -136,7 +138,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /**
      * Build the predicate list from filter.
-     * 
+     *
      * @param filter
      *            the filter
      * @param root
@@ -160,7 +162,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /**
      * Build the criteria query from the filter.
-     * 
+     *
      * @param filter
      *            the filter
      * @param root
@@ -180,12 +182,12 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
             listPredicates.add( builder.like( root.get( Product_.name ), StockJPAUtils.buildCriteriaLikeString( filter.getName( ) ) ) );
         }
 
-        if ( filter.getIdCategory( ) != null && filter.getIdCategory( ) > 0 )
+        if ( ( filter.getIdCategory( ) != null ) && ( filter.getIdCategory( ) > 0 ) )
         {
             listPredicates.add( builder.equal( root.get( Product_.category ), filter.getIdCategory( ) ) );
         }
 
-        if ( filter.getIdProvider( ) != null && filter.getIdProvider( ) > 0 )
+        if ( ( filter.getIdProvider( ) != null ) && ( filter.getIdProvider( ) > 0 ) )
         {
             listPredicates.add( builder.equal( root.get( Product_.provider ), filter.getIdProvider( ) ) );
         }
@@ -199,7 +201,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /**
      * Build the sort query.
-     * 
+     *
      * @param filter
      *            the filter
      * @param root
@@ -211,7 +213,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
      */
     protected void buildSortQuery( ProductFilter filter, Root<Product> root, CriteriaQuery<Product> query, CriteriaBuilder builder )
     {
-        if ( filter.getOrders( ) != null && !filter.getOrders( ).isEmpty( ) )
+        if ( ( filter.getOrders( ) != null ) && !filter.getOrders( ).isEmpty( ) )
         {
             List<Order> orderList = new ArrayList<>( );
 
@@ -238,12 +240,13 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see fr.paris.lutece.plugins.stock.business.product.IProductDAO#getAllByName (java.lang.String)
      */
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<Product> getAllByName( String name )
     {
         EntityManager em = getEM( );
@@ -275,6 +278,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getCountProductALAfficheByDate( String strDate )
     {
         Integer result = 0;
@@ -310,6 +314,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
     /**
      * {@inheritDoc}
      */
+    @Override
     public Integer getCountProductAVenirByDate( String strDate )
     {
         Integer nResult = 0;
@@ -337,12 +342,13 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see fr.paris.lutece.plugins.stock.business.offer.IOfferDAO#getQuantity(java .lang.Integer)
      */
     /**
      * {@inheritDoc}
      */
+    @Override
     public Boolean isFull( Integer productId )
     {
 
@@ -358,16 +364,17 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
         Query query = getEM( ).createNativeQuery( requeteSQL.toString( ) );
         List<BigDecimal> listeCount = query.getResultList( );
 
-        return CollectionUtils.isNotEmpty( listeCount ) && listeCount.get( 0 ) != null && listeCount.get( 0 ).intValue( ) == 0;
+        return CollectionUtils.isNotEmpty( listeCount ) && ( listeCount.get( 0 ) != null ) && ( listeCount.get( 0 ).intValue( ) == 0 );
     }
 
     /**
      * Check if product is type of representation
-     * 
+     *
      * @param genreId
      *            the genre to check
      * @return true if product is, false otherwise
      */
+    @Override
     public Boolean isType( Integer productId, Integer genreId )
     {
         EntityManager em = getEM( );
@@ -378,6 +385,7 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
         return (Boolean) query.getSingleResult( );
     }
 
+    @Override
     public Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey )
     {
         EntityManager em = getEM( );
@@ -390,7 +398,8 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
 
         return (Boolean) query.getSingleResult( );
     }
-    
+
+    @Override
     public List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
     {
         EntityManager em = getEM( );
