@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,6 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 
 /**
  * 
@@ -77,7 +76,16 @@ public interface IProductService
 
     Boolean isTypeOffer( Integer productId, Integer genreId, String keyDate, Timestamp now, String annuleKey );
 
-    List<Product> findByFilter( ProductFilter productFilter );
-    
-    List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd );
+    /**
+     * Returns products IDs between two timestamps
+     *
+     * @param keyDate
+     *            the attribute key
+     * @param timestampStart
+     *            the start timestamp
+     * @param timestamsEnd
+     *            the end timestamp
+     * @return the products ids list
+     */
+    List<Integer> getProductsIdsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd );
 }

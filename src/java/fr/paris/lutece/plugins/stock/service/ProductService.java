@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,6 @@ import javax.inject.Named;
 
 import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
 import fr.paris.lutece.plugins.stock.business.product.Product;
-import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
 /**
@@ -93,14 +92,20 @@ public class ProductService extends AbstractService implements IProductService
     {
         return _daoProduct.isTypeOffer( productId, genreId, keyDate, now, annuleKey );
     }
-    
-    public List<Product> findByFilter( ProductFilter productFilter )
+
+    /**
+     * Returns products IDs between two timestamps
+     *
+     * @param keyDate
+     *            the attribute key
+     * @param timestampStart
+     *            the start timestamp
+     * @param timestamsEnd
+     *            the end timestamp
+     * @return the products ids list
+     */
+    public List<Integer> getProductsIdsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
     {
-        return _daoProduct.findByFilter( productFilter );
-    }
-    
-    public List<Integer> getProductsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
-    {
-        return _daoProduct.getProductsForTaskTimed( keyDate, timestampStart, timestampEnd );
+        return _daoProduct.getProductsIdsForTaskTimed( keyDate, timestampStart, timestampEnd );
     }
 }
