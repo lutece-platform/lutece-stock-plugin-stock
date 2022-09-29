@@ -41,6 +41,7 @@ import javax.inject.Named;
 
 import fr.paris.lutece.plugins.stock.business.product.IProductDAO;
 import fr.paris.lutece.plugins.stock.business.product.Product;
+import fr.paris.lutece.plugins.stock.business.product.ProductFilter;
 import fr.paris.lutece.plugins.stock.service.impl.AbstractService;
 
 /**
@@ -94,8 +95,20 @@ public class ProductService extends AbstractService implements IProductService
     }
 
     /**
+     * Find by filter and returns a list of products
+     * 
+     * @param productFilter
+     *            the filter
+     * @return the list of products
+     */
+    public List<Product> findByFilter( ProductFilter productFilter )
+    {
+        return _daoProduct.findByFilter( productFilter );
+    }
+
+    /**
      * Returns products IDs between two timestamps
-     *
+     * 
      * @param keyDate
      *            the attribute key
      * @param timestampStart

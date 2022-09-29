@@ -114,7 +114,7 @@ public interface IProductDAO extends IStockDAO<Integer, Product>
 
     /**
      * Returns products IDs between two timestamps
-     *
+     * 
      * @param keyDate
      *            the attribute key
      * @param timestampStart

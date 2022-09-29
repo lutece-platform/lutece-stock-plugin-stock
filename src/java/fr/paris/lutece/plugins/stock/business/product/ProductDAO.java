@@ -391,6 +391,17 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
         return (Boolean) query.getSingleResult( );
     }
 
+    /**
+     * Returns products IDs between two timestamps
+     * 
+     * @param keyDate
+     *            the attribute key
+     * @param timestampStart
+     *            the start timestamp
+     * @param timestamsEnd
+     *            the end timestamp
+     * @return the products ids list
+     */
     public List<Integer> getProductsIdsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
     {
         EntityManager em = getEM( );
