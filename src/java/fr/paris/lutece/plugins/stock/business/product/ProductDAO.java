@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,6 +70,10 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
     private static final String JPQL_IS_TYPE_OFFER = "SELECT CASE WHEN (COUNT(o.id) > 0) THEN true ELSE false END "
             + "FROM Product p, Offer o, OfferAttributeDate d  "
             + "WHERE p.id= o.product.id AND o.type.id = :genreId AND p.id = :productId AND o.id = d.owner.id AND d.key = :keyDate AND d.value >= :now AND o.statut <> :annuleKey";
+
+    private static final String JPQL_GET_PRODUCTS_TASK = "SELECT p.id "
+            + "FROM Product p, Offer o, OfferAttributeDate d  "
+            + "WHERE p.id= o.product.id AND o.id = d.owner.id AND d.key = :keyDate AND d.value < :timestampStart AND d.value >= :timestampEnd ";
 
     /**
      * 
@@ -385,5 +389,27 @@ public class ProductDAO extends AbstractStockDAO<Integer, Product> implements IP
         query.setParameter( "annuleKey", annuleKey );
 
         return (Boolean) query.getSingleResult( );
+    }
+
+    /**
+     * Returns products IDs between two timestamps
+     * 
+     * @param keyDate
+     *            the attribute key
+     * @param timestampStart
+     *            the start timestamp
+     * @param timestamsEnd
+     *            the end timestamp
+     * @return the products ids list
+     */
+    public List<Integer> getProductsIdsForTaskTimed( String keyDate, Timestamp timestampStart, Timestamp timestampEnd )
+    {
+        EntityManager em = getEM( );
+        Query query = em.createQuery( JPQL_GET_PRODUCTS_TASK );
+        query.setParameter( "keyDate", keyDate );
+        query.setParameter( "timestampStart", timestampStart );
+        query.setParameter( "timestampEnd", timestampEnd );
+
+        return query.getResultList( );
     }
 }
