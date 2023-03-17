@@ -2,7 +2,7 @@
     <!-- Plugin Informations -->
     <name>stock</name>
     <class>fr.paris.lutece.plugins.stock.service.StockPlugin</class>
-    <version>2.2.5-SNAPSHOT</version>
+    <version>2.2.5</version>
     <documentation/>
     <installation/>
     <changes/>
